@@ -15,7 +15,7 @@ export function CurriculumPage() {
   ];
 
   return (
-    <div className="p-10 max-w-7xl mx-auto min-h-full flex flex-col space-y-10">
+    <div className="p-12 lg:p-16 max-w-7xl mx-auto min-h-full flex flex-col space-y-10">
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-2">
         <h1 className="text-5xl font-bold font-display text-text-primary tracking-tight">Curriculum Explorer</h1>
       </motion.div>

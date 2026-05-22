@@ -32,42 +32,42 @@ Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
 export function SplitPaneLayout() {
   return (
     <div className="h-[calc(100vh-4rem)] w-full p-2 bg-bg-primary">
-      <Group orientation="horizontal" className="rounded-xl overflow-hidden shadow-2xl">
+      <Group orientation="horizontal" className="rounded-lg overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)]">
         
         {/* LEFT PANEL: Problem / Visualizer / Tutor Tabs */}
         <Panel defaultSize={40} minSize={25}>
           <WorkspaceLeftPane problem={MOCK_PROBLEM} />
         </Panel>
 
-        <Separator className="w-2 mx-1 bg-bg-primary flex items-center justify-center hover:bg-accent-primary/20 transition-colors cursor-col-resize group rounded-full my-auto h-24">
-          <GripVertical size={14} className="text-text-muted group-hover:text-accent-primary opacity-50" />
+        <Separator className="w-2 mx-1 bg-bg-primary flex items-center justify-center hover:bg-accent-secondary/20 transition-colors cursor-col-resize group rounded-full my-auto h-24">
+          <GripVertical size={14} className="text-text-muted group-hover:text-accent-secondary opacity-50 drop-shadow-[0_0_4px_rgba(0,255,204,0.5)]" />
         </Separator>
 
         {/* RIGHT PANEL: Editor + Test Cases */}
         <Panel defaultSize={60} minSize={30}>
-          <Group orientation="vertical" className="bg-bg-elevated border border-border-default rounded-xl overflow-hidden shadow-lg">
+          <Group orientation="vertical" className="bg-bg-elevated border border-border-default rounded-lg overflow-hidden shadow-[0_0_15px_rgba(255,45,120,0.05)]">
             
             {/* TOP: Code Editor */}
             <Panel defaultSize={65} minSize={20} className="flex flex-col bg-bg-secondary">
-              <div className="border-b border-border-default bg-bg-secondary/80 backdrop-blur-md">
+              <div className="border-b border-border-default bg-bg-secondary z-10">
                 <LanguageSelector />
               </div>
-              <div className="flex-1 overflow-hidden p-2 bg-bg-primary/50 neo-container m-2 border-none">
+              <div className="flex-1 overflow-hidden p-2 bg-bg-primary/50 m-2 rounded-lg border border-border-default shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
                 <CodeEditor />
               </div>
             </Panel>
 
-            <Separator className="h-2 my-1 bg-bg-primary flex items-center justify-center hover:bg-accent-primary/20 transition-colors cursor-row-resize group rounded-full mx-auto w-24">
-              <GripHorizontal size={14} className="text-text-muted group-hover:text-accent-primary opacity-50" />
+            <Separator className="h-2 my-1 bg-bg-primary flex items-center justify-center hover:bg-accent-secondary/20 transition-colors cursor-row-resize group rounded-full mx-auto w-24">
+              <GripHorizontal size={14} className="text-text-muted group-hover:text-accent-secondary opacity-50 drop-shadow-[0_0_4px_rgba(0,255,204,0.5)]" />
             </Separator>
 
             {/* BOTTOM: Test Cases / Output */}
             <Panel defaultSize={35} minSize={20} className="bg-bg-secondary">
               <div className="flex h-full gap-2 p-2">
-                <div className="w-1/2 neo-container p-1 overflow-hidden">
+                <div className="w-1/2 neon-card p-1 overflow-hidden">
                   <TestCasePanel />
                 </div>
-                <div className="w-1/2 neo-container p-1 overflow-hidden">
+                <div className="w-1/2 neon-card p-1 overflow-hidden">
                   <OutputPanel />
                 </div>
               </div>

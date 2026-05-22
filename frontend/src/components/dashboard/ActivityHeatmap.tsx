@@ -9,23 +9,22 @@ export function ActivityHeatmap() {
   const getColor = (level: number) => {
     switch(level) {
       case 0: return 'bg-bg-tertiary border-border-default';
-      case 1: return 'bg-accent-primary/20 border-accent-primary/30';
-      case 2: return 'bg-accent-primary/40 border-accent-primary/50';
-      case 3: return 'bg-accent-primary/70 border-accent-primary/80';
-      case 4: return 'bg-accent-primary border-accent-primary';
+      case 1: return 'bg-accent-secondary/20 border-accent-secondary/30';
+      case 2: return 'bg-accent-secondary/50 border-accent-secondary/60';
+      case 3: return 'bg-accent-primary/60 border-accent-primary/70';
+      case 4: return 'bg-accent-primary border-accent-primary drop-shadow-[0_0_4px_rgba(255,45,120,0.8)]';
       default: return 'bg-bg-tertiary border-border-default';
     }
   };
 
   return (
-    <div className="glass-panel p-6 rounded-xl flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-bold text-text-primary">Learning Activity</h3>
-        <span className="text-sm font-medium text-text-muted">42 contributions in the last 15 weeks</span>
+    <div className="neon-card p-6 rounded-xl flex flex-col gap-4">
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-lg font-bold text-text-primary font-display">Activity Heatmap</h3>
       </div>
       
       <div className="flex gap-2">
-        <div className="flex flex-col gap-2 text-xs text-text-muted justify-around py-1 font-mono">
+        <div className="flex flex-col gap-2 text-[10px] text-text-muted justify-around py-1 font-mono uppercase">
           <span>Mon</span>
           <span>Wed</span>
           <span>Fri</span>
@@ -44,7 +43,7 @@ export function ActivityHeatmap() {
                       initial={{ scale: 0, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ delay: dataIndex * 0.005, type: 'spring' }}
-                      className={`w-3 h-3 rounded-[3px] border ${getColor(level)}`}
+                      className={`w-3 h-3 rounded-sm border ${getColor(level)}`}
                       title={`${level} problems solved`}
                     />
                   );
@@ -55,14 +54,15 @@ export function ActivityHeatmap() {
         </div>
       </div>
       
-      <div className="flex items-center justify-end gap-2 text-xs text-text-muted mt-2">
-        <span>Less</span>
-        <div className="flex gap-1">
+      <div className="flex items-center justify-between mt-2 text-[10px] font-mono text-text-muted uppercase tracking-wider border-t border-border-default pt-4">
+        <span>Activity</span>
+        <div className="flex gap-1 items-center">
+          <span className="mr-2">Low</span>
           {[0, 1, 2, 3, 4].map(level => (
-            <div key={level} className={`w-3 h-3 rounded-[3px] border ${getColor(level)}`} />
+            <div key={level} className={`w-3 h-3 rounded-sm border ${getColor(level)}`} />
           ))}
+          <span className="ml-2">High</span>
         </div>
-        <span>More</span>
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ export function DashboardPage() {
   };
 
   return (
-    <div className="p-8 max-w-7xl mx-auto flex flex-col gap-24 min-h-full">
+    <div className="p-8 max-w-7xl mx-auto flex flex-col gap-6 min-h-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-4xl font-bold font-display text-text-primary tracking-tight">
@@ -33,7 +33,7 @@ export function DashboardPage() {
       </div>
 
       {/* Stats Grid - Cyberpunk Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, idx) => (
           <motion.div 
             key={idx} 
@@ -55,18 +55,18 @@ export function DashboardPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* Continue Learning - Cyberpunk Panel */}
         <div className="col-span-2">
-          <div className="neon-card neon-card-yellow p-10 flex flex-col justify-between items-center gap-12 h-full relative">
-            <div className="flex flex-col md:flex-row w-full gap-12 items-center justify-between flex-1">
-              <div className="flex-1 flex flex-col gap-6">
-                <h2 className="text-sm font-bold text-accent-tertiary font-mono uppercase tracking-widest mb-2">Resume Module</h2>
-                <h3 className="text-4xl font-bold text-text-primary mb-3">Arrays & Strings</h3>
+          <div className="neon-card neon-card-yellow p-8 flex flex-col justify-between items-center gap-8 h-full relative">
+            <div className="flex flex-col md:flex-row w-full gap-8 items-center justify-between flex-1">
+              <div className="flex-1 flex flex-col gap-4">
+                <h2 className="text-sm font-bold text-accent-tertiary font-mono uppercase tracking-widest mb-1">Resume Module</h2>
+                <h3 className="text-4xl font-bold text-text-primary mb-2">Arrays & Strings</h3>
                 <p className="text-text-secondary leading-relaxed max-w-md text-base">Master the fundamentals of array traversal, manipulation, and the two-pointer technique. Essential for all interviews.</p>
               </div>
-              <div className="w-48 h-48 relative shrink-0">
+              <div className="w-40 h-40 relative shrink-0">
                 {/* Circular progress visual */}
                 <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
                   <circle cx="50" cy="50" r="42" className="stroke-bg-tertiary" strokeWidth="6" fill="none" />
@@ -90,8 +90,8 @@ export function DashboardPage() {
               </div>
             </div>
             
-            <div className="w-full pt-8 border-t border-border-default/50 flex justify-center mt-auto">
-              <button className="neon-btn neon-btn-cyan w-full md:w-2/3 px-10 py-5 text-base font-bold tracking-wider hover:bg-accent-secondary/5">
+            <div className="w-full pt-6 border-t border-border-default/50 flex justify-center mt-auto">
+              <button className="neon-btn neon-btn-cyan w-full md:w-2/3 px-10 py-4 text-base font-bold tracking-wider hover:bg-accent-secondary/5">
                 RESUME MODULE
               </button>
             </div>
@@ -99,7 +99,7 @@ export function DashboardPage() {
         </div>
 
         {/* Right Column */}
-        <div className="flex flex-col gap-24">
+        <div className="flex flex-col gap-6 h-full">
           {/* Heatmap */}
           <ActivityHeatmap />
 

@@ -9,10 +9,10 @@ export function ActivityHeatmap() {
   const getColor = (level: number) => {
     switch(level) {
       case 0: return 'bg-bg-tertiary border-border-default';
-      case 1: return 'bg-accent-secondary/20 border-accent-secondary/30';
-      case 2: return 'bg-accent-secondary/50 border-accent-secondary/60';
-      case 3: return 'bg-accent-primary/60 border-accent-primary/70';
-      case 4: return 'bg-accent-primary border-accent-primary drop-shadow-[0_0_4px_rgba(255,45,120,0.8)]';
+      case 1: return 'bg-emerald-900/50 border-emerald-800/50';
+      case 2: return 'bg-emerald-700/70 border-emerald-600/70';
+      case 3: return 'bg-emerald-500/90 border-emerald-400/90';
+      case 4: return 'bg-emerald-400 border-emerald-300 drop-shadow-[0_0_4px_rgba(52,211,153,0.6)]';
       default: return 'bg-bg-tertiary border-border-default';
     }
   };

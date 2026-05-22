@@ -34,8 +34,8 @@ export function Navbar() {
 
       {/* Right side icons & user */}
       <div className="flex items-center gap-6">
-        <button className="flex items-center gap-2 text-xs font-mono font-bold text-bg-primary bg-accent-tertiary px-3 py-1.5 rounded hover:bg-white hover:shadow-[0_0_15px_rgba(255,224,74,0.6)] transition-all">
-          <Sparkles size={14} />
+        <button className="flex items-center gap-2 text-sm font-mono font-bold text-bg-primary bg-accent-tertiary px-5 py-2 rounded-md hover:bg-white hover:shadow-[0_0_15px_rgba(255,224,74,0.6)] transition-all">
+          <Sparkles size={16} />
           <span>PRO</span>
         </button>
 

@@ -23,7 +23,7 @@ export function DashboardPage() {
   };
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-6 min-h-full">
+    <div className="p-8 max-w-7xl mx-auto space-y-12 min-h-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-2">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-4xl font-bold font-display text-text-primary tracking-tight">
@@ -59,44 +59,47 @@ export function DashboardPage() {
         
         {/* Continue Learning - Cyberpunk Panel */}
         <div className="col-span-2 space-y-8">
-          <div className="neon-card neon-card-yellow p-10 flex flex-col md:flex-row justify-between items-center gap-12 h-full">
-            <div className="flex-1 space-y-4">
-              <h2 className="text-sm font-bold text-accent-tertiary font-mono uppercase tracking-widest mb-2">Resume Module</h2>
-              <h3 className="text-4xl font-bold text-text-primary mb-3">Arrays & Strings</h3>
-              <p className="text-text-secondary leading-relaxed max-w-md text-sm">Master the fundamentals of array traversal, manipulation, and the two-pointer technique. Essential for all interviews.</p>
-              <div className="pt-6">
-                <button className="neon-btn neon-btn-cyan w-full md:w-auto px-10 py-3.5 text-sm font-bold tracking-wider hover:bg-accent-secondary/5">
-                  RESUME MODULE
-                </button>
+          <div className="neon-card neon-card-yellow p-10 flex flex-col justify-between items-center gap-12 h-full relative">
+            <div className="flex flex-col md:flex-row w-full gap-12 items-center justify-between flex-1">
+              <div className="flex-1 space-y-6">
+                <h2 className="text-sm font-bold text-accent-tertiary font-mono uppercase tracking-widest mb-2">Resume Module</h2>
+                <h3 className="text-4xl font-bold text-text-primary mb-3">Arrays & Strings</h3>
+                <p className="text-text-secondary leading-relaxed max-w-md text-base">Master the fundamentals of array traversal, manipulation, and the two-pointer technique. Essential for all interviews.</p>
+              </div>
+              <div className="w-48 h-48 relative shrink-0">
+                {/* Circular progress visual */}
+                <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="42" className="stroke-bg-tertiary" strokeWidth="6" fill="none" />
+                  <motion.circle 
+                    initial={{ strokeDashoffset: 264 }}
+                    animate={{ strokeDashoffset: 84 }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                    cx="50" cy="50" r="42" 
+                    className="stroke-accent-tertiary" 
+                    strokeWidth="6" 
+                    fill="none" 
+                    strokeDasharray="264" 
+                    strokeLinecap="round" 
+                    style={{ filter: 'drop-shadow(0 0 2px rgba(255,224,74,0.3))' }}
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center flex-col">
+                  <span className="text-3xl font-bold text-text-primary font-mono drop-shadow-[0_0_2px_currentColor]">68%</span>
+                  <span className="text-[10px] text-text-muted font-mono uppercase mt-1 tracking-widest">Complete</span>
+                </div>
               </div>
             </div>
-            <div className="w-48 h-48 relative shrink-0">
-              {/* Circular progress visual */}
-              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="42" className="stroke-bg-tertiary" strokeWidth="6" fill="none" />
-                <motion.circle 
-                  initial={{ strokeDashoffset: 264 }}
-                  animate={{ strokeDashoffset: 84 }}
-                  transition={{ duration: 1.5, ease: "easeOut" }}
-                  cx="50" cy="50" r="42" 
-                  className="stroke-accent-tertiary" 
-                  strokeWidth="6" 
-                  fill="none" 
-                  strokeDasharray="264" 
-                  strokeLinecap="round" 
-                  style={{ filter: 'drop-shadow(0 0 2px rgba(255,224,74,0.3))' }}
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center flex-col">
-                <span className="text-3xl font-bold text-text-primary font-mono drop-shadow-[0_0_2px_currentColor]">68%</span>
-                <span className="text-[10px] text-text-muted font-mono uppercase mt-1 tracking-widest">Complete</span>
-              </div>
+            
+            <div className="w-full pt-8 border-t border-border-default/50 flex justify-center mt-auto">
+              <button className="neon-btn neon-btn-cyan w-full md:w-2/3 px-10 py-5 text-base font-bold tracking-wider hover:bg-accent-secondary/5">
+                RESUME MODULE
+              </button>
             </div>
           </div>
         </div>
 
         {/* Right Column */}
-        <div className="space-y-10 flex flex-col">
+        <div className="space-y-14 flex flex-col">
           {/* Heatmap */}
           <ActivityHeatmap />
 

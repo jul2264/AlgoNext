@@ -23,8 +23,8 @@ export function DashboardPage() {
   };
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-20 min-h-full">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-2">
+    <div className="p-8 max-w-7xl mx-auto flex flex-col gap-24 min-h-full">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-4xl font-bold font-display text-text-primary tracking-tight">
             Welcome back, <span className="text-accent-secondary drop-shadow-[0_0_2px_rgba(0,255,204,0.3)]">Demo Student!</span>
@@ -33,7 +33,7 @@ export function DashboardPage() {
       </div>
 
       {/* Stats Grid - Cyberpunk Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         {stats.map((stat, idx) => (
           <motion.div 
             key={idx} 
@@ -58,10 +58,10 @@ export function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
         
         {/* Continue Learning - Cyberpunk Panel */}
-        <div className="col-span-2 space-y-8">
+        <div className="col-span-2">
           <div className="neon-card neon-card-yellow p-10 flex flex-col justify-between items-center gap-12 h-full relative">
             <div className="flex flex-col md:flex-row w-full gap-12 items-center justify-between flex-1">
-              <div className="flex-1 space-y-6">
+              <div className="flex-1 flex flex-col gap-6">
                 <h2 className="text-sm font-bold text-accent-tertiary font-mono uppercase tracking-widest mb-2">Resume Module</h2>
                 <h3 className="text-4xl font-bold text-text-primary mb-3">Arrays & Strings</h3>
                 <p className="text-text-secondary leading-relaxed max-w-md text-base">Master the fundamentals of array traversal, manipulation, and the two-pointer technique. Essential for all interviews.</p>
@@ -99,7 +99,7 @@ export function DashboardPage() {
         </div>
 
         {/* Right Column */}
-        <div className="space-y-20 flex flex-col">
+        <div className="flex flex-col gap-24">
           {/* Heatmap */}
           <ActivityHeatmap />
 

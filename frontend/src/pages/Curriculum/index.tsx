@@ -16,13 +16,13 @@ export function CurriculumPage() {
 
   return (
     <div className="p-8 max-w-7xl mx-auto min-h-full flex flex-col">
-      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
         <h1 className="text-4xl font-bold font-display text-text-primary tracking-tight">Curriculum Explorer</h1>
       </motion.div>
 
-      <div className="flex flex-col lg:flex-row gap-8 flex-1">
+      <div className="flex flex-col lg:flex-row gap-6 flex-1">
         {/* Left Sidebar Filters */}
-        <div className="w-full lg:w-64 shrink-0 space-y-8">
+        <div className="w-full lg:w-64 shrink-0 space-y-6">
           <div className="neon-card p-6">
             <h3 className="text-lg font-bold font-display text-text-primary mb-4">Difficulty</h3>
             <div className="space-y-3">

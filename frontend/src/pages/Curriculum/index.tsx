@@ -15,15 +15,15 @@ export function CurriculumPage() {
   ];
 
   return (
-    <div className="p-8 max-w-7xl mx-auto min-h-full flex flex-col">
-      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
-        <h1 className="text-4xl font-bold font-display text-text-primary tracking-tight">Curriculum Explorer</h1>
+    <div className="p-10 max-w-7xl mx-auto min-h-full flex flex-col space-y-10">
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-2">
+        <h1 className="text-5xl font-bold font-display text-text-primary tracking-tight">Curriculum Explorer</h1>
       </motion.div>
 
-      <div className="flex flex-col lg:flex-row gap-6 flex-1">
+      <div className="flex flex-col lg:flex-row gap-12 flex-1">
         {/* Left Sidebar Filters */}
-        <div className="w-full lg:w-64 shrink-0 space-y-6">
-          <div className="neon-card p-6">
+        <div className="w-full lg:w-64 shrink-0 space-y-10">
+          <div className="neon-card p-8">
             <h3 className="text-lg font-bold font-display text-text-primary mb-4">Difficulty</h3>
             <div className="space-y-3">
               {[
@@ -60,23 +60,23 @@ export function CurriculumPage() {
         </div>
 
         {/* Course Grid */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {modules.map((mod, idx) => (
             <motion.div
               key={mod.id}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: idx * 0.1 }}
-              className={`neon-card ${mod.colorClass} p-6 flex flex-col h-full group`}
+              className={`neon-card ${mod.colorClass} p-8 flex flex-col h-full group`}
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-bg-tertiary rounded-lg border border-border-default group-hover:border-current transition-colors">
-                  <mod.icon size={24} />
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 bg-bg-tertiary rounded-xl border border-border-default group-hover:border-current transition-colors">
+                  <mod.icon size={26} />
                 </div>
                 <h2 className="text-xl font-bold font-display text-text-primary group-hover:text-current transition-colors">{mod.title}</h2>
               </div>
               
-              <div className="mb-4 flex-1">
+              <div className="mb-6 flex-1">
                 <p className="text-xs font-bold text-text-muted uppercase tracking-wider mb-2 font-mono">Summary</p>
                 <p className="text-sm text-text-secondary leading-relaxed">{mod.desc}</p>
               </div>

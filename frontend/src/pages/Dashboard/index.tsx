@@ -23,8 +23,8 @@ export function DashboardPage() {
   };
 
   return (
-    <div className="p-12 lg:p-16 max-w-7xl mx-auto flex flex-col gap-8 min-h-full">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+    <div className="px-16 md:px-24 lg:px-32 py-12 max-w-7xl mx-auto flex flex-col gap-8 min-h-full">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center px-4">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-4xl font-bold font-display text-text-primary tracking-tight">
             Welcome back, <span className="text-accent-secondary drop-shadow-[0_0_2px_rgba(0,255,204,0.3)]">Demo Student!</span>
@@ -40,17 +40,15 @@ export function DashboardPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1 }}
-            className="neon-card p-6 flex flex-col justify-center items-start gap-4 group"
+            className="neon-card p-8 flex flex-col justify-center items-center text-center gap-4 group"
           >
-            <div className="flex items-center gap-4 w-full">
-              <div className={`p-4 rounded-xl border ${stat.bg} ${stat.border} ${stat.color} transition-transform duration-300`}>
-                <stat.icon size={26} />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-3xl font-bold text-text-primary font-mono">{stat.value}</h3>
-              </div>
+            <div className={`p-4 rounded-xl border ${stat.bg} ${stat.border} ${stat.color} transition-transform duration-300`}>
+              <stat.icon size={26} />
             </div>
-            <p className="text-xs font-bold text-text-muted uppercase tracking-wider font-mono">{stat.label}</p>
+            <div className="flex flex-col items-center">
+              <h3 className="text-3xl font-bold text-text-primary font-mono mb-2">{stat.value}</h3>
+              <p className="text-xs font-bold text-text-muted uppercase tracking-wider font-mono">{stat.label}</p>
+            </div>
           </motion.div>
         ))}
       </div>
@@ -59,12 +57,12 @@ export function DashboardPage() {
         
         {/* Continue Learning - Cyberpunk Panel */}
         <div className="col-span-2">
-          <div className="neon-card neon-card-yellow p-8 flex flex-col justify-between items-center gap-8 h-full relative">
-            <div className="flex flex-col md:flex-row w-full gap-8 items-center justify-between flex-1">
-              <div className="flex-1 flex flex-col gap-4">
+          <div className="neon-card neon-card-yellow p-12 flex flex-col justify-between items-center text-center gap-8 h-full relative">
+            <div className="flex flex-col w-full gap-8 items-center justify-between flex-1">
+              <div className="flex-1 flex flex-col items-center gap-4">
                 <h2 className="text-sm font-bold text-accent-tertiary font-mono uppercase tracking-widest mb-1">Resume Module</h2>
                 <h3 className="text-4xl font-bold text-text-primary mb-2">Arrays & Strings</h3>
-                <p className="text-text-secondary leading-relaxed max-w-md text-base">Master the fundamentals of array traversal, manipulation, and the two-pointer technique. Essential for all interviews.</p>
+                <p className="text-text-secondary leading-relaxed max-w-md text-base text-center">Master the fundamentals of array traversal, manipulation, and the two-pointer technique. Essential for all interviews.</p>
               </div>
               <div className="w-40 h-40 relative shrink-0">
                 {/* Circular progress visual */}
@@ -104,7 +102,7 @@ export function DashboardPage() {
           <ActivityHeatmap />
 
           {/* Recent Activity */}
-          <div className="neon-card flex-1 flex flex-col p-6">
+          <div className="neon-card flex-1 flex flex-col p-8">
             <h2 className="text-lg font-bold text-text-primary mb-4 font-display">Recent Submissions</h2>
             <div className="space-y-2">
               {recentProblems.map((prob, idx) => (

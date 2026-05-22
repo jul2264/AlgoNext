@@ -23,8 +23,8 @@ export function DashboardPage() {
   };
 
   return (
-    <div className="px-16 md:px-24 lg:px-32 py-12 max-w-7xl mx-auto flex flex-col gap-8 min-h-full">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center px-4">
+    <div className="w-[85%] max-w-5xl mx-auto py-12 flex flex-col gap-8 min-h-full">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-4xl font-bold font-display text-text-primary tracking-tight">
             Welcome back, <span className="text-accent-secondary drop-shadow-[0_0_2px_rgba(0,255,204,0.3)]">Demo Student!</span>

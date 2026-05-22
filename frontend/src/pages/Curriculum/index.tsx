@@ -15,10 +15,12 @@ export function CurriculumPage() {
   ];
 
   return (
-    <div className="px-16 md:px-24 lg:px-32 py-12 max-w-7xl mx-auto min-h-full flex flex-col space-y-10">
-      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-2 px-4">
-        <h1 className="text-5xl font-bold font-display text-text-primary tracking-tight">Curriculum Explorer</h1>
-      </motion.div>
+    <div className="w-[85%] max-w-5xl mx-auto min-h-full py-12 flex flex-col space-y-10">
+      <div className="mb-2">
+        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
+          <h1 className="text-5xl font-bold font-display text-text-primary tracking-tight">Curriculum Explorer</h1>
+        </motion.div>
+      </div>
 
       <div className="flex flex-col lg:flex-row gap-12 flex-1">
         {/* Left Sidebar Filters */}

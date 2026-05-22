@@ -3,21 +3,13 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { LoginPage, RegisterPage } from '@/pages/Auth';
 import { ProtectedRoute } from '@/components/layout/PageWrapper';
+import { DashboardPage } from '@/pages/Dashboard';
 import { ProblemPage } from '@/pages/Problem';
-
-// Placeholder page components — will be replaced with real implementations
-function DashboardPage() {
-  return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold text-text-primary mb-4">
-        Dashboard
-      </h1>
-      <p className="text-text-secondary">
-        Welcome to AlgoNext. Your curriculum and progress will appear here.
-      </p>
-    </div>
-  );
-}
+import { VisualizerPage } from '@/pages/Visualizer';
+import { CurriculumPage } from '@/pages/Curriculum';
+import { FacultyPage } from '@/pages/Faculty';
+import { ProfilePage } from '@/pages/Profile';
+import { AiTutorPage } from '@/pages/AiTutor';
 
 function NotFoundPage() {
   return (
@@ -43,8 +35,12 @@ export default function App() {
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/curriculum" element={<CurriculumPage />} />
         <Route path="/problems/:slug" element={<ProblemPage />} />
-        {/* We will add /curriculum etc. here later */}
+        <Route path="/visualizer" element={<VisualizerPage />} />
+        <Route path="/faculty" element={<FacultyPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/ai-tutor" element={<AiTutorPage />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />

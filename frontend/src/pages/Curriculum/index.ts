@@ -1,2 +1,0 @@
-// AlgoNext — Placeholder
-export {};

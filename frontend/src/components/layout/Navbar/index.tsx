@@ -8,7 +8,7 @@ export function Navbar() {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   return (
-    <header className="h-16 flex items-center justify-between border-b border-border-default px-8 bg-bg-primary/90 backdrop-blur-md sticky top-0 z-10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+    <header className="h-16 flex items-center justify-between border-b border-border-default px-12 md:px-20 lg:px-24 bg-bg-primary/90 backdrop-blur-md sticky top-0 z-10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
       {/* Search */}
       <motion.div 
         animate={{ 

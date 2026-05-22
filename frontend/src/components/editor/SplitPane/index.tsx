@@ -1,10 +1,10 @@
 import { Panel, Group, Separator } from 'react-resizable-panels';
-import { ProblemStatement } from '../ProblemStatement';
 import { CodeEditor } from '../CodeEditor';
 import { LanguageSelector } from '../LanguageSelector';
 import { TestCasePanel } from '../TestCasePanel';
 import { OutputPanel } from '../OutputPanel';
 import { GripVertical, GripHorizontal } from 'lucide-react';
+import { WorkspaceLeftPane } from './WorkspaceLeftPane';
 
 // MOCK DATA
 const MOCK_PROBLEM = {
@@ -32,40 +32,42 @@ Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
 export function SplitPaneLayout() {
   return (
     <div className="h-[calc(100vh-4rem)] w-full p-2 bg-bg-primary">
-      <Group orientation="horizontal" className="rounded-xl overflow-hidden border border-border-default shadow-2xl">
+      <Group orientation="horizontal" className="rounded-xl overflow-hidden shadow-2xl">
         
-        {/* LEFT PANEL: Problem Description */}
+        {/* LEFT PANEL: Problem / Visualizer / Tutor Tabs */}
         <Panel defaultSize={40} minSize={25}>
-          <ProblemStatement {...MOCK_PROBLEM} />
+          <WorkspaceLeftPane problem={MOCK_PROBLEM} />
         </Panel>
 
-        <Separator className="w-2 bg-bg-tertiary flex items-center justify-center hover:bg-accent-primary/20 transition-colors cursor-col-resize group">
-          <GripVertical size={14} className="text-text-muted group-hover:text-accent-primary" />
+        <Separator className="w-2 mx-1 bg-bg-primary flex items-center justify-center hover:bg-accent-primary/20 transition-colors cursor-col-resize group rounded-full my-auto h-24">
+          <GripVertical size={14} className="text-text-muted group-hover:text-accent-primary opacity-50" />
         </Separator>
 
         {/* RIGHT PANEL: Editor + Test Cases */}
         <Panel defaultSize={60} minSize={30}>
-          <Group orientation="vertical">
+          <Group orientation="vertical" className="bg-bg-elevated border border-border-default rounded-xl overflow-hidden shadow-lg">
             
             {/* TOP: Code Editor */}
-            <Panel defaultSize={65} minSize={20} className="flex flex-col">
-              <LanguageSelector />
-              <div className="flex-1 overflow-hidden p-2 bg-bg-secondary">
+            <Panel defaultSize={65} minSize={20} className="flex flex-col bg-bg-secondary">
+              <div className="border-b border-border-default bg-bg-secondary/80 backdrop-blur-md">
+                <LanguageSelector />
+              </div>
+              <div className="flex-1 overflow-hidden p-2 bg-bg-primary/50 neo-container m-2 border-none">
                 <CodeEditor />
               </div>
             </Panel>
 
-            <Separator className="h-2 bg-bg-tertiary flex items-center justify-center hover:bg-accent-primary/20 transition-colors cursor-row-resize group">
-              <GripHorizontal size={14} className="text-text-muted group-hover:text-accent-primary" />
+            <Separator className="h-2 my-1 bg-bg-primary flex items-center justify-center hover:bg-accent-primary/20 transition-colors cursor-row-resize group rounded-full mx-auto w-24">
+              <GripHorizontal size={14} className="text-text-muted group-hover:text-accent-primary opacity-50" />
             </Separator>
 
             {/* BOTTOM: Test Cases / Output */}
-            <Panel defaultSize={35} minSize={20}>
-              <div className="flex h-full gap-2 p-2 bg-bg-secondary">
-                <div className="w-1/2">
+            <Panel defaultSize={35} minSize={20} className="bg-bg-secondary">
+              <div className="flex h-full gap-2 p-2">
+                <div className="w-1/2 neo-container p-1 overflow-hidden">
                   <TestCasePanel />
                 </div>
-                <div className="w-1/2">
+                <div className="w-1/2 neo-container p-1 overflow-hidden">
                   <OutputPanel />
                 </div>
               </div>

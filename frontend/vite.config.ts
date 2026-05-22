@@ -9,6 +9,11 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '@clerk/clerk-react': path.resolve(__dirname, './src/clerk-mock.tsx')
     },
   },
+  server: {
+    host: true,
+    port: 5173,
+  }
 })

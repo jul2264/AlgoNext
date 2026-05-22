@@ -1,0 +1,101 @@
+version: '3.8'
+
+services:
+  # ---- PostgreSQL Database ----
+  db:
+    image: postgres:17-alpine
+    container_name: algonext-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: algonext_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---- Redis (Celery Broker + Cache) ----
+  redis:
+    image: redis:7-alpine
+    container_name: algonext-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---- Django Backend ----
+  backend:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
+    container_name: algonext-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - ../../backend/.env
+    environment:
+      - DJANGO_SETTINGS_MODULE=algonext.settings.development
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/algonext_dev
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ../../backend:/app
+    command: python manage.py runserver 0.0.0.0:8000
+
+  # ---- Celery Worker ----
+  celery:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
+    container_name: algonext-celery
+    restart: unless-stopped
+    env_file:
+      - ../../backend/.env
+    environment:
+      - DJANGO_SETTINGS_MODULE=algonext.settings.development
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/algonext_dev
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ../../backend:/app
+    command: celery -A algonext worker -l info --concurrency=2
+
+  # ---- Frontend (Vite Dev Server) ----
+  frontend:
+    build:
+      context: ../../frontend
+      dockerfile: ../infra/docker/Dockerfile.frontend
+    container_name: algonext-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    volumes:
+      - ../../frontend:/app
+      - /app/node_modules
+    command: npm run dev -- --host 0.0.0.0
+
+volumes:
+  pgdata:
+  redisdata:

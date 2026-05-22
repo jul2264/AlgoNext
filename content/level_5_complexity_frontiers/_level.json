@@ -1,0 +1,8 @@
+{
+  "title": "Complexity Frontiers",
+  "description": "Explore complexity theory, approximation algorithms, and competitive DSA topics. Understand P vs NP, NP-completeness, and push the boundaries of algorithmic thinking.",
+  "order": 5,
+  "icon": "brain",
+  "badge_name": "Complexity Master",
+  "chapters": 3
+}

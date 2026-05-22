@@ -1,0 +1,93 @@
+# =========================
+# AlgoNext — .gitignore
+# =========================
+
+# ----- Python / Django -----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+*.whl
+.eggs/
+pip-log.txt
+pip-delete-this-directory.txt
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+db.sqlite3
+db.sqlite3-journal
+*.log
+local_settings.py
+media/
+staticfiles/
+static_collected/
+
+# ----- Virtual Environments -----
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# ----- Node.js / Frontend -----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# ----- Build Output -----
+frontend/dist/
+frontend/build/
+*.tsbuildinfo
+
+# ----- Environment Variables -----
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+backend/.env
+frontend/.env
+
+# ----- IDE / Editor -----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ----- Docker -----
+docker-compose.override.yml
+
+# ----- Celery -----
+celerybeat-schedule
+celerybeat.pid
+
+# ----- Redis -----
+dump.rdb
+
+# ----- Misc -----
+*.bak
+*.tmp
+*.temp
+.vercel
+.railway

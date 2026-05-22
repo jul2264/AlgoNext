@@ -1,0 +1,8 @@
+{
+  "title": "Foundations",
+  "description": "Build a strong foundation with arrays, strings, linked lists, stacks, queues, and recursion. These fundamental data structures and techniques form the backbone of all advanced algorithms.",
+  "order": 1,
+  "icon": "foundation",
+  "badge_name": "Foundation Builder",
+  "chapters": 4
+}

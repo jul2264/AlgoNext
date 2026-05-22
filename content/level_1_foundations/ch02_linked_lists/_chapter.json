@@ -1,0 +1,6 @@
+{
+  "title": "Linked Lists",
+  "description": "Learn to manipulate linked lists — from basic traversal and reversal to advanced pointer techniques like Floyd's cycle detection.",
+  "order": 2,
+  "icon": "link"
+}

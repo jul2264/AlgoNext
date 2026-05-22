@@ -1,0 +1,8 @@
+{
+  "title": "Algorithm Paradigms",
+  "description": "Master the fundamental algorithm design paradigms: sorting, searching, dynamic programming, greedy algorithms, and divide & conquer.",
+  "order": 3,
+  "icon": "cpu",
+  "badge_name": "Algorithm Designer",
+  "chapters": 4
+}

@@ -1,0 +1,8 @@
+{
+  "title": "Core Data Structures",
+  "description": "Deep dive into trees, heaps, hash maps, and graph representations. Master the building blocks used in all advanced algorithms.",
+  "order": 2,
+  "icon": "git-branch",
+  "badge_name": "Data Structure Architect",
+  "chapters": 4
+}

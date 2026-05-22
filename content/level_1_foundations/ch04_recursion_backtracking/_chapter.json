@@ -1,0 +1,6 @@
+{
+  "title": "Recursion & Backtracking",
+  "description": "Understand recursion deeply through classic problems, then apply backtracking to solve constraint satisfaction problems like N-Queens and Sudoku.",
+  "order": 4,
+  "icon": "repeat"
+}

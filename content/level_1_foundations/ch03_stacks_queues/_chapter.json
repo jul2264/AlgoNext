@@ -1,0 +1,6 @@
+{
+  "title": "Stacks & Queues",
+  "description": "Master stack and queue data structures with real-world applications including expression evaluation, monotonic stacks, and BFS.",
+  "order": 3,
+  "icon": "layers"
+}

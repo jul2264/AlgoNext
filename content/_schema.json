@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AlgoNext Problem Schema",
+  "description": "Schema for DSA problem markdown files with YAML frontmatter",
+  "type": "object",
+  "required": ["title", "difficulty", "category", "description", "test_cases"],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Human-readable problem title"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["easy", "medium", "hard"]
+    },
+    "category": {
+      "type": "string",
+      "description": "Category slug (e.g., traversal_manipulation, sliding_window)"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Topic tags (e.g., array, hash-map, two-pointers)"
+    },
+    "time_complexity": {
+      "type": "string",
+      "description": "Optimal time complexity (e.g., O(n), O(n log n))"
+    },
+    "space_complexity": {
+      "type": "string",
+      "description": "Optimal space complexity"
+    },
+    "has_visualizer": {
+      "type": "boolean",
+      "default": false
+    },
+    "visualizer_component": {
+      "type": "string",
+      "description": "Name of the React visualizer component (e.g., BubbleSortViz)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Full problem description in Markdown"
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "input": { "type": "string" },
+          "output": { "type": "string" },
+          "explanation": { "type": "string" }
+        },
+        "required": ["input", "output"]
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "hints": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "3-tier progressive hints: vague → directional → near-solution"
+    },
+    "starter_code": {
+      "type": "object",
+      "properties": {
+        "python": { "type": "string" },
+        "cpp": { "type": "string" },
+        "java": { "type": "string" }
+      }
+    },
+    "solution": {
+      "type": "object",
+      "properties": {
+        "python": { "type": "string" },
+        "cpp": { "type": "string" },
+        "java": { "type": "string" }
+      }
+    },
+    "test_cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "input": { "type": "string" },
+          "expected_output": { "type": "string" },
+          "is_hidden": { "type": "boolean", "default": false }
+        },
+        "required": ["input", "expected_output"]
+      }
+    },
+    "editorial": {
+      "type": "string",
+      "description": "Detailed explanation of the optimal approach"
+    }
+  }
+}

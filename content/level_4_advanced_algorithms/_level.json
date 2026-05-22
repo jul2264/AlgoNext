@@ -1,0 +1,8 @@
+{
+  "title": "Advanced Algorithms",
+  "description": "Tackle advanced graph algorithms, string algorithms, balanced trees, and randomized algorithms. Prepare for competitive programming and technical interviews.",
+  "order": 4,
+  "icon": "zap",
+  "badge_name": "Advanced Practitioner",
+  "chapters": 4
+}

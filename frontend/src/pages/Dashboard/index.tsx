@@ -23,7 +23,7 @@ export function DashboardPage() {
   };
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-12 min-h-full">
+    <div className="p-8 max-w-7xl mx-auto space-y-20 min-h-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-2">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-4xl font-bold font-display text-text-primary tracking-tight">
@@ -33,7 +33,7 @@ export function DashboardPage() {
       </div>
 
       {/* Stats Grid - Cyberpunk Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         {stats.map((stat, idx) => (
           <motion.div 
             key={idx} 
@@ -55,7 +55,7 @@ export function DashboardPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
         
         {/* Continue Learning - Cyberpunk Panel */}
         <div className="col-span-2 space-y-8">
@@ -99,7 +99,7 @@ export function DashboardPage() {
         </div>
 
         {/* Right Column */}
-        <div className="space-y-14 flex flex-col">
+        <div className="space-y-20 flex flex-col">
           {/* Heatmap */}
           <ActivityHeatmap />
 

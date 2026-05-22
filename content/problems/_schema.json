@@ -1,0 +1,26 @@
+{
+  "description": "Schema for AlgoNext Problem Markdown files",
+  "frontmatter": {
+    "title": "String - Title of the problem",
+    "slug": "String - Unique URL slug",
+    "difficulty": "String - 'easy', 'medium', or 'hard'",
+    "category": "String - Category title (e.g., 'Arrays & Hashing')",
+    "chapter": "String - Chapter title (e.g., 'Arrays & Strings')",
+    "level": "String - Level title (e.g., 'Level 1: Foundations')",
+    "time_complexity": "String (optional) - e.g., 'O(n)'",
+    "space_complexity": "String (optional) - e.g., 'O(1)'",
+    "tags": "Array of Strings (optional)",
+    "hints": "Array of Strings (optional)",
+    "has_visualizer": "Boolean (optional) - default false",
+    "visualizer_component": "String (optional)",
+    "order": "Integer (optional) - defaults to 0"
+  },
+  "sections": {
+    "## Description": "Markdown content describing the problem.",
+    "## Constraints": "Markdown list of constraints.",
+    "## Starter Code ([language])": "Fenced code block containing starter code.",
+    "## Solution ([language])": "Fenced code block containing the solution.",
+    "## Editorial": "Markdown content explaining the solution.",
+    "## Test Cases": "Fenced JSON block containing array of testcase objects. Format: { \"input\": \"...\", \"output\": \"...\", \"is_hidden\": false }"
+  }
+}

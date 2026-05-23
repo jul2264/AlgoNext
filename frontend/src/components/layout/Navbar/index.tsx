@@ -8,7 +8,8 @@ export function Navbar() {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   return (
-    <header className="h-16 flex items-center justify-between border-b border-border-default px-16 md:px-24 lg:px-32 xl:px-40 bg-bg-primary/90 backdrop-blur-md sticky top-0 z-10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+    <header className="h-16 border-b border-border-default bg-bg-primary/90 backdrop-blur-md sticky top-0 z-10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-10 lg:px-16 w-full h-full flex items-center justify-between">
       {/* Search */}
       <motion.div 
         animate={{ 
@@ -55,6 +56,7 @@ export function Navbar() {
             <UserButton afterSignOutUrl="/" appearance={{ elements: { userButtonAvatarBox: "w-8 h-8" } }} />
           </div>
         </div>
+      </div>
       </div>
     </header>
   );

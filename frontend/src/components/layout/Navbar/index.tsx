@@ -8,21 +8,21 @@ export function Navbar() {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   return (
-    <header className="h-16 flex items-center justify-between border-b border-border-default px-12 md:px-20 lg:px-24 bg-bg-primary/90 backdrop-blur-md sticky top-0 z-10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+    <header className="h-16 flex items-center justify-between border-b border-border-default px-16 md:px-24 lg:px-32 xl:px-40 bg-bg-primary/90 backdrop-blur-md sticky top-0 z-10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
       {/* Search */}
       <motion.div 
         animate={{ 
           width: isSearchFocused ? 450 : 384,
-          borderColor: isSearchFocused ? 'var(--color-accent-secondary)' : 'var(--color-border-default)',
-          boxShadow: isSearchFocused ? '0 0 12px rgba(0, 255, 204, 0.2)' : 'none'
+          borderColor: isSearchFocused ? 'var(--color-accent-secondary)' : 'rgba(255, 255, 255, 0.2)',
+          boxShadow: isSearchFocused ? '0 0 12px rgba(0, 255, 204, 0.2)' : '0 0 8px rgba(0,0,0,0.5)'
         }}
-        className="flex items-center bg-bg-elevated border rounded-lg px-4 py-1.5 transition-all duration-300"
+        className="flex items-center bg-bg-tertiary border border-white/20 rounded-lg px-4 py-2 transition-all duration-300"
       >
-        <Search size={16} className={`mr-2 transition-colors ${isSearchFocused ? 'text-accent-secondary drop-shadow-[0_0_8px_currentColor]' : 'text-text-muted'}`} />
+        <Search size={16} className={`mr-2 transition-colors ${isSearchFocused ? 'text-accent-secondary drop-shadow-[0_0_8px_currentColor]' : 'text-text-secondary'}`} />
         <input 
           type="text" 
           placeholder="Search curriculum, problems..." 
-          className="bg-transparent border-none outline-none text-sm text-text-primary w-full placeholder:text-text-muted font-mono"
+          className="bg-transparent border-none outline-none text-sm text-text-primary w-full placeholder:text-text-secondary font-mono"
           onFocus={() => setIsSearchFocused(true)}
           onBlur={() => setIsSearchFocused(false)}
         />

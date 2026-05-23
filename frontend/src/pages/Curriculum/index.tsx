@@ -15,7 +15,7 @@ export function CurriculumPage() {
   ];
 
   return (
-    <div className="w-full px-[10px] py-6 min-h-[calc(100vh-4rem)] flex flex-col space-y-8">
+    <div className="w-full max-w-[1600px] mx-auto px-6 md:px-10 lg:px-14 xl:px-20 py-8 min-h-[calc(100vh-4rem)] flex flex-col space-y-8">
       <div className="mb-2">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-5xl font-bold font-display text-text-primary tracking-tight">Curriculum Explorer</h1>
@@ -62,14 +62,14 @@ export function CurriculumPage() {
         </div>
 
         {/* Course Grid */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {modules.map((mod, idx) => (
             <motion.div
               key={mod.id}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: idx * 0.1 }}
-              className={`neon-card ${mod.colorClass} p-10 flex flex-col h-full group`}
+              className={`neon-card ${mod.colorClass} p-6 md:p-8 flex flex-col h-full group`}
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="p-3 bg-bg-tertiary rounded-xl border border-border-default group-hover:border-current transition-colors">

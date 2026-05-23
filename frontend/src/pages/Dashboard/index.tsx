@@ -23,7 +23,7 @@ export function DashboardPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-12 md:px-24 lg:px-40 py-6 flex flex-col gap-6 min-h-[calc(100vh-4rem)] w-full">
+    <div className="w-full px-[10px] py-6 flex flex-col gap-6 min-h-[calc(100vh-4rem)]">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-4xl font-bold font-display text-text-primary tracking-tight">
@@ -57,7 +57,7 @@ export function DashboardPage() {
         
         {/* Continue Learning - Cyberpunk Panel */}
         <div className="col-span-2">
-          <div className="neon-card neon-card-yellow p-8 flex flex-col justify-center items-center text-center gap-6 h-full relative">
+          <div className="neon-card neon-card-yellow p-8 flex flex-col justify-center items-center text-center gap-6 relative">
             <div className="flex flex-col items-center gap-4">
               <h2 className="text-sm font-bold text-accent-tertiary font-mono uppercase tracking-widest mb-1">Resume Module</h2>
               <h3 className="text-4xl font-bold text-text-primary mb-2">Arrays & Strings</h3>

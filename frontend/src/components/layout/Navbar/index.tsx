@@ -9,7 +9,7 @@ export function Navbar() {
 
   return (
     <header className="h-16 border-b border-border-default bg-bg-primary/90 backdrop-blur-md sticky top-0 z-10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-      <div className="max-w-[1600px] mx-auto px-6 md:px-10 lg:px-16 w-full h-full flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-12 md:px-24 lg:px-40 w-full h-full flex items-center justify-between">
       {/* Search */}
       <motion.div 
         animate={{ 

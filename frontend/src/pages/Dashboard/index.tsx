@@ -23,7 +23,7 @@ export function DashboardPage() {
   };
 
   return (
-    <div className="max-w-[1600px] mx-auto px-6 md:px-10 lg:px-16 py-12 flex flex-col gap-8 min-h-full w-full">
+    <div className="max-w-6xl mx-auto px-12 md:px-24 lg:px-40 py-6 flex flex-col gap-6 min-h-[calc(100vh-4rem)] w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-4xl font-bold font-display text-text-primary tracking-tight">
@@ -40,7 +40,7 @@ export function DashboardPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1 }}
-            className="neon-card p-8 flex flex-col justify-center items-center text-center gap-4 group"
+            className="neon-card p-6 flex flex-col justify-center items-center text-center gap-4 group"
           >
             <div className={`p-4 rounded-xl border ${stat.bg} ${stat.border} ${stat.color} transition-transform duration-300`}>
               <stat.icon size={26} />
@@ -57,7 +57,7 @@ export function DashboardPage() {
         
         {/* Continue Learning - Cyberpunk Panel */}
         <div className="col-span-2">
-          <div className="neon-card neon-card-yellow p-12 flex flex-col justify-center items-center text-center gap-10 h-full relative">
+          <div className="neon-card neon-card-yellow p-8 flex flex-col justify-center items-center text-center gap-6 h-full relative">
             <div className="flex flex-col items-center gap-4">
               <h2 className="text-sm font-bold text-accent-tertiary font-mono uppercase tracking-widest mb-1">Resume Module</h2>
               <h3 className="text-4xl font-bold text-text-primary mb-2">Arrays & Strings</h3>
@@ -112,7 +112,7 @@ export function DashboardPage() {
                   key={prob.id} 
                   className={`p-3 flex items-center justify-between hover:bg-bg-tertiary/50 transition-colors cursor-pointer rounded-lg border border-transparent hover:border-border-default`}
                 >
-                  <h4 className="font-bold text-text-primary text-sm">{prob.title}</h4>
+                  <h4 className="font-normal text-text-primary text-sm">{prob.title}</h4>
                   <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border font-mono ${difficultyColors[prob.difficulty]}`}>
                     {prob.difficulty}
                   </span>

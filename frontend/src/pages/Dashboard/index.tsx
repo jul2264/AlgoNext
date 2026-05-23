@@ -57,38 +57,37 @@ export function DashboardPage() {
         
         {/* Continue Learning - Cyberpunk Panel */}
         <div className="col-span-2">
-          <div className="neon-card neon-card-yellow p-12 flex flex-col justify-between items-center text-center gap-8 h-full relative">
-            <div className="flex flex-col w-full gap-8 items-center justify-between flex-1">
-              <div className="flex-1 flex flex-col items-center gap-4">
-                <h2 className="text-sm font-bold text-accent-tertiary font-mono uppercase tracking-widest mb-1">Resume Module</h2>
-                <h3 className="text-4xl font-bold text-text-primary mb-2">Arrays & Strings</h3>
-                <p className="text-text-secondary leading-relaxed max-w-md text-base text-center">Master the fundamentals of array traversal, manipulation, and the two-pointer technique. Essential for all interviews.</p>
-              </div>
-              <div className="w-40 h-40 relative shrink-0">
-                {/* Circular progress visual */}
-                <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                  <circle cx="50" cy="50" r="42" className="stroke-bg-tertiary" strokeWidth="6" fill="none" />
-                  <motion.circle 
-                    initial={{ strokeDashoffset: 264 }}
-                    animate={{ strokeDashoffset: 84 }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
-                    cx="50" cy="50" r="42" 
-                    className="stroke-accent-tertiary" 
-                    strokeWidth="6" 
-                    fill="none" 
-                    strokeDasharray="264" 
-                    strokeLinecap="round" 
-                    style={{ filter: 'drop-shadow(0 0 2px rgba(255,224,74,0.3))' }}
-                  />
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center flex-col">
-                  <span className="text-3xl font-bold text-text-primary font-mono drop-shadow-[0_0_2px_currentColor]">68%</span>
-                  <span className="text-[10px] text-text-muted font-mono uppercase mt-1 tracking-widest">Complete</span>
-                </div>
+          <div className="neon-card neon-card-yellow p-12 flex flex-col justify-center items-center text-center gap-10 h-full relative">
+            <div className="flex flex-col items-center gap-4">
+              <h2 className="text-sm font-bold text-accent-tertiary font-mono uppercase tracking-widest mb-1">Resume Module</h2>
+              <h3 className="text-4xl font-bold text-text-primary mb-2">Arrays & Strings</h3>
+              <p className="text-text-secondary leading-relaxed max-w-md text-base text-center">Master the fundamentals of array traversal, manipulation, and the two-pointer technique. Essential for all interviews.</p>
+            </div>
+            
+            <div className="w-40 h-40 relative shrink-0">
+              {/* Circular progress visual */}
+              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="42" className="stroke-bg-tertiary" strokeWidth="6" fill="none" />
+                <motion.circle 
+                  initial={{ strokeDashoffset: 264 }}
+                  animate={{ strokeDashoffset: 84 }}
+                  transition={{ duration: 1.5, ease: "easeOut" }}
+                  cx="50" cy="50" r="42" 
+                  className="stroke-accent-tertiary" 
+                  strokeWidth="6" 
+                  fill="none" 
+                  strokeDasharray="264" 
+                  strokeLinecap="round" 
+                  style={{ filter: 'drop-shadow(0 0 2px rgba(255,224,74,0.3))' }}
+                />
+              </svg>
+              <div className="absolute inset-0 flex items-center justify-center flex-col">
+                <span className="text-3xl font-bold text-text-primary font-mono drop-shadow-[0_0_2px_currentColor]">68%</span>
+                <span className="text-[10px] text-text-muted font-mono uppercase mt-1 tracking-widest">Complete</span>
               </div>
             </div>
             
-            <div className="w-full pt-6 border-t border-border-default/50 flex justify-center mt-auto">
+            <div className="w-full flex justify-center mt-2">
               <button className="neon-btn neon-btn-cyan w-full md:w-2/3 px-10 py-4 text-base font-bold tracking-wider hover:bg-accent-secondary/5">
                 RESUME MODULE
               </button>

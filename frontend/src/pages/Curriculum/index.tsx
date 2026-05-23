@@ -22,7 +22,7 @@ export function CurriculumPage() {
         </motion.div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-12 flex-1">
+      <div className="flex flex-col lg:flex-row gap-8 flex-1">
         {/* Left Sidebar Filters */}
         <div className="w-full lg:w-64 shrink-0 space-y-10">
           <div className="neon-card p-8">
@@ -62,14 +62,14 @@ export function CurriculumPage() {
         </div>
 
         {/* Course Grid */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {modules.map((mod, idx) => (
             <motion.div
               key={mod.id}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: idx * 0.1 }}
-              className={`neon-card ${mod.colorClass} p-8 flex flex-col h-full group`}
+              className={`neon-card ${mod.colorClass} p-10 flex flex-col h-full group`}
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="p-3 bg-bg-tertiary rounded-xl border border-border-default group-hover:border-current transition-colors">

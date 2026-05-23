@@ -142,6 +142,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 300  # 5 minutes
+CELERY_TASK_ALWAYS_EAGER = os.getenv('CELERY_TASK_ALWAYS_EAGER', 'True') == 'True'
 
 # ---------------------------------------------------------------------------
 # CORS Configuration
@@ -150,11 +151,10 @@ CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:3000'
 CORS_ALLOW_CREDENTIALS = True
 
 # ---------------------------------------------------------------------------
-# Judge0 Configuration
+# JDoodle Configuration
 # ---------------------------------------------------------------------------
-JUDGE0_API_URL = os.getenv('JUDGE0_API_URL', 'http://localhost:2358')
-JUDGE0_API_KEY = os.getenv('JUDGE0_API_KEY', '')
-JUDGE0_CALLBACK_URL = os.getenv('JUDGE0_CALLBACK_URL', '')
+JDOODLE_CLIENT_ID = os.getenv('JDOODLE_CLIENT_ID', '')
+JDOODLE_CLIENT_SECRET = os.getenv('JDOODLE_CLIENT_SECRET', '')
 
 # ---------------------------------------------------------------------------
 # Clerk Authentication

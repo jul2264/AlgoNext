@@ -24,6 +24,7 @@ export function Sidebar() {
 
   const navItems = [
     { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
+    { name: 'Playground', path: '/playground', icon: Code2 },
     { name: 'DSA', path: '/dsa', icon: BookOpen },
     { name: 'DAA', path: '/daa', icon: PlaySquare },
   ];

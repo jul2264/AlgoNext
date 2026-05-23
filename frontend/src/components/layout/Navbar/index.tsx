@@ -33,7 +33,7 @@ export function Navbar() {
             <div className="text-xs text-text-muted capitalize font-mono">{String(user?.publicMetadata?.role || 'Student')}</div>
           </div>
           <div className="border border-border-default rounded-full p-0.5 group-hover:border-accent-secondary group-hover:shadow-[0_0_12px_rgba(0,255,204,0.4)] transition-all duration-300">
-            <UserButton afterSignOutUrl="/" appearance={{ elements: { userButtonAvatarBox: "w-8 h-8" } }} />
+            <UserButton appearance={{ elements: { userButtonAvatarBox: "w-8 h-8" } }} />
           </div>
         </div>
       </div>

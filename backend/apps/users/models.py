@@ -42,3 +42,7 @@ class User(TimeStampedModel):
     @property
     def is_student(self):
         return self.role == self.Role.STUDENT
+
+    @property
+    def is_authenticated(self):
+        return True

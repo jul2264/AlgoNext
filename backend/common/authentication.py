@@ -36,33 +36,41 @@ class ClerkAuthentication(authentication.BaseAuthentication):
             unverified_headers = jwt.get_unverified_header(token)
             kid = unverified_headers.get('kid')
             
-            # Fetch JWKS and find the matching key
-            jwks = self.get_jwks()
-            rsa_key = {}
-            for key in jwks.get('keys', []):
-                if key['kid'] == kid:
-                    rsa_key = {
-                        'kty': key['kty'],
-                        'kid': key['kid'],
-                        'use': key['use'],
-                        'n': key['n'],
-                        'e': key['e']
-                    }
-                    break
+            jwks_url = getattr(settings, 'CLERK_JWKS_URL', None)
+            if not jwks_url:
+                if getattr(settings, 'DEBUG', False):
+                    # In local dev without JWKS configured, just trust the token
+                    payload = jwt.decode(token, options={"verify_signature": False})
+                else:
+                    raise exceptions.AuthenticationFailed('Clerk JWKS URL is not configured.')
+            else:
+                # Fetch JWKS and find the matching key
+                jwks = self.get_jwks()
+                rsa_key = {}
+                for key in jwks.get('keys', []):
+                    if key['kid'] == kid:
+                        rsa_key = {
+                            'kty': key['kty'],
+                            'kid': key['kid'],
+                            'use': key['use'],
+                            'n': key['n'],
+                            'e': key['e']
+                        }
+                        break
+                        
+                if not rsa_key:
+                    raise exceptions.AuthenticationFailed('Invalid token key.')
                     
-            if not rsa_key:
-                raise exceptions.AuthenticationFailed('Invalid token key.')
+                # Convert JWK to PEM public key string
+                public_key = jwt.algorithms.RSAAlgorithm.from_jwk(rsa_key)
                 
-            # Convert JWK to PEM public key string
-            public_key = jwt.algorithms.RSAAlgorithm.from_jwk(rsa_key)
-            
-            # Verify the token
-            payload = jwt.decode(
-                token,
-                public_key,
-                algorithms=['RS256'],
-                options={'verify_aud': False} # Customize as needed
-            )
+                # Verify the token
+                payload = jwt.decode(
+                    token,
+                    public_key,
+                    algorithms=['RS256'],
+                    options={'verify_aud': False} # Customize as needed
+                )
             
         except jwt.ExpiredSignatureError:
             raise exceptions.AuthenticationFailed('Token has expired.')

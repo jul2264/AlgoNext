@@ -28,6 +28,7 @@ class ProblemDetailSerializer(serializers.ModelSerializer):
     category_slug = serializers.CharField(source='category.slug', read_only=True)
     category_title = serializers.CharField(source='category.title', read_only=True)
     starter_codes = StarterCodeSerializer(many=True, read_only=True)
+    test_cases = serializers.SerializerMethodField()
     
     class Meta:
         model = Problem
@@ -35,5 +36,10 @@ class ProblemDetailSerializer(serializers.ModelSerializer):
             'id', 'title', 'slug', 'difficulty', 'description', 'constraints', 'tags',
             'time_complexity', 'space_complexity', 'hints', 'editorial',
             'has_visualizer', 'visualizer_component', 'order', 'category_slug', 'category_title',
-            'starter_codes'
+            'starter_codes', 'test_cases'
         ]
+
+    def get_test_cases(self, obj):
+        # Only return visible test cases to the frontend
+        visible_cases = obj.test_cases.filter(is_hidden=False).order_by('order')
+        return TestCaseSerializer(visible_cases, many=True).data

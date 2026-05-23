@@ -1,53 +1,86 @@
-import requests
+import subprocess
+import tempfile
+import os
+import time
 from django.conf import settings
 from django.utils import timezone
 from .models import Submission
 
-class Judge0Service:
+class LocalExecutionService:
     def __init__(self):
-        self.api_url = getattr(settings, 'JUDGE0_API_URL', 'http://localhost:2358')
-        self.api_key = getattr(settings, 'JUDGE0_API_KEY', '')
+        self.timeout = 5  # 5 seconds execution timeout per test case
         
-        self.headers = {
-            'Content-Type': 'application/json'
-        }
-        if self.api_key:
-            self.headers['X-RapidAPI-Key'] = self.api_key
-            self.headers['X-RapidAPI-Host'] = 'judge0-ce.p.rapidapi.com'
-
-    def get_language_id(self, language: str) -> int:
-        """Map language string to Judge0 language ID."""
-        mapping = {
-            'python': 71,      # Python (3.8.1)
-            'javascript': 63,  # Node.js (12.14.0)
-            'cpp': 54,         # C++ (GCC 9.2.0)
-            'java': 62         # Java (OpenJDK 13.0.1)
-        }
-        return mapping.get(language, 71)
-
-    def submit_code(self, source_code: str, language: str, stdin: str = None, expected_output: str = None):
-        """Submit a single execution to Judge0 and return the token."""
-        url = f"{self.api_url}/submissions?base64_encoded=false&wait=false"
-        
-        payload = {
-            "source_code": source_code,
-            "language_id": self.get_language_id(language)
-        }
-        if stdin:
-            payload["stdin"] = stdin
-        if expected_output:
-            payload["expected_output"] = expected_output
+    def _execute_code(self, source_code: str, language: str, test_input: str) -> dict:
+        """Executes the code locally using a subprocess within a temporary directory."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            file_path = ""
+            command = []
             
-        response = requests.post(url, json=payload, headers=self.headers)
-        response.raise_for_status()
-        return response.json().get('token')
+            # Setup file and command based on language
+            if language == 'python':
+                file_path = os.path.join(temp_dir, 'main.py')
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    f.write(source_code)
+                command = ['python', file_path]
+                
+            elif language == 'javascript':
+                file_path = os.path.join(temp_dir, 'main.js')
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    f.write(source_code)
+                command = ['node', file_path]
+                
+            elif language == 'cpp':
+                file_path = os.path.join(temp_dir, 'main.cpp')
+                out_path = os.path.join(temp_dir, 'main.exe' if os.name == 'nt' else 'main')
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    f.write(source_code)
+                
+                # Compile C++
+                compile_cmd = ['g++', file_path, '-o', out_path]
+                compile_proc = subprocess.run(compile_cmd, capture_output=True, text=True)
+                if compile_proc.returncode != 0:
+                    return {'status_code': 500, 'output': compile_proc.stderr, 'time': 0}
+                
+                command = [out_path]
+                
+            elif language == 'java':
+                file_path = os.path.join(temp_dir, 'Main.java')
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    f.write(source_code)
+                
+                # Compile Java
+                compile_cmd = ['javac', file_path]
+                compile_proc = subprocess.run(compile_cmd, capture_output=True, text=True)
+                if compile_proc.returncode != 0:
+                    return {'status_code': 500, 'output': compile_proc.stderr, 'time': 0}
+                
+                command = ['java', '-cp', temp_dir, 'Main']
+            else:
+                return {'status_code': 500, 'output': f"Unsupported language: {language}", 'time': 0}
 
-    def get_submission_status(self, token: str):
-        """Fetch the result of a submission by token."""
-        url = f"{self.api_url}/submissions/{token}?base64_encoded=false"
-        response = requests.get(url, headers=self.headers)
-        response.raise_for_status()
-        return response.json()
+            # Execute the compiled/interpreted command
+            start_time = time.time()
+            try:
+                # We pipe test_input to stdin
+                proc = subprocess.run(
+                    command, 
+                    input=test_input, 
+                    capture_output=True, 
+                    text=True, 
+                    timeout=self.timeout
+                )
+                execution_time = (time.time() - start_time) * 1000  # ms
+                
+                if proc.returncode == 0:
+                    return {'status_code': 200, 'output': proc.stdout, 'time': execution_time}
+                else:
+                    return {'status_code': 400, 'output': proc.stderr or proc.stdout, 'time': execution_time}
+                    
+            except subprocess.TimeoutExpired:
+                return {'status_code': 408, 'output': 'Time Limit Exceeded', 'time': self.timeout * 1000}
+            except Exception as e:
+                return {'status_code': 500, 'output': str(e), 'time': 0}
+
 
     def evaluate_submission(self, submission_id):
         """Evaluate a full submission against all test cases."""
@@ -59,52 +92,76 @@ class Judge0Service:
             problem = submission.problem
             test_cases = problem.test_cases.order_by('order')
             
+            # If no test cases are defined, we just run the code with empty input
             if not test_cases.exists():
-                submission.status = Submission.Status.ERROR
-                submission.stderr = "No test cases configured for this problem."
+                result = self._execute_code(submission.code, submission.language, "")
+                status_code = result['status_code']
+                output = result['output']
+                
+                if status_code == 200:
+                    submission.status = Submission.Status.ACCEPTED
+                    submission.stdout = output
+                elif status_code == 408:
+                    submission.status = Submission.Status.TLE
+                    submission.stderr = output
+                else:
+                    submission.status = Submission.Status.RUNTIME_ERROR
+                    submission.stderr = output
+                    
+                submission.execution_time_ms = result['time']
                 submission.save()
                 return
 
             submission.test_cases_total = test_cases.count()
             submission.test_cases_passed = 0
             
-            # Simple synchronous evaluation for now
-            # In a real system, you'd submit a batch and use webhooks
             max_time = 0
-            max_memory = 0
+            max_memory = 0 # Memory profiling via subprocess is complex, keeping 0 for now
             
             for tc in test_cases:
-                # Wrap the user code in an execution harness (mocked here)
-                # For example, appending the test case call to the code
-                executable_code = f"{submission.code}\n\n# Test Case\n{tc.input_data}"
+                # To maintain compatibility with how JDoodle Service worked,
+                # we append the input_data to the source code as driver code if it's Python/JS.
+                # Otherwise, we pass it via stdin.
+                executable_code = submission.code
+                test_input = tc.input_data or ""
                 
-                token = self.submit_code(executable_code, submission.language, expected_output=tc.expected_output)
+                if submission.language == 'python':
+                    executable_code = f"{submission.code}\n\n# Test Case\n{tc.input_data}"
+                    test_input = "" # We appended it, so no stdin
+                elif submission.language == 'javascript':
+                    executable_code = f"{submission.code}\n\n// Test Case\n{tc.input_data}"
+                    test_input = ""
                 
-                # Poll for completion (Judge0 returns status 1/2 for In Queue/Processing)
-                import time
-                result = None
-                for _ in range(10):  # Wait up to ~10 seconds
-                    time.sleep(1)
-                    result = self.get_submission_status(token)
-                    if result.get('status', {}).get('id', 0) > 2:
-                        break
-                        
-                status_id = result.get('status', {}).get('id')
+                result = self._execute_code(executable_code, submission.language, test_input)
+                status_code = result['status_code']
+                output = result['output']
+                cpuTime = result['time']
                 
-                # Update metrics
-                time_taken = float(result.get('time') or 0) * 1000
-                memory_taken = float(result.get('memory') or 0)
-                max_time = max(max_time, time_taken)
-                max_memory = max(max_memory, memory_taken)
+                max_time = max(max_time, cpuTime)
                 
-                if status_id == 3: # Accepted
+                if status_code == 408:
+                    submission.status = Submission.Status.TLE
+                    submission.stderr = "Time Limit Exceeded"
+                    submission.execution_time_ms = max_time
+                    submission.save()
+                    return
+                elif status_code != 200:
+                    submission.status = Submission.Status.RUNTIME_ERROR if status_code == 400 else Submission.Status.COMPILATION_ERROR
+                    submission.stderr = output
+                    submission.execution_time_ms = max_time
+                    submission.save()
+                    return
+
+                actual_output = output.strip()
+                expected = (tc.expected_output or '').strip()
+                
+                if actual_output == expected:
                     submission.test_cases_passed += 1
                 else:
-                    submission.status = self._map_judge0_status(status_id)
-                    submission.stdout = result.get('stdout', '')
-                    submission.stderr = result.get('stderr', '') or result.get('compile_output', '')
+                    submission.status = Submission.Status.WRONG_ANSWER
+                    submission.stdout = actual_output
+                    submission.stderr = "Expected:\n" + expected + "\n\nGot:\n" + actual_output
                     submission.execution_time_ms = max_time
-                    submission.memory_used_kb = max_memory
                     submission.save()
                     return # Stop on first failure
             
@@ -124,21 +181,6 @@ class Judge0Service:
             progress.save()
             
         except Exception as e:
-            submission.status = Submission.Status.ERROR
+            submission.status = Submission.Status.RUNTIME_ERROR
             submission.stderr = str(e)
             submission.save()
-
-    def _map_judge0_status(self, judge0_status_id):
-        mapping = {
-            3: Submission.Status.ACCEPTED,
-            4: Submission.Status.WRONG_ANSWER,
-            5: Submission.Status.TIME_LIMIT_EXCEEDED,
-            6: Submission.Status.COMPILATION_ERROR,
-            7: Submission.Status.RUNTIME_ERROR,
-            8: Submission.Status.RUNTIME_ERROR,
-            9: Submission.Status.RUNTIME_ERROR,
-            10: Submission.Status.RUNTIME_ERROR,
-            11: Submission.Status.RUNTIME_ERROR,
-            12: Submission.Status.RUNTIME_ERROR,
-        }
-        return mapping.get(judge0_status_id, Submission.Status.ERROR)

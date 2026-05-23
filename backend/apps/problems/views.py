@@ -12,7 +12,7 @@ class ProblemViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = 'slug'
     
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['difficulty', 'category__slug', 'tags']
+    filterset_fields = ['difficulty', 'category__slug']
     search_fields = ['title', 'description', 'tags']
     ordering_fields = ['order', 'difficulty', 'created_at']
     ordering = ['order']

@@ -9,12 +9,10 @@ const SUPPORTED_LANGUAGES = [
 ];
 
 export function LanguageSelector() {
-  const { language, setLanguage, isExecuting, setIsExecuting } = useEditorStore();
+  const { language, setLanguage, isExecuting, runCode } = useEditorStore();
 
   const handleRun = () => {
-    setIsExecuting(true);
-    // TODO: Connect to backend execution API
-    setTimeout(() => setIsExecuting(false), 2000); // Mock execution
+    runCode();
   };
 
   return (

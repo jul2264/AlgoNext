@@ -24,6 +24,8 @@ function NotFoundPage() {
   );
 }
 
+import { PlaygroundPage } from '@/pages/Playground';
+
 export default function App() {
   return (
     <Routes>
@@ -40,6 +42,7 @@ export default function App() {
         <Route path="/dsa" element={<CurriculumPage />} />
         <Route path="/dsa/:slug" element={<ModulePage />} />
         <Route path="/problems/:slug" element={<ProblemPage />} />
+        <Route path="/playground" element={<PlaygroundPage />} />
         <Route path="/daa" element={<VisualizerPage />} />
         <Route path="/daa/:slug" element={<VisualizerInstancePage />} />
         <Route path="/faculty" element={<FacultyPage />} />

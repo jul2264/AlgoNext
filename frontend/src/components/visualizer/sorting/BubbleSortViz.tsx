@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { ArrayBar, type ArrayElement } from '../shared/ArrayBar';
 import { StepControls } from '../shared/StepControls';
+import { CustomArrayInput } from '../shared/CustomArrayInput';
 import { useStepPlayer } from '@/hooks/useStepPlayer';
 
 interface BubbleSortFrame {
@@ -8,90 +9,84 @@ interface BubbleSortFrame {
   description: string;
 }
 
-export function BubbleSortViz({ initialArray = [34, 12, 5, 87, 21, 65, 43, 90, 1] }) {
-  // Generate the animation frames once
+export function BubbleSortViz({ initialArray = [34, 12, 5, 87, 21, 65, 43, 90] }) {
+  const [currentData, setCurrentData] = useState<number[]>(initialArray);
+
   const frames = useMemo(() => {
     const generatedFrames: BubbleSortFrame[] = [];
     
-    // Deep copy and assign IDs for framer-motion tracking
-    let arr: ArrayElement[] = initialArray.map((val, idx) => ({
+    // Initial mapping
+    const currentArray: ArrayElement[] = currentData.map((val, idx) => ({
       id: `elem-${val}-${idx}`,
       value: val,
       state: 'idle'
     }));
 
-    // Initial state
     generatedFrames.push({
-      array: JSON.parse(JSON.stringify(arr)),
+      array: JSON.parse(JSON.stringify(currentArray)),
       description: "Initial array state."
     });
 
-    const n = arr.length;
+    let n = currentArray.length;
     let swapped;
 
     for (let i = 0; i < n - 1; i++) {
       swapped = false;
-      
       for (let j = 0; j < n - i - 1; j++) {
-        // Highlighting current pair
-        arr[j].state = 'comparing';
-        arr[j + 1].state = 'comparing';
+        currentArray[j].state = 'comparing';
+        currentArray[j + 1].state = 'comparing';
+        
         generatedFrames.push({
-          array: JSON.parse(JSON.stringify(arr)),
-          description: `Comparing ${arr[j].value} and ${arr[j + 1].value}.`
+          array: JSON.parse(JSON.stringify(currentArray)),
+          description: `Comparing ${currentArray[j].value} and ${currentArray[j+1].value}.`
         });
 
-        if (arr[j].value > arr[j + 1].value) {
-          // Highlight swapping
-          arr[j].state = 'swapping';
-          arr[j + 1].state = 'swapping';
-          generatedFrames.push({
-            array: JSON.parse(JSON.stringify(arr)),
-            description: `${arr[j].value} > ${arr[j + 1].value}, so we swap them.`
-          });
-
-          // Perform swap
-          const temp = arr[j];
-          arr[j] = arr[j + 1];
-          arr[j + 1] = temp;
+        if (currentArray[j].value > currentArray[j + 1].value) {
+          currentArray[j].state = 'swapping';
+          currentArray[j + 1].state = 'swapping';
           
           generatedFrames.push({
-            array: JSON.parse(JSON.stringify(arr)),
-            description: `Swapped!`
+            array: JSON.parse(JSON.stringify(currentArray)),
+            description: `${currentArray[j].value} > ${currentArray[j+1].value}. Swapping them.`
+          });
+
+          // Swap
+          let temp = currentArray[j];
+          currentArray[j] = currentArray[j + 1];
+          currentArray[j + 1] = temp;
+
+          generatedFrames.push({
+            array: JSON.parse(JSON.stringify(currentArray)),
+            description: `Swapped.`
           });
           swapped = true;
         }
 
-        // Reset to idle after comparison
-        arr[j].state = 'idle';
-        arr[j + 1].state = 'idle';
+        currentArray[j].state = 'idle';
+        currentArray[j + 1].state = 'idle';
       }
-
-      // The last element in the current pass is guaranteed to be in its correct place
-      arr[n - i - 1].state = 'sorted';
+      
+      currentArray[n - i - 1].state = 'sorted';
       generatedFrames.push({
-        array: JSON.parse(JSON.stringify(arr)),
-        description: `${arr[n - i - 1].value} is now in its correct sorted position.`
+        array: JSON.parse(JSON.stringify(currentArray)),
+        description: `${currentArray[n - i - 1].value} is now locked in its sorted position.`
       });
 
-      if (!swapped) {
-        generatedFrames.push({
-          array: JSON.parse(JSON.stringify(arr)),
-          description: `No swaps occurred in this pass, meaning the array is completely sorted!`
-        });
-        break;
-      }
+      if (!swapped) break;
     }
 
-    // Mark remaining elements as sorted
-    arr.forEach(item => item.state = 'sorted');
+    // Mark all as sorted
+    for (let i = 0; i < currentArray.length; i++) {
+      currentArray[i].state = 'sorted';
+    }
+    
     generatedFrames.push({
-      array: JSON.parse(JSON.stringify(arr)),
+      array: JSON.parse(JSON.stringify(currentArray)),
       description: "Algorithm complete! Array is sorted."
     });
 
     return generatedFrames;
-  }, [initialArray]);
+  }, [currentData]);
 
   const {
     currentStep,
@@ -105,32 +100,54 @@ export function BubbleSortViz({ initialArray = [34, 12, 5, 87, 21, 65, 43, 90, 1
   } = useStepPlayer({ totalSteps: frames.length, initialSpeed: 500 });
 
   const currentFrame = frames[currentStep];
-  const maxValue = Math.max(...initialArray);
+
+  const handleCustomArrayApply = (newArray: number[]) => {
+    setCurrentData(newArray);
+    reset();
+  };
+
+  const getBoxMaxWidth = (total: number) => {
+    if (total <= 10) return '80px';
+    if (total <= 20) return '60px';
+    if (total <= 30) return '45px';
+    return '35px';
+  };
+  const boxMaxWidth = getBoxMaxWidth(currentFrame.array.length);
 
   return (
-    <div className="flex flex-col h-full bg-bg-primary p-4 gap-6">
-      <div className="flex justify-between items-center mb-2">
+    <div className="flex flex-col h-full bg-bg-primary p-4 gap-4">
+      <div className="flex justify-between items-center mt-4">
         <h2 className="text-2xl font-bold text-text-primary">Bubble Sort Visualization</h2>
       </div>
 
       {/* Description Panel */}
-      <div className="bg-bg-elevated p-4 rounded-lg border border-border-default min-h-[80px] flex items-center shadow-lg">
-        <p className="text-text-primary text-lg">
-          <span className="font-bold text-accent-primary mr-2">Step {currentStep + 1}:</span> 
+      <div className="bg-bg-elevated p-3 rounded-lg border border-border-default min-h-[60px] flex items-center shadow-md">
+        <p className="text-text-primary text-base">
+          <span className="font-bold text-accent-primary">Step {currentStep + 1}: </span> 
           {currentFrame.description}
         </p>
       </div>
 
       {/* Visualization Canvas */}
-      <div className="flex-1 bg-bg-secondary rounded-xl border border-border-default flex items-end justify-center p-8 gap-4 overflow-hidden relative shadow-inner">
-        {currentFrame.array.map((element) => (
-          <ArrayBar 
-            key={element.id} 
-            element={element} 
-            maxValue={maxValue} 
-          />
-        ))}
+      <div className="w-full bg-transparent flex flex-col p-4 sm:p-8 relative transition-all duration-300">
+        <div className="flex flex-wrap justify-center content-center gap-x-3 gap-y-6 w-full max-w-[900px] mx-auto">
+          {currentFrame.array.map((element) => (
+            <div 
+              key={element.id} 
+              style={{ width: 'calc(10% - 0.75rem)', maxWidth: boxMaxWidth }}
+              className="flex justify-center items-center"
+            >
+              <ArrayBar element={element} />
+            </div>
+          ))}
+        </div>
       </div>
+
+      {/* Custom Input */}
+      <CustomArrayInput 
+        onApply={handleCustomArrayApply} 
+        defaultValue={currentData.join(", ")}
+      />
 
       {/* Controls */}
       <StepControls

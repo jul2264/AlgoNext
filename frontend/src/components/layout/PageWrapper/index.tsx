@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAuth } from '@clerk/clerk-react';
+import { useAuth } from '@clerk/react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { setupApiClient } from '@/services/api.client';
 import { Sidebar } from '../Sidebar';

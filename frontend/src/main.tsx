@@ -9,13 +9,9 @@ import { Toaster } from 'react-hot-toast';
 import App from './App';
 import './styles/index.css';
 
-import { ClerkProvider } from '@clerk/clerk-react';
+import { ClerkProvider } from '@clerk/react';
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-
-if (!PUBLISHABLE_KEY) {
-  throw new Error('Missing Publishable Key');
-}
+// The publishable key is automatically loaded from import.meta.env.VITE_CLERK_PUBLISHABLE_KEY by @clerk/react
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,7 +25,7 @@ const queryClient = new QueryClient({
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+    <ClerkProvider afterSignOutUrl="/">
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <App />

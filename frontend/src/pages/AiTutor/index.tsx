@@ -18,8 +18,8 @@ export function AiTutorPage() {
             AI Tutor is Coming Soon
           </h1>
           
-          <p className="text-lg text-text-secondary mb-8 max-w-lg mx-auto">
-            Get ready for a personalized learning experience. The AlgoNext AI Tutor will analyze your code, hint at optimal approaches, and adapt the curriculum perfectly to your skill level.
+          <p className="text-text-secondary text-lg max-w-2xl mx-auto leading-relaxed">
+            Get ready for a personalized learning experience. The AlgoNext AI Tutor will analyze your code, hint at optimal approaches, and adapt the DSA perfectly to your skill level.
           </p>
           
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent-primary/10 border border-accent-primary/20 text-accent-primary rounded-full font-medium">

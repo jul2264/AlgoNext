@@ -8,10 +8,9 @@ export interface ArrayElement {
 
 interface ArrayBarProps {
   element: ArrayElement;
-  maxValue: number;
 }
 
-export function ArrayBar({ element, maxValue }: ArrayBarProps) {
+export function ArrayBar({ element }: ArrayBarProps) {
   // Map states to design system colors
   const getStateColor = (state: ArrayElement['state']) => {
     switch (state) {
@@ -23,8 +22,6 @@ export function ArrayBar({ element, maxValue }: ArrayBarProps) {
     }
   };
 
-  const percentHeight = (element.value / maxValue) * 100;
-
   return (
     <motion.div
       layout
@@ -34,22 +31,21 @@ export function ArrayBar({ element, maxValue }: ArrayBarProps) {
         damping: 25,
         mass: 1,
       }}
-      className="flex flex-col items-center justify-end group"
-      style={{ minWidth: '40px' }}
+      className="flex flex-col items-center justify-center group w-full"
     >
-      <div className="text-text-muted text-xs font-mono mb-2 opacity-0 group-hover:opacity-100 transition-opacity">
-        {element.value}
-      </div>
       <motion.div
         animate={{
           backgroundColor: getStateColor(element.state),
-          height: `${Math.max(percentHeight, 10)}%`, // At least 10% height
         }}
-        className="w-12 rounded-t-md border border-black/20 shadow-lg relative overflow-hidden"
+        className="w-[90%] aspect-square max-w-[80px] rounded-xl border-2 border-white/10 shadow-[0_4px_15px_rgba(0,0,0,0.4)] relative flex items-center justify-center overflow-hidden transition-colors"
       >
-        <div className="absolute bottom-2 w-full text-center text-white font-mono text-sm drop-shadow-md">
+        <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
+        <span 
+          className="text-white font-bold font-mono drop-shadow-md z-10"
+          style={{ fontSize: 'clamp(0.8rem, 2vw, 1.5rem)' }}
+        >
           {element.value}
-        </div>
+        </span>
       </motion.div>
     </motion.div>
   );

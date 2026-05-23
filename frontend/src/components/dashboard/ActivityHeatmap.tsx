@@ -18,12 +18,12 @@ export function ActivityHeatmap() {
   };
 
   return (
-    <div className="neon-card p-6 rounded-xl flex flex-col gap-4">
+    <div className="neon-card rounded-xl flex flex-col gap-4" style={{ padding: '16px 40px' }}>
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-lg font-bold text-text-primary font-display">Activity Heatmap</h3>
       </div>
       
-      <div className="flex gap-2">
+      <div className="flex gap-8">
         <div className="flex flex-col gap-2 text-[10px] text-text-muted justify-around py-1 font-mono uppercase">
           <span>Mon</span>
           <span>Wed</span>

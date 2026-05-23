@@ -1,6 +1,8 @@
 from rest_framework import views, status, generics
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from django.conf import settings
+from svix.webhooks import Webhook, WebhookVerificationError
 from .models import User
 from .serializers import UserSerializer, UserUpdateSerializer
 
@@ -22,8 +24,19 @@ class ClerkWebhookView(views.APIView):
     permission_classes = []  # Handled by Svix webhook signature verification
     
     def post(self, request):
-        # In a real implementation, verify Svix signature here
-        event = request.data
+        secret = getattr(settings, 'CLERK_WEBHOOK_SECRET', None)
+        if not secret:
+            return Response({'error': 'Webhook secret not configured'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+        payload = request.body
+        headers = request.headers
+        
+        try:
+            wh = Webhook(secret)
+            event = wh.verify(payload, headers)
+        except WebhookVerificationError:
+            return Response({'error': 'Invalid svix signature'}, status=status.HTTP_400_BAD_REQUEST)
+            
         evt_type = event.get('type')
         data = event.get('data', {})
         

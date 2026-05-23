@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { ArrayBar, type ArrayElement } from '../shared/ArrayBar';
 import { StepControls } from '../shared/StepControls';
+import { CustomArrayInput } from '../shared/CustomArrayInput';
 import { useStepPlayer } from '@/hooks/useStepPlayer';
 
 interface MergeSortFrame {
@@ -9,11 +10,13 @@ interface MergeSortFrame {
 }
 
 export function MergeSortViz({ initialArray = [34, 12, 5, 87, 21, 65, 43, 90] }) {
+  const [currentData, setCurrentData] = useState<number[]>(initialArray);
+
   const frames = useMemo(() => {
     const generatedFrames: MergeSortFrame[] = [];
     
     // Initial mapping
-    let currentArray: ArrayElement[] = initialArray.map((val, idx) => ({
+    let currentArray: ArrayElement[] = currentData.map((val, idx) => ({
       id: `elem-${val}-${idx}`,
       value: val,
       state: 'idle'
@@ -116,7 +119,7 @@ export function MergeSortViz({ initialArray = [34, 12, 5, 87, 21, 65, 43, 90] })
     
     captureFrame(currentArray, "Algorithm complete! Array is fully sorted.");
     return generatedFrames;
-  }, [initialArray]);
+  }, [currentData]);
 
   const {
     currentStep,
@@ -130,30 +133,49 @@ export function MergeSortViz({ initialArray = [34, 12, 5, 87, 21, 65, 43, 90] })
   } = useStepPlayer({ totalSteps: frames.length, initialSpeed: 600 });
 
   const currentFrame = frames[currentStep];
-  const maxValue = Math.max(...initialArray);
+
+  const getBoxMaxWidth = (total: number) => {
+    if (total <= 10) return '80px';
+    if (total <= 20) return '60px';
+    if (total <= 30) return '45px';
+    return '35px';
+  };
+  const boxMaxWidth = getBoxMaxWidth(frames[currentStep].array.length);
 
   return (
-    <div className="flex flex-col h-full bg-bg-primary p-4 gap-6">
-      <div className="flex justify-between items-center mb-2">
+    <div className="flex flex-col h-full bg-bg-primary p-4 gap-4">
+      <div className="flex justify-between items-center mt-4">
         <h2 className="text-2xl font-bold text-text-primary">Merge Sort Visualization</h2>
       </div>
 
-      <div className="bg-bg-elevated p-4 rounded-lg border border-border-default min-h-[80px] flex items-center shadow-lg">
-        <p className="text-text-primary text-lg">
-          <span className="font-bold text-accent-primary mr-2">Step {currentStep + 1}:</span> 
+      <div className="bg-bg-elevated p-3 rounded-lg border border-border-default min-h-[60px] flex items-center shadow-md">
+        <p className="text-text-primary text-base">
+          <span className="font-bold text-accent-primary">Step {currentStep + 1}: </span> 
           {currentFrame.description}
         </p>
       </div>
 
-      <div className="flex-1 bg-bg-secondary rounded-xl border border-border-default flex items-end justify-center p-8 gap-4 overflow-hidden relative shadow-inner">
-        {currentFrame.array.map((element) => (
-          <ArrayBar 
-            key={element.id} 
-            element={element} 
-            maxValue={maxValue} 
-          />
-        ))}
+      <div className="w-full bg-transparent flex flex-col p-4 sm:p-8 relative transition-all duration-300">
+        <div className="flex flex-wrap justify-center content-center gap-x-3 gap-y-6 w-full max-w-[900px] mx-auto">
+          {frames[currentStep].array.map((element) => (
+            <div 
+              key={element.id} 
+              style={{ width: 'calc(10% - 0.75rem)', maxWidth: boxMaxWidth }}
+              className="flex justify-center items-center"
+            >
+              <ArrayBar element={element} />
+            </div>
+          ))}
+        </div>
       </div>
+
+      <CustomArrayInput 
+        onApply={(newArr) => {
+          setCurrentData(newArr);
+          reset();
+        }} 
+        defaultValue={currentData.join(", ")}
+      />
 
       <StepControls
         isPlaying={isPlaying}

@@ -103,19 +103,19 @@ export function DFSViz() {
   const currentFrame = frames[currentStep];
 
   return (
-    <div className="flex flex-col h-full bg-bg-primary p-4 gap-6">
-      <div className="flex justify-between items-center mb-2">
+    <div className="flex flex-col h-full bg-bg-primary p-4 gap-4">
+      <div className="flex justify-between items-center mt-4">
         <h2 className="text-2xl font-bold text-text-primary">Depth-First Search (DFS)</h2>
       </div>
 
-      <div className="bg-bg-elevated p-4 rounded-lg border border-border-default min-h-[80px] flex items-center shadow-lg">
-        <p className="text-text-primary text-lg">
-          <span className="font-bold text-accent-primary mr-2">Step {currentStep + 1}:</span> 
+      <div className="bg-bg-elevated p-3 rounded-lg border border-border-default min-h-[60px] flex items-center shadow-md">
+        <p className="text-text-primary text-base">
+          <span className="font-bold text-accent-primary">Step {currentStep + 1}: </span> 
           {currentFrame.description}
         </p>
       </div>
 
-      <div className="flex-1 bg-bg-secondary rounded-xl border border-border-default overflow-hidden relative shadow-inner">
+      <div className="flex-1 min-h-[250px] max-h-[300px] lg:max-h-[350px] bg-transparent overflow-hidden relative transition-all duration-300">
         <GraphCanvas 
           nodes={currentFrame.nodes} 
           edges={currentFrame.edges} 

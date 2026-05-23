@@ -6,7 +6,9 @@ import { ProtectedRoute } from '@/components/layout/PageWrapper';
 import { DashboardPage } from '@/pages/Dashboard';
 import { ProblemPage } from '@/pages/Problem';
 import { VisualizerPage } from '@/pages/Visualizer';
+import { VisualizerInstancePage } from '@/pages/Visualizer/InstancePage';
 import { CurriculumPage } from '@/pages/Curriculum';
+import { ModulePage } from '@/pages/Curriculum/ModulePage';
 import { FacultyPage } from '@/pages/Faculty';
 import { ProfilePage } from '@/pages/Profile';
 import { AiTutorPage } from '@/pages/AiTutor';
@@ -35,9 +37,11 @@ export default function App() {
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/curriculum" element={<CurriculumPage />} />
+        <Route path="/dsa" element={<CurriculumPage />} />
+        <Route path="/dsa/:slug" element={<ModulePage />} />
         <Route path="/problems/:slug" element={<ProblemPage />} />
-        <Route path="/visualizer" element={<VisualizerPage />} />
+        <Route path="/daa" element={<VisualizerPage />} />
+        <Route path="/daa/:slug" element={<VisualizerInstancePage />} />
         <Route path="/faculty" element={<FacultyPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/ai-tutor" element={<AiTutorPage />} />

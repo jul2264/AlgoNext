@@ -1,4 +1,4 @@
-import { BookOpen, Trophy, Clock, Code2, LayoutDashboard, Users } from 'lucide-react';
+import { BookOpen, Trophy, Clock, Code2, LayoutDashboard } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, useEffect } from 'react';
 import { useUser } from '@clerk/react';

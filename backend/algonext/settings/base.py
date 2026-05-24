@@ -149,11 +149,6 @@ CELERY_TASK_ALWAYS_EAGER = os.getenv('CELERY_TASK_ALWAYS_EAGER', 'True') == 'Tru
 CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:3000').split(',')
 CORS_ALLOW_CREDENTIALS = True
 
-# ---------------------------------------------------------------------------
-# JDoodle Configuration
-# ---------------------------------------------------------------------------
-JDOODLE_CLIENT_ID = os.getenv('JDOODLE_CLIENT_ID', '')
-JDOODLE_CLIENT_SECRET = os.getenv('JDOODLE_CLIENT_SECRET', '')
 
 # ---------------------------------------------------------------------------
 # Clerk Authentication

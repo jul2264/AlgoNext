@@ -119,8 +119,7 @@ class LocalExecutionService:
             max_memory = 0 # Memory profiling via subprocess is complex, keeping 0 for now
             
             for tc in test_cases:
-                # To maintain compatibility with how JDoodle Service worked,
-                # we append the input_data to the source code as driver code if it's Python/JS.
+                # We append the input_data to the source code as driver code if it's Python/JS.
                 # Otherwise, we pass it via stdin.
                 executable_code = submission.code
                 test_input = tc.input_data or ""

@@ -23,6 +23,7 @@ class Submission(TimeStampedModel):
     )
     code = models.TextField()
     language = models.CharField(max_length=20)
+    custom_input = models.TextField(blank=True)
     status = models.CharField(
         max_length=30, choices=Status.choices, default=Status.PENDING
     )

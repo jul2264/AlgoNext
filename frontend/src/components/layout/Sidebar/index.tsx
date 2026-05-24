@@ -34,7 +34,7 @@ export function Sidebar() {
       initial={false}
       animate={{ width: isCollapsed ? 80 : 256 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className="h-full bg-bg-secondary border-r border-border-default flex flex-col relative z-20 shadow-[4px_0_24px_rgba(0,0,0,0.5)] font-sans"
+      className="h-full bg-bg-secondary border-r border-border-default flex flex-col relative z-40 shadow-[4px_0_24px_rgba(0,0,0,0.5)] font-sans"
     >
       {/* Toggle Button */}
       <button 
@@ -62,31 +62,26 @@ export function Sidebar() {
         </AnimatePresence>
       </div>
 
-      <nav className="flex-1 p-4 flex flex-col gap-8 overflow-y-auto overflow-x-hidden scrollbar-hide">
-        <AnimatePresence>
-          {!isCollapsed && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-6 pl-6 mt-4 whitespace-nowrap font-mono"
-            >
-              Learning
-            </motion.div>
-          )}
-        </AnimatePresence>
-        
+      <nav 
+        className="flex-1 p-4 flex flex-col overflow-y-auto overflow-x-hidden scrollbar-hide"
+        style={{ gap: '0.5rem', paddingTop: '2rem' }}
+      >
         {navItems.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
             className={({ isActive }) =>
-              `flex items-center ${isCollapsed ? 'justify-center p-3' : 'justify-start py-3 pr-3 pl-8'} gap-4 rounded-lg transition-all duration-300 group relative ${
+              `flex items-center rounded-lg transition-all duration-300 group relative ${
                 isActive
                   ? 'text-accent-secondary'
                   : 'text-text-secondary hover:bg-bg-elevated hover:text-text-primary border border-transparent'
               }`
             }
+            style={{ 
+              padding: isCollapsed ? '0.75rem' : '0.75rem 0.75rem 0.75rem 2rem',
+              justifyContent: isCollapsed ? 'center' : 'flex-start',
+              gap: '1rem'
+            }}
             title={isCollapsed ? item.name : undefined}
           >
             {({ isActive }) => (
@@ -113,16 +108,24 @@ export function Sidebar() {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-border-default flex flex-col gap-8 overflow-hidden">
+      <div 
+        className="p-4 border-t border-border-default flex flex-col overflow-hidden"
+        style={{ gap: '0.5rem' }}
+      >
         <NavLink
           to="/profile"
           className={({ isActive }) =>
-            `flex items-center ${isCollapsed ? 'justify-center p-3' : 'justify-start py-3 pr-3 pl-8'} gap-4 rounded-lg transition-all duration-300 group relative ${
+            `flex items-center rounded-lg transition-all duration-300 group relative ${
               isActive
                 ? 'text-accent-secondary'
                 : 'text-text-secondary hover:bg-bg-elevated hover:text-text-primary border border-transparent'
             }`
           }
+          style={{ 
+            padding: isCollapsed ? '0.75rem' : '0.75rem 0.75rem 0.75rem 2rem',
+            justifyContent: isCollapsed ? 'center' : 'flex-start',
+            gap: '1rem'
+          }}
           title={isCollapsed ? "Profile" : undefined}
         >
           {({ isActive }) => (
@@ -147,7 +150,12 @@ export function Sidebar() {
         </NavLink>
         <button
           onClick={() => signOut()}
-          className={`w-full flex items-center ${isCollapsed ? 'justify-center p-3' : 'justify-start py-3 pr-3 pl-8'} gap-4 rounded-lg text-text-muted hover:bg-error/10 hover:text-error transition-all duration-300 group`}
+          className="w-full flex items-center rounded-lg text-text-muted hover:bg-error/10 hover:text-error transition-all duration-300 group"
+          style={{ 
+            padding: isCollapsed ? '0.75rem' : '0.75rem 0.75rem 0.75rem 2rem',
+            justifyContent: isCollapsed ? 'center' : 'flex-start',
+            gap: '1rem'
+          }}
           title={isCollapsed ? "Sign Out" : undefined}
         >
           <div className={`shrink-0 flex items-center justify-center ${isCollapsed ? '' : 'w-8'}`}>

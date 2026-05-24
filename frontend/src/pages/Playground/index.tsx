@@ -1,6 +1,7 @@
 import { Panel, Group, Separator } from 'react-resizable-panels';
 import { CodeEditor } from '@/components/editor/CodeEditor';
 import { OutputPanel } from '@/components/editor/OutputPanel';
+import { InputPanel } from '@/components/editor/InputPanel';
 import { LanguageSelector } from '@/components/editor/LanguageSelector';
 import { GripHorizontal } from 'lucide-react';
 import { useEditorStore } from '@/store/editorStore';
@@ -20,36 +21,43 @@ export function PlaygroundPage() {
   }, [setActiveProblemId, setCode]);
 
   return (
-    <div className="flex-1 h-[calc(100vh-4rem)] p-4 bg-bg-primary">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold text-text-primary font-display">
-          Code <span className="text-accent-secondary">Playground</span>
-        </h1>
-        <LanguageSelector />
-      </div>
+    <div className="flex-1 min-h-[calc(100vh-4rem)] bg-bg-primary py-12 flex justify-center items-center">
+      <div className="max-w-4xl w-full h-[70vh] min-h-[500px] flex flex-col px-10">
+        <div className="flex justify-between items-center mb-6 shrink-0">
+          <h1 className="text-4xl font-bold text-text-primary font-display">
+            Code <span className="text-accent-secondary">Playground</span>
+          </h1>
+          <LanguageSelector />
+        </div>
 
-      <div className="h-[calc(100%-4rem)] rounded-lg overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)]">
-        <Group orientation="vertical">
-          {/* TOP: Editor */}
-          <Panel defaultSize={60} minSize={30}>
-            <div className="h-full border border-border-default rounded-t-lg overflow-hidden bg-bg-secondary">
-              <CodeEditor />
-            </div>
-          </Panel>
+        <div className="flex-1 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.4)] border border-border-default/50">
+          <Group orientation="vertical">
+            {/* TOP: Editor */}
+            <Panel defaultSize={60} minSize={30}>
+              <div className="h-full border-b border-border-default overflow-hidden bg-bg-secondary">
+                <CodeEditor />
+              </div>
+            </Panel>
 
-          <Separator className="h-2 bg-bg-primary flex items-center justify-center hover:bg-accent-secondary/20 transition-colors cursor-row-resize group">
-            <div className="w-8 h-1 rounded-full bg-border-default group-hover:bg-accent-secondary flex items-center justify-center transition-colors">
-              <GripHorizontal size={12} className="text-bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
-          </Separator>
+            <Separator className="h-3 bg-bg-primary flex items-center justify-center hover:bg-accent-secondary/20 transition-colors cursor-row-resize group relative z-10">
+              <div className="w-12 h-1.5 rounded-full bg-border-default group-hover:bg-accent-secondary flex items-center justify-center transition-colors shadow-sm">
+                <GripHorizontal size={14} className="text-bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+            </Separator>
 
-          {/* BOTTOM: Output */}
-          <Panel defaultSize={40} minSize={20}>
-            <div className="h-full border border-border-default rounded-b-lg overflow-hidden">
-              <OutputPanel />
+            {/* BOTTOM: Test Cases / Output */}
+            <Panel defaultSize={40} minSize={20} className="bg-bg-secondary overflow-hidden">
+              <div className="flex h-full gap-8 p-6">
+                <div className="w-1/2 neon-card p-1 overflow-hidden h-full rounded-xl">
+                <InputPanel />
+              </div>
+              <div className="w-1/2 neon-card p-1 overflow-hidden h-full">
+                <OutputPanel />
+              </div>
             </div>
           </Panel>
         </Group>
+      </div>
       </div>
     </div>
   );

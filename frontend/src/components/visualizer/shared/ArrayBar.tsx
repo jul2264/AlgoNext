@@ -37,12 +37,12 @@ export function ArrayBar({ element }: ArrayBarProps) {
         animate={{
           backgroundColor: getStateColor(element.state),
         }}
-        className="w-[90%] aspect-square max-w-[80px] rounded-xl border-2 border-white/10 shadow-[0_4px_15px_rgba(0,0,0,0.4)] relative flex items-center justify-center overflow-hidden transition-colors"
+        className="w-[80%] aspect-square max-w-[50px] rounded-lg border-2 border-white/10 shadow-[0_4px_15px_rgba(0,0,0,0.4)] relative flex items-center justify-center overflow-hidden transition-colors"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
         <span 
           className="text-white font-bold font-mono drop-shadow-md z-10"
-          style={{ fontSize: 'clamp(0.8rem, 2vw, 1.5rem)' }}
+          style={{ fontSize: 'clamp(0.7rem, 1.5vw, 1rem)' }}
         >
           {element.value}
         </span>

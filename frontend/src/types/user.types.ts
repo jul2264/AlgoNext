@@ -12,7 +12,7 @@ export interface User {
   updatedAt: string;
 }
 
-export type UserRole = 'student' | 'faculty' | 'admin';
+export type UserRole = 'student' | 'admin';
 
 export interface UserProgress {
   userId: string;

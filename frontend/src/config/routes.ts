@@ -12,7 +12,6 @@ export const ROUTES = {
   PROBLEM_DETAIL: (slug: string) => `/problems/${slug}`,
   VISUALIZER: '/daa',
   PROFILE: '/profile',
-  FACULTY: '/faculty',
 } as const;
 
 /**

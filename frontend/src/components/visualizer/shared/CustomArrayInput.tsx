@@ -48,10 +48,10 @@ export function CustomArrayInput({ onApply, defaultValue = "34, 12, 5, 87, 21, 6
   return (
     <div 
       className="bg-bg-elevated rounded-xl border border-border-default shadow-md w-full"
-      style={{ padding: '1.5rem 3rem' }}
+      style={{ padding: '1rem 2rem' }}
     >
-      <h3 className="text-xl font-bold text-text-primary mb-2">Custom Array Input</h3>
-      <p className="text-base text-text-muted mb-4">
+      <h3 className="text-lg font-bold text-text-primary mb-1">Custom Array Input</h3>
+      <p className="text-sm text-text-muted mb-3">
         Enter up to 50 numbers (between 1 and 100), separated by commas or spaces.
       </p>
       
@@ -66,13 +66,13 @@ export function CustomArrayInput({ onApply, defaultValue = "34, 12, 5, 87, 21, 6
             }}
             disabled={isProcessing}
             placeholder="e.g. 15, 8, 22, 50, 4"
-            className="w-full bg-bg-secondary border border-border-default focus:border-accent-primary text-text-primary rounded-lg px-6 py-4 text-lg outline-none transition-colors"
+            className="w-full bg-bg-secondary border border-border-default focus:border-accent-primary text-text-primary rounded-lg px-4 py-2 text-base outline-none transition-colors"
           />
         </div>
         <button
           onClick={handleApply}
           disabled={isProcessing}
-          className="bg-transparent text-accent-primary hover:bg-accent-primary hover:text-white font-bold py-4 px-10 text-base rounded-lg transition-all hover:shadow-[0_0_15px_rgba(255,45,120,0.4)] disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-accent-primary disabled:hover:shadow-none whitespace-nowrap w-full sm:w-auto"
+          className="bg-transparent text-accent-primary hover:bg-accent-primary hover:text-white font-bold py-2 px-6 text-sm rounded-lg transition-all hover:shadow-[0_0_15px_rgba(255,45,120,0.4)] disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-accent-primary disabled:hover:shadow-none whitespace-nowrap w-full sm:w-auto"
         >
           Apply Array
         </button>

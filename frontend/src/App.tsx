@@ -9,7 +9,7 @@ import { VisualizerPage } from '@/pages/Visualizer';
 import { VisualizerInstancePage } from '@/pages/Visualizer/InstancePage';
 import { CurriculumPage } from '@/pages/Curriculum';
 import { ModulePage } from '@/pages/Curriculum/ModulePage';
-import { FacultyPage } from '@/pages/Faculty';
+
 import { ProfilePage } from '@/pages/Profile';
 import { AiTutorPage } from '@/pages/AiTutor';
 
@@ -45,7 +45,6 @@ export default function App() {
         <Route path="/playground" element={<PlaygroundPage />} />
         <Route path="/daa" element={<VisualizerPage />} />
         <Route path="/daa/:slug" element={<VisualizerInstancePage />} />
-        <Route path="/faculty" element={<FacultyPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/ai-tutor" element={<AiTutorPage />} />
       </Route>

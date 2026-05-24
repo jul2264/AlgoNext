@@ -92,9 +92,9 @@ class LocalExecutionService:
             problem = submission.problem
             test_cases = problem.test_cases.order_by('order')
             
-            # If no test cases are defined, we just run the code with empty input
+            # If no test cases are defined, we just run the code with custom_input (or empty)
             if not test_cases.exists():
-                result = self._execute_code(submission.code, submission.language, "")
+                result = self._execute_code(submission.code, submission.language, submission.custom_input or "")
                 status_code = result['status_code']
                 output = result['output']
                 

@@ -28,16 +28,16 @@ export function StepControls({
 
   return (
     <div 
-      className="bg-bg-elevated rounded-xl border border-border-default shadow-lg flex flex-col gap-6 w-full"
-      style={{ padding: '1.5rem 3rem' }}
+      className="bg-bg-elevated rounded-xl border border-border-default shadow-lg flex flex-col gap-4 w-full"
+      style={{ padding: '1rem 2rem' }}
     >
       {/* Top: Scrubber */}
       <div className="w-full relative">
-        <div className="flex justify-between text-xs text-text-muted mb-4 font-mono tracking-wider font-bold">
+        <div className="flex justify-between text-[10px] sm:text-xs text-text-muted mb-2 font-mono tracking-wider font-bold">
           <span>Step {currentStep + 1}</span>
           <span>{totalSteps} Total</span>
         </div>
-        <div className="w-full bg-bg-secondary rounded-full h-3 overflow-hidden shadow-inner">
+        <div className="w-full bg-bg-secondary rounded-full h-2 overflow-hidden shadow-inner">
           <div 
             className="bg-accent-primary h-full transition-all duration-300 relative shadow-[0_0_10px_rgba(255,45,120,0.5)]"
             style={{ width: `${totalSteps > 1 ? (currentStep / (totalSteps - 1)) * 100 : 100}%` }}
@@ -60,22 +60,22 @@ export function StepControls({
         </div>
 
         {/* Center: Playback */}
-        <div className="flex justify-center items-center gap-4 sm:gap-6">
+        <div className="flex justify-center items-center gap-2 sm:gap-4">
           <button
             onClick={onPrev}
             disabled={currentStep === 0}
-            className="p-2 text-text-muted hover:text-white hover:bg-bg-secondary rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-1 sm:p-2 text-text-muted hover:text-white hover:bg-bg-secondary rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             title="Previous Step"
           >
-            <SkipBack size={20} fill="currentColor" />
+            <SkipBack size={18} fill="currentColor" />
           </button>
           
           <button
             onClick={onTogglePlay}
-            className="w-12 h-12 flex items-center justify-center bg-accent-primary hover:bg-accent-hover text-white rounded-xl transition-all shadow-[0_0_15px_rgba(255,45,120,0.4)] hover:shadow-[0_0_25px_rgba(255,45,120,0.6)] hover:scale-105"
+            className="w-10 h-10 flex items-center justify-center bg-accent-primary hover:bg-accent-hover text-white rounded-xl transition-all shadow-[0_0_15px_rgba(255,45,120,0.4)] hover:shadow-[0_0_25px_rgba(255,45,120,0.6)] hover:scale-105"
             title={isPlaying ? "Pause" : "Play"}
           >
-            {isPlaying ? <Pause size={24} fill="currentColor" /> : <Play size={24} fill="currentColor" className="ml-1" />}
+            {isPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-1" />}
           </button>
           
           <button

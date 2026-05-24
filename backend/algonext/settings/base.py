@@ -41,7 +41,6 @@ LOCAL_APPS = [
     'apps.submissions',
     'apps.progress',
     'apps.adaptive',
-    'apps.faculty',
     'content_loader',
 ]
 

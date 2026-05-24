@@ -26,15 +26,22 @@ export function VisualizerInstancePage() {
     }
   };
 
-  const formatTitle = (s: string) => {
-    return s.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  const renderTitle = (s: string) => {
+    switch (s) {
+      case 'bubble': return <><span className="text-accent-tertiary">Bubble Sort</span> Visualization</>;
+      case 'merge': return <><span className="text-accent-tertiary">Merge Sort</span> Visualization</>;
+      case 'bst': return <><span className="text-accent-tertiary">BST</span> Visualization</>;
+      case 'bfs': return <><span className="text-accent-tertiary">BFS</span> Visualization</>;
+      case 'dfs': return <><span className="text-accent-tertiary">DFS</span> Visualization</>;
+      default: return s.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    }
   };
 
   return (
     <div className="w-full mx-auto py-6 flex flex-col h-[calc(100vh-4rem)]" style={{ paddingLeft: '3vw', paddingRight: '3vw' }}>
       
       {/* Header Area */}
-      <div className="flex items-center gap-6 mb-6 shrink-0">
+      <div className="flex items-center gap-6 shrink-0" style={{ marginBottom: '1.5rem' }}>
         <button 
           onClick={() => navigate('/daa')}
           className="p-3 bg-bg-secondary rounded-xl border border-border-default hover:border-accent-secondary hover:text-accent-secondary transition-colors group"
@@ -42,12 +49,9 @@ export function VisualizerInstancePage() {
           <ChevronLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
         </button>
         <div>
-          <h1 className="text-3xl font-bold font-display text-text-primary tracking-tight">
-            {slug ? formatTitle(slug) : 'Visualizer'}
+          <h1 className="text-5xl font-bold font-display text-text-primary tracking-tight">
+            {slug ? renderTitle(slug) : 'Visualizer'}
           </h1>
-          <p className="text-text-secondary mt-1 font-mono text-xs tracking-widest uppercase">
-            Interactive Animation
-          </p>
         </div>
       </div>
 

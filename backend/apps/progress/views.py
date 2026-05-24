@@ -1,5 +1,7 @@
 from rest_framework import viewsets, permissions, views, status
 from rest_framework.response import Response
+from django.utils import timezone
+from datetime import timedelta
 from .models import UserProgress, UserStreak, UserXP, UserBadge, DailyActivity
 from .serializers import (
     UserProgressSerializer, UserStreakSerializer, UserXPSerializer, 
@@ -27,8 +29,9 @@ class UserSummaryView(views.APIView):
         # Get recent badges
         recent_badges = UserBadge.objects.filter(user=user).select_related('badge').order_by('-earned_at')[:5]
         
-        # Get recent activity
-        recent_activity = DailyActivity.objects.filter(user=user).order_by('-date')[:7]
+        # Get recent activity (last 365 days for GitHub heatmap)
+        one_year_ago = timezone.now().date() - timedelta(days=365)
+        recent_activity = DailyActivity.objects.filter(user=user, date__gte=one_year_ago).order_by('-date')
         
         # Get solved problems count
         solved_count = UserProgress.objects.filter(user=user, status=UserProgress.Status.SOLVED).count()

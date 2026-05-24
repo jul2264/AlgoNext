@@ -113,13 +113,13 @@ export function BFSViz() {
   const currentFrame = frames[currentStep];
 
   return (
-    <div className="flex flex-col h-full bg-bg-primary p-4 gap-4">
-      <div className="flex justify-between items-center mt-4">
-        <h2 className="text-2xl font-bold text-text-primary">Breadth-First Search (BFS)</h2>
-      </div>
+    <div className="flex flex-col h-full bg-bg-primary p-2 sm:p-4 gap-3">
 
-      <div className="bg-bg-elevated p-3 rounded-lg border border-border-default min-h-[60px] flex items-center shadow-md">
-        <p className="text-text-primary text-base">
+      <div 
+        className="bg-bg-elevated rounded-lg border border-border-default min-h-[60px] flex items-center shadow-md"
+        style={{ padding: '1.25rem 2rem' }}
+      >
+        <p className="text-text-primary text-lg">
           <span className="font-bold text-accent-primary">Step {currentStep + 1}: </span> 
           {currentFrame.description}
         </p>

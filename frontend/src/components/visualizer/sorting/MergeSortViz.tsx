@@ -143,24 +143,24 @@ export function MergeSortViz({ initialArray = [34, 12, 5, 87, 21, 65, 43, 90] })
   const boxMaxWidth = getBoxMaxWidth(frames[currentStep].array.length);
 
   return (
-    <div className="flex flex-col h-full bg-bg-primary p-4 gap-4">
-      <div className="flex justify-between items-center mt-4">
-        <h2 className="text-2xl font-bold text-text-primary">Merge Sort Visualization</h2>
-      </div>
+    <div className="flex flex-col h-full bg-bg-primary p-2 sm:p-4 gap-3">
 
-      <div className="bg-bg-elevated p-3 rounded-lg border border-border-default min-h-[60px] flex items-center shadow-md">
-        <p className="text-text-primary text-base">
+      <div 
+        className="bg-bg-elevated rounded-lg border border-border-default min-h-[50px] flex items-center shadow-md"
+        style={{ padding: '1.25rem 2rem' }}
+      >
+        <p className="text-text-primary text-lg">
           <span className="font-bold text-accent-primary">Step {currentStep + 1}: </span> 
           {currentFrame.description}
         </p>
       </div>
 
-      <div className="w-full bg-transparent flex flex-col p-4 sm:p-8 relative transition-all duration-300">
-        <div className="flex flex-wrap justify-center content-center gap-x-3 gap-y-6 w-full max-w-[900px] mx-auto">
+      <div className="w-full bg-transparent flex flex-col p-2 sm:p-4 relative transition-all duration-300">
+        <div className="flex flex-wrap justify-center content-center gap-x-2 gap-y-3 w-full max-w-[900px] mx-auto">
           {frames[currentStep].array.map((element) => (
             <div 
               key={element.id} 
-              style={{ width: 'calc(10% - 0.75rem)', maxWidth: boxMaxWidth }}
+              style={{ width: 'calc(10% - 0.5rem)', maxWidth: boxMaxWidth }}
               className="flex justify-center items-center"
             >
               <ArrayBar element={element} />

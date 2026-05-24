@@ -10,6 +10,7 @@ interface EditorState {
   error: string | null;
   activeTestCaseId: string | null;
   activeProblemId: number | string | null;
+  customInput: string;
   
   setCode: (code: string) => void;
   setLanguage: (lang: string) => void;
@@ -20,6 +21,7 @@ interface EditorState {
   setError: (error: string | null) => void;
   setActiveTestCaseId: (id: string | null) => void;
   setActiveProblemId: (id: number | string | null) => void;
+  setCustomInput: (customInput: string) => void;
   runCode: () => Promise<void>;
 }
 
@@ -35,6 +37,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
   error: null,
   activeTestCaseId: null,
   activeProblemId: null,
+  customInput: '',
 
   setCode: (code) => set({ code }),
   setLanguage: (language) => set({ language }),
@@ -45,9 +48,10 @@ export const useEditorStore = create<EditorState>((set, get) => ({
   setError: (error: string | null) => set({ error }),
   setActiveTestCaseId: (activeTestCaseId) => set({ activeTestCaseId }),
   setActiveProblemId: (activeProblemId) => set({ activeProblemId }),
+  setCustomInput: (customInput) => set({ customInput }),
   
   runCode: async () => {
-    const { code, language, activeProblemId } = get();
+    const { code, language, activeProblemId, customInput } = get();
     if (!activeProblemId) return;
     
     set({ isExecuting: true, error: null, output: null });
@@ -56,7 +60,8 @@ export const useEditorStore = create<EditorState>((set, get) => ({
       const response = await apiClient.post('/submissions/', {
         problem: activeProblemId,
         code,
-        language
+        language,
+        custom_input: customInput
       });
       
       const submissionId = response.data.id;

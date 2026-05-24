@@ -57,17 +57,6 @@ Authorization: Bearer <clerk_session_token>
 | GET | `/adaptive/skill-profile/` | Skill scores per category |
 | GET | `/adaptive/learning-path/` | Suggested learning path |
 
-### Faculty
-
-| Method | Endpoint | Role | Description |
-|--------|----------|------|-------------|
-| GET | `/faculty/classes/` | Teacher | List teacher's classes |
-| POST | `/faculty/classes/` | Teacher | Create a class |
-| POST | `/faculty/classes/{id}/join/` | Student | Join class with code |
-| GET | `/faculty/classes/{id}/students/` | Teacher | Class roster + progress |
-| POST | `/faculty/assignments/` | Teacher | Create assignment |
-| GET | `/faculty/analytics/student/{id}/` | Teacher | Student analytics |
-
 ### Users
 
 | Method | Endpoint | Description |

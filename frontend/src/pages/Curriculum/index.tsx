@@ -1,64 +1,40 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Code2, GitMerge, Network, Cpu, SearchCode, Database } from 'lucide-react';
+import { Box, ArrowRight, Hash, Network, Share2, Type, Shapes, Server, Trophy, Dices } from 'lucide-react';
+import { PageHeader } from '@/components/layout/PageHeader';
 
 export function CurriculumPage() {
   const navigate = useNavigate();
-  const [selectedDifficulty, setSelectedDifficulty] = useState('All');
-  const [selectedTopic, setSelectedTopic] = useState('All');
 
   const modules = [
-    { id: 1, title: 'Arrays & Hashing', slug: 'arrays-&-hashing', icon: Code2, desc: 'Fundamental array traversal, hashing, and manipulation techniques.', progress: 68, status: 'continue', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
-    { id: 2, title: 'Intervals', slug: 'intervals', icon: GitMerge, desc: 'Algorithms from interval merging to non-overlapping scheduling.', progress: 10, status: 'start', colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
-    { id: 3, title: 'Stacks', slug: 'stacks', icon: Network, desc: 'Algorithms dealing with LIFO structures and monotonic stacks.', progress: 5, status: 'start', colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
-    { id: 4, title: 'Linked Lists', slug: 'linked-lists', icon: Cpu, desc: 'Traversal, cycle detection, and merging of linked data structures.', progress: 0, status: 'start', colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
-    { id: 5, title: 'Trees & Graphs', slug: 'trees-&-graphs', icon: SearchCode, desc: 'Fundamental graph searching (BFS/DFS) and tree balancing.', progress: 0, status: 'start', colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
-    { id: 6, title: 'Dynamic Programming', slug: 'dynamic-programming', icon: Database, desc: 'Memoization and tabulating overlapping subproblems.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
+    { id: 1, title: 'Foundations', slug: 'foundations', icon: Box, desc: 'Core fundamentals including basic syntax, variables, and loops.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
+    { id: 2, title: 'Linear Structures', slug: 'linear-structures', icon: ArrowRight, desc: 'Arrays, Linked Lists, Stacks, and Queues.', progress: 0, status: 'start', colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
+    { id: 3, title: 'Hash Structures', slug: 'hash-structures', icon: Hash, desc: 'Hash Maps, Hash Sets, and Collision Resolution strategies.', progress: 0, status: 'start', colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
+    { id: 4, title: 'Trees', slug: 'trees', icon: Network, desc: 'Hierarchical data structures, from Basic to Database Trees.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
+    { id: 5, title: 'Graph Structures', slug: 'graph-structures', icon: Share2, desc: 'Nodes and edges representing networks, BFS, DFS, and shortest paths.', progress: 0, status: 'start', colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
+    { id: 6, title: 'String Structures', slug: 'string-structures', icon: Type, desc: 'Tries, Suffix Arrays, and advanced pattern matching algorithms.', progress: 0, status: 'start', colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
+    { id: 7, title: 'Geometric Structures', slug: 'geometric-structures', icon: Shapes, desc: 'Quad-trees, K-D Trees, and spatial data representation.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
+    { id: 8, title: 'Distributed Structures', slug: 'distributed-structures', icon: Server, desc: 'Consistent Hashing, Merkle Trees, and distributed consensus.', progress: 0, status: 'start', colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
+    { id: 9, title: 'Competitive Programming Structures', slug: 'competitive-programming-structures', icon: Trophy, desc: 'Segment Trees, Fenwick Trees, and disjoint sets.', progress: 0, status: 'start', colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
+    { id: 10, title: 'Probabilistic Structures', slug: 'probabilistic-structures', icon: Dices, desc: 'Bloom Filters, Count-Min Sketch, and HyperLogLog.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
   ];
 
   return (
     <div 
-      className="w-full mx-auto py-10 min-h-[calc(100vh-4rem)] flex flex-col space-y-10"
+      className="w-full mx-auto pb-10 min-h-[calc(100vh-4rem)] flex flex-col gap-4"
       style={{ paddingLeft: '3vw', paddingRight: '3vw' }}
     >
-      <div className="mb-6">
+      <PageHeader>
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-4xl font-bold font-display text-text-primary tracking-tight">Data Structures and Algorithms</h1>
+          <h1 className="text-4xl font-bold font-display text-text-primary tracking-tight">
+            <span className="text-accent-tertiary">Data</span> Structures and Algorithms
+          </h1>
         </motion.div>
-      </div>
+      </PageHeader>
 
       <div className="flex flex-col gap-8 flex-1">
-        {/* Top Filter Bar */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 w-full bg-bg-elevated p-4 rounded-xl border border-border-default shadow-sm">
-          <div className="flex items-center gap-3 w-full sm:w-auto">
-            <span className="text-sm font-bold text-text-muted uppercase tracking-widest font-mono">Difficulty:</span>
-            <select 
-              value={selectedDifficulty}
-              onChange={(e) => setSelectedDifficulty(e.target.value)}
-              className="bg-bg-secondary border border-border-default text-text-primary text-sm rounded-lg focus:ring-accent-secondary focus:border-accent-secondary block w-full sm:w-48 p-2.5 font-mono cursor-pointer"
-            >
-              <option value="All">All Levels</option>
-              <option value="Easy">Easy</option>
-              <option value="Medium">Medium</option>
-              <option value="Hard">Hard</option>
-            </select>
-          </div>
 
-          <div className="flex items-center gap-3 w-full sm:w-auto">
-            <span className="text-sm font-bold text-text-muted uppercase tracking-widest font-mono">Topics:</span>
-            <select 
-              value={selectedTopic}
-              onChange={(e) => setSelectedTopic(e.target.value)}
-              className="bg-bg-secondary border border-border-default text-text-primary text-sm rounded-lg focus:ring-accent-secondary focus:border-accent-secondary block w-full sm:w-48 p-2.5 font-mono cursor-pointer"
-            >
-              <option value="All">All Topics</option>
-              <option value="Data Structures">Data Structures</option>
-              <option value="Algorithms">Algorithms</option>
-              <option value="Advanced">Advanced</option>
-            </select>
-          </div>
-        </div>
 
         {/* Course Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

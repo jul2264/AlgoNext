@@ -1,9 +1,10 @@
-import { BookOpen, Trophy, Clock, Code2, LayoutDashboard } from 'lucide-react';
+import { BookOpen, Trophy, Clock, Code2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, useEffect } from 'react';
 import { useUser } from '@clerk/react';
 import { ActivityHeatmap } from '@/components/dashboard/ActivityHeatmap';
 import { apiClient } from '@/services/api.client';
+import { PageHeader } from '@/components/layout/PageHeader';
 
 export function DashboardPage() {
   const { user } = useUser();
@@ -40,24 +41,18 @@ export function DashboardPage() {
 
   return (
     <div 
-      className="w-full mx-auto py-4 flex flex-col gap-4 min-h-[calc(100vh-4rem)]"
+      className="w-full mx-auto pb-4 flex flex-col gap-4 min-h-[calc(100vh-4rem)]"
       style={{ paddingLeft: '3vw', paddingRight: '3vw' }}
     >
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-2">
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-4xl font-bold font-display text-text-primary tracking-tight">
-            Welcome back, <span className="text-accent-secondary drop-shadow-[0_0_2px_rgba(0,255,204,0.3)]">{user?.firstName || 'Student'}!</span>
-          </h1>
-        </motion.div>
-        
-        <div className="flex bg-bg-secondary border border-border-default rounded-lg p-1">
-          <button
-            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all bg-bg-elevated text-text-primary shadow-sm`}
-          >
-            <LayoutDashboard size={16} /> Overview
-          </button>
+      <PageHeader>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-2">
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
+            <h1 className="text-4xl font-bold font-display text-text-primary tracking-tight">
+              Welcome back, <span className="text-accent-secondary drop-shadow-[0_0_2px_rgba(0,255,204,0.3)]">{user?.firstName || 'Student'}!</span>
+            </h1>
+          </motion.div>
         </div>
-      </div>
+      </PageHeader>
 
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4">
         {/* Stats Grid - Cyberpunk Cards */}

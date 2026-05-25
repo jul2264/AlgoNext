@@ -6,6 +6,7 @@ import { LanguageSelector } from '@/components/editor/LanguageSelector';
 import { GripHorizontal } from 'lucide-react';
 import { useEditorStore } from '@/store/editorStore';
 import { useEffect } from 'react';
+import { PageHeader } from '@/components/layout/PageHeader';
 
 export function PlaygroundPage() {
   const { setActiveProblemId, setCode } = useEditorStore();
@@ -21,16 +22,22 @@ export function PlaygroundPage() {
   }, [setActiveProblemId, setCode]);
 
   return (
-    <div className="flex-1 min-h-[calc(100vh-4rem)] bg-bg-primary py-12 flex justify-center items-center">
-      <div className="max-w-4xl w-full h-[70vh] min-h-[500px] flex flex-col px-10">
-        <div className="flex justify-between items-center mb-6 shrink-0">
-          <h1 className="text-4xl font-bold text-text-primary font-display">
-            Code <span className="text-accent-secondary">Playground</span>
-          </h1>
-          <LanguageSelector />
-        </div>
+    <div 
+      className="w-full mx-auto pb-12 flex flex-col min-h-[calc(100vh-4rem)]"
+      style={{ paddingLeft: '3vw', paddingRight: '3vw' }}
+    >
+      <PageHeader>
+        <h1 className="text-4xl font-bold text-text-primary font-display">
+          Code <span className="text-accent-secondary">Playground</span>
+        </h1>
+      </PageHeader>
 
-        <div className="flex-1 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.4)] border border-border-default/50">
+      <div className="flex-1 flex justify-center w-full mt-4">
+        <div className="max-w-5xl w-full h-[70vh] min-h-[500px] flex flex-col">
+          <div className="flex justify-end" style={{ marginTop: '0.5rem', marginBottom: '1rem' }}>
+            <LanguageSelector />
+          </div>
+          <div className="flex-1 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.4)] border border-border-default/50">
           <Group orientation="vertical">
             {/* TOP: Editor */}
             <Panel defaultSize={60} minSize={30}>
@@ -56,9 +63,10 @@ export function PlaygroundPage() {
               </div>
             </div>
           </Panel>
-        </Group>
-      </div>
+          </Group>
+        </div>
       </div>
     </div>
+  </div>
   );
 }

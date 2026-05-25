@@ -9,6 +9,7 @@ import { VisualizerPage } from '@/pages/Visualizer';
 import { VisualizerInstancePage } from '@/pages/Visualizer/InstancePage';
 import { CurriculumPage } from '@/pages/Curriculum';
 import { ModulePage } from '@/pages/Curriculum/ModulePage';
+import { TreesModulePage } from '@/pages/Curriculum/TreesModulePage';
 
 import { ProfilePage } from '@/pages/Profile';
 import { AiTutorPage } from '@/pages/AiTutor';
@@ -40,6 +41,8 @@ export default function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/dsa" element={<CurriculumPage />} />
+        <Route path="/dsa/trees" element={<TreesModulePage />} />
+        <Route path="/dsa/trees/:slug" element={<ModulePage />} />
         <Route path="/dsa/:slug" element={<ModulePage />} />
         <Route path="/problems/:slug" element={<ProblemPage />} />
         <Route path="/playground" element={<PlaygroundPage />} />

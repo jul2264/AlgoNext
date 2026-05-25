@@ -34,10 +34,7 @@ export function ProtectedRoute() {
       <Sidebar />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col h-full overflow-hidden">
-        {/* Top Navbar */}
-        <Navbar />
-
+      <div className="flex-1 flex flex-col h-full overflow-hidden relative">
         {/* Scrollable Page Content */}
         <main className="flex-1 overflow-y-auto">
           <Outlet />

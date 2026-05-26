@@ -63,10 +63,11 @@ export function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1 }}
-              className="neon-card py-4 px-6 flex flex-col justify-center items-center text-center gap-3 group"
+              className="neon-card flex flex-col justify-center items-center text-center gap-3 group"
+              style={{ paddingTop: '0.75rem', paddingBottom: '1rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
             >
-              <div className={`p-3 rounded-xl border ${stat.bg} ${stat.border} ${stat.color} transition-transform duration-300`}>
-                <stat.icon size={22} />
+              <div className={`${stat.color} transition-transform duration-300`}>
+                <stat.icon size={36} />
               </div>
               <div className="flex flex-col items-center">
                 <h3 className="text-2xl font-bold text-text-primary font-mono mb-1">{stat.value}</h3>

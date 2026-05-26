@@ -5,10 +5,10 @@ export function InputPanel() {
   const { customInput, setCustomInput } = useEditorStore();
 
   return (
-    <div className="flex h-full flex-col bg-bg-secondary text-text-primary rounded-md border border-border-default overflow-hidden">
+    <div className="flex h-full flex-col bg-bg-secondary text-text-primary rounded-sm border border-border-default overflow-hidden">
       <div className="flex items-center gap-2 bg-bg-elevated px-4 py-2 border-b border-border-default">
-        <Keyboard size={16} className="text-text-muted" />
-        <h3 className="text-sm font-medium">Standard Input (stdin)</h3>
+        <Keyboard size={20} className="text-text-muted" />
+        <h3 className="text-lg font-bold">Standard Input (stdin)</h3>
       </div>
       
       <div className="flex-1 p-2 bg-bg-primary/50">

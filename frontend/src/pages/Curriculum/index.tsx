@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Box, ArrowRight, Hash, Network, Share2, Type, Shapes, Server, Trophy, Dices } from 'lucide-react';
@@ -45,17 +44,17 @@ export function CurriculumPage() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: idx * 0.1 }}
               className={`neon-card ${mod.colorClass} flex flex-col h-full group`}
-              style={{ padding: '28px 24px 20px 24px' }}
+              style={{ padding: '16px 24px 20px 24px' }}
             >
-              <div className="flex items-center gap-4 mb-10">
-                <div className={`p-3 bg-bg-tertiary rounded-xl border border-border-default group-hover:border-current transition-colors ${mod.iconColorClass}`}>
+              <div className="flex items-center gap-3 mb-[0.7rem]">
+                <div className={`transition-colors ${mod.iconColorClass}`}>
                   <mod.icon size={26} />
                 </div>
                 <h2 className="text-xl font-bold font-display text-text-primary group-hover:text-current transition-colors">{mod.title}</h2>
               </div>
               
               <div className="mb-14 flex-1">
-                <p className="text-xs font-bold text-text-muted uppercase tracking-wider mb-4 font-mono">Summary</p>
+                <p className="text-xs font-bold text-text-muted uppercase tracking-wider mb-[0.3rem] font-mono">Summary</p>
                 <p className="text-sm text-text-secondary leading-relaxed">{mod.desc}</p>
               </div>
 

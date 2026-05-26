@@ -3,7 +3,6 @@ import { useAuth } from '@clerk/react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { setupApiClient } from '@/services/api.client';
 import { Sidebar } from '../Sidebar';
-import { Navbar } from '../Navbar';
 
 export function ProtectedRoute() {
   const { isLoaded, userId, getToken } = useAuth();

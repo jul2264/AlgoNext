@@ -5,10 +5,10 @@ export function OutputPanel() {
   const { output, error, isExecuting } = useEditorStore();
 
   return (
-    <div className="flex h-full flex-col bg-bg-secondary text-text-primary rounded-md border border-border-default overflow-hidden">
+    <div className="flex h-full flex-col bg-bg-secondary text-text-primary rounded-sm border border-border-default overflow-hidden">
       <div className="flex items-center gap-2 bg-bg-elevated px-4 py-2 border-b border-border-default">
-        <Terminal size={16} className="text-text-muted" />
-        <h3 className="text-sm font-medium">Output</h3>
+        <Terminal size={20} className="text-text-muted" />
+        <h3 className="text-lg font-bold">Output</h3>
       </div>
       
       <div className="flex-1 overflow-auto p-4 font-mono text-sm">

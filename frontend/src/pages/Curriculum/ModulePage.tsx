@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'motion/react';
 import { ChevronLeft, Code2, BrainCircuit, Activity } from 'lucide-react';
 import { apiClient } from '@/services/api.client';
+import { PageHeader } from '@/components/layout/PageHeader';
 
 interface Problem {
   id: string;
@@ -35,25 +36,28 @@ export function ModulePage() {
   };
 
   return (
-    <div className="w-full mx-auto py-10 min-h-[calc(100vh-4rem)] flex flex-col space-y-8" style={{ paddingLeft: '3vw', paddingRight: '3vw' }}>
-      
-      {/* Header Area */}
-      <div className="flex items-center gap-6 mb-4">
-        <button 
-          onClick={() => navigate('/dsa')}
-          className="p-3 bg-bg-secondary rounded-xl border border-border-default hover:border-accent-secondary hover:text-accent-secondary transition-colors group"
-        >
-          <ChevronLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
-        </button>
-        <div>
-          <h1 className="text-4xl lg:text-5xl font-bold font-display text-text-primary tracking-tight capitalize">
-            {slug?.replace(/-/g, ' ')}
-          </h1>
-          <p className="text-text-secondary mt-2 font-mono text-sm tracking-widest uppercase">
-            DSA Module
-          </p>
+    <div 
+      className="w-full mx-auto pb-10 min-h-[calc(100vh-4rem)] flex flex-col gap-4"
+      style={{ paddingLeft: '3vw', paddingRight: '3vw' }}
+    >
+      <PageHeader>
+        <div className="flex items-center gap-6">
+          <button 
+            onClick={() => navigate('/dsa')}
+            className="p-3 bg-bg-secondary rounded-xl border border-border-default hover:border-accent-secondary hover:text-accent-secondary transition-colors group"
+          >
+            <ChevronLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
+          </button>
+          <div>
+            <h1 className="text-3xl lg:text-4xl font-bold font-display text-text-primary tracking-tight capitalize">
+              {slug?.replace(/-/g, ' ')}
+            </h1>
+            <p className="text-text-secondary mt-2 font-mono text-sm tracking-widest uppercase">
+              DSA Module
+            </p>
+          </div>
         </div>
-      </div>
+      </PageHeader>
 
       {/* Content Area */}
       <div className="flex-1">

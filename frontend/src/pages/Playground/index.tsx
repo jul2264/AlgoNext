@@ -37,7 +37,7 @@ export function PlaygroundPage() {
           <div className="flex justify-end" style={{ marginTop: '0.5rem', marginBottom: '1rem' }}>
             <LanguageSelector />
           </div>
-          <div className="flex-1 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.4)] border border-border-default/50">
+          <div className="flex-1 rounded-md overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.4)] border border-border-default/50">
           <Group orientation="vertical">
             {/* TOP: Editor */}
             <Panel defaultSize={60} minSize={30}>
@@ -55,10 +55,10 @@ export function PlaygroundPage() {
             {/* BOTTOM: Test Cases / Output */}
             <Panel defaultSize={40} minSize={20} className="bg-bg-secondary overflow-hidden">
               <div className="flex h-full gap-8 p-6">
-                <div className="w-1/2 neon-card p-1 overflow-hidden h-full rounded-xl">
+                <div className="w-1/2 neon-card p-1 overflow-hidden h-full rounded-md">
                 <InputPanel />
               </div>
-              <div className="w-1/2 neon-card p-1 overflow-hidden h-full">
+              <div className="w-1/2 neon-card p-1 overflow-hidden h-full rounded-md">
                 <OutputPanel />
               </div>
             </div>

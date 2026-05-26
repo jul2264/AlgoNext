@@ -5,7 +5,7 @@ export function CodeEditor() {
   const { code, language, theme, fontSize, setCode } = useEditorStore();
 
   return (
-    <div className="h-full w-full rounded-md border border-border-default overflow-hidden bg-bg-secondary">
+    <div className="h-full w-full rounded-sm border border-border-default overflow-hidden bg-bg-secondary">
       <Editor
         height="100%"
         language={language}

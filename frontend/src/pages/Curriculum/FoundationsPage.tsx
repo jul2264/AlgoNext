@@ -240,20 +240,20 @@ export function FoundationsPage() {
           <h2 className="text-2xl font-bold font-display text-text-primary">1. Introduction</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="neon-card p-6 flex flex-col gap-3">
-            <h3 className="text-lg font-bold text-accent-secondary font-mono">WHAT IT IS</h3>
+          <div className="neon-card py-6 px-8 flex flex-col justify-start">
+            <h3 className="text-lg font-bold text-accent-secondary font-mono mb-[0.3rem]">WHAT IT IS</h3>
             <p className="text-sm text-text-secondary leading-relaxed">
               Foundations represent the basic plumbing of computer science: variables (how data is labeled), loop iteration (repeating operations), and function recursion (functions calling themselves to solve sub-problems).
             </p>
           </div>
-          <div className="neon-card p-6 flex flex-col gap-3">
-            <h3 className="text-lg font-bold text-accent-primary font-mono">WHY IT EXISTS</h3>
+          <div className="neon-card neon-card-pink py-6 px-8 flex flex-col justify-start">
+            <h3 className="text-lg font-bold text-accent-primary font-mono mb-[0.3rem]">WHY IT EXISTS</h3>
             <p className="text-sm text-text-secondary leading-relaxed">
               To write correct and performant code, developers must understand how variables occupy memory, how execution context flows line-by-line, and how algorithm complexity scales when loops or recursive stack frames are processed by CPU threads.
             </p>
           </div>
-          <div className="neon-card p-6 flex flex-col gap-3">
-            <h3 className="text-lg font-bold text-accent-tertiary font-mono">REAL-WORLD ANALOGY</h3>
+          <div className="neon-card neon-card-yellow py-6 px-8 flex flex-col justify-start">
+            <h3 className="text-lg font-bold text-accent-tertiary font-mono mb-[0.3rem]">REAL-WORLD ANALOGY</h3>
             <p className="text-sm text-text-secondary leading-relaxed">
               Think of variables as named drawer files, loops as assembly-line workers stamping widgets sequentially, and recursion as a set of nested Russian Matryoshka dolls—each doll looks identical but is smaller, and you must open all of them to find the prize.
             </p>
@@ -444,8 +444,8 @@ export function FoundationsPage() {
           <h2 className="text-2xl font-bold font-display text-text-primary">4. Internal Working</h2>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="neon-card p-6 flex flex-col gap-4">
-            <h3 className="text-lg font-bold text-accent-secondary font-mono flex items-center gap-2">
+          <div className="neon-card py-6 px-8 flex flex-col justify-start">
+            <h3 className="text-lg font-bold text-accent-secondary font-mono mb-[0.3rem] flex items-center gap-2">
               <span>STACK VS HEAP MEMORY LAYOUT</span>
             </h3>
             <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
@@ -462,8 +462,8 @@ export function FoundationsPage() {
               </ul>
             </div>
           </div>
-          <div className="neon-card p-6 flex flex-col gap-4">
-            <h3 className="text-lg font-bold text-accent-primary font-mono flex items-center gap-2">
+          <div className="neon-card neon-card-pink py-6 px-8 flex flex-col justify-start">
+            <h3 className="text-lg font-bold text-accent-primary font-mono mb-[0.3rem] flex items-center gap-2">
               <span>RECURSION FLOW & THE RUNTIME STACK</span>
             </h3>
             <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
@@ -547,20 +547,20 @@ export function FoundationsPage() {
           <h2 className="text-2xl font-bold font-display text-text-primary">7. Real-World Applications</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="neon-card p-6 flex flex-col gap-3">
-            <h3 className="text-lg font-bold text-accent-secondary font-mono">FILE SYSTEM TRAVERSAL</h3>
+          <div className="neon-card py-6 px-8 flex flex-col justify-start">
+            <h3 className="text-lg font-bold text-accent-secondary font-mono mb-[0.3rem]">FILE SYSTEM TRAVERSAL</h3>
             <p className="text-sm text-text-secondary leading-relaxed">
               Operating system folder search trees are recursive structures. Traversal APIs call themselves recursively for child folders inside parents until finding matching file patterns.
             </p>
           </div>
-          <div className="neon-card p-6 flex flex-col gap-3">
-            <h3 className="text-lg font-bold text-accent-primary font-mono">BROWSER CALL STACKS</h3>
+          <div className="neon-card neon-card-pink py-6 px-8 flex flex-col justify-start">
+            <h3 className="text-lg font-bold text-accent-primary font-mono mb-[0.3rem]">BROWSER CALL STACKS</h3>
             <p className="text-sm text-text-secondary leading-relaxed">
               Web browser JS engines maintain call stacks. Function executions push context blocks. When exceptions happen, the Stack Trace prints active frames, letting you trace errors.
             </p>
           </div>
-          <div className="neon-card p-6 flex flex-col gap-3">
-            <h3 className="text-lg font-bold text-accent-tertiary font-mono">UNDO / REDO LOGIC</h3>
+          <div className="neon-card neon-card-yellow py-6 px-8 flex flex-col justify-start">
+            <h3 className="text-lg font-bold text-accent-tertiary font-mono mb-[0.3rem]">UNDO / REDO LOGIC</h3>
             <p className="text-sm text-text-secondary leading-relaxed">
               Editors stack snapshots of state. The undo operations pop states from the undo-stack and push them onto the redo-stack, allowing structured reversal of user inputs.
             </p>

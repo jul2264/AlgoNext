@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Box, ArrowRight, Hash, Network, Share2, Type, Shapes, Server, Trophy, Dices } from 'lucide-react';
@@ -5,9 +6,29 @@ import { PageHeader } from '@/components/layout/PageHeader';
 
 export function CurriculumPage() {
   const navigate = useNavigate();
+  const [foundationsProgress, setFoundationsProgress] = useState(0);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('dsa_progress_foundations');
+      if (saved) {
+        const completedMap = JSON.parse(saved);
+        const completedCount = Object.values(completedMap).filter(Boolean).length;
+        setFoundationsProgress(Math.round((completedCount / 8) * 100));
+      }
+    } catch (e) {
+      console.error('Failed to parse foundations progress:', e);
+    }
+  }, []);
+
+  const getStatus = (progress: number) => {
+    if (progress === 0) return 'start';
+    if (progress === 100) return 'completed';
+    return 'in progress';
+  };
 
   const modules = [
-    { id: 1, title: 'Foundations', slug: 'foundations', icon: Box, desc: 'Core fundamentals including basic syntax, variables, and loops.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
+    { id: 1, title: 'Foundations', slug: 'foundations', icon: Box, desc: 'Core fundamentals including basic syntax, variables, and loops.', progress: foundationsProgress, status: getStatus(foundationsProgress), colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
     { id: 2, title: 'Linear Structures', slug: 'linear-structures', icon: ArrowRight, desc: 'Arrays, Linked Lists, Stacks, and Queues.', progress: 0, status: 'start', colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
     { id: 3, title: 'Hash Structures', slug: 'hash-structures', icon: Hash, desc: 'Hash Maps, Hash Sets, and Collision Resolution strategies.', progress: 0, status: 'start', colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
     { id: 4, title: 'Trees', slug: 'trees', icon: Network, desc: 'Hierarchical data structures, from Basic to Database Trees.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },

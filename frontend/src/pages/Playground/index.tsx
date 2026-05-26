@@ -6,20 +6,38 @@ import { LanguageSelector } from '@/components/editor/LanguageSelector';
 import { GripHorizontal } from 'lucide-react';
 import { useEditorStore } from '@/store/editorStore';
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { PageHeader } from '@/components/layout/PageHeader';
 
 export function PlaygroundPage() {
-  const { setActiveProblemId, setCode } = useEditorStore();
+  const { setActiveProblemId, setCode, setLanguage, runCode } = useEditorStore();
+  const location = useLocation();
+  const state = location.state as { code?: string; language?: string; execute?: boolean } | null;
 
-  // For the playground, we can just set a dummy active problem ID 
-  // so the backend accepts the execution (or we could modify the backend to accept ad-hoc code)
-  // For now, we'll assume problem ID 1 is a safe fallback or just let the backend handle it.
   useEffect(() => {
-    // We'll set it to a generic problem ID or null if the backend supports raw execution
     setActiveProblemId(1);
-    setCode('print("Hello from the Playground!")');
-    return () => setActiveProblemId(null);
-  }, [setActiveProblemId, setCode]);
+    
+    if (state?.code) {
+      setCode(state.code);
+      if (state.language) {
+        setLanguage(state.language);
+      }
+      if (state.execute) {
+        // Run code after Zustand state commits
+        setTimeout(() => {
+          runCode();
+        }, 100);
+      }
+    } else {
+      setCode('print("Hello from the Playground!")');
+      setLanguage('python');
+    }
+    
+    return () => {
+      setActiveProblemId(null);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div 

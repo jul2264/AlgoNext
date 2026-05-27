@@ -381,8 +381,10 @@ export function FoundationsPage() {
     });
   };
 
-  const completedCount = Object.values(completedSections).filter(Boolean).length;
-  const progressPercent = Math.round((completedCount / 8) * 100);
+  const SECTION_WEIGHTS: Record<number, number> = { 1: 5, 2: 15, 3: 10, 4: 15, 5: 10, 6: 15, 7: 5, 8: 25 };
+  const progressPercent = Object.entries(completedSections)
+    .filter(([, done]) => done)
+    .reduce((sum, [key]) => sum + (SECTION_WEIGHTS[Number(key)] || 0), 0);
 
   // Quiz State
   const [currentQuizQuestion, setCurrentQuizQuestion] = useState(0);
@@ -447,37 +449,36 @@ export function FoundationsPage() {
       className="w-full mx-auto pb-16 min-h-[calc(100vh-4rem)] flex flex-col gap-8"
       style={{ paddingLeft: '3vw', paddingRight: '3vw' }}
     >
-      <PageHeader>
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 w-full pr-4">
-          <div className="flex items-center gap-6">
-            <button 
-              onClick={() => navigate('/dsa')}
-              className="p-3 bg-bg-secondary rounded-xl border border-border-default hover:border-accent-secondary hover:text-accent-secondary transition-colors group"
-            >
-              <ChevronLeft size={24} className="opacity-70 group-hover:-translate-x-1 transition-transform" />
-            </button>
-            <div>
-              <h1 className="text-3xl lg:text-4xl font-bold font-display text-text-primary tracking-tight">
-                Foundations of <span className="text-accent-secondary drop-shadow-[0_0_2px_rgba(0,255,204,0.3)]">DSA</span>
-              </h1>
-              <p className="text-text-secondary mt-2 font-mono text-sm tracking-widest uppercase">
-                Complexity, Memory, Variables & Loops
-              </p>
+      <PageHeader
+        centerContent={
+          <div className="flex flex-col gap-2 w-full select-none">
+            <div className="flex justify-between text-sm font-mono font-bold">
+              <span className="text-text-muted">PROGRESS</span>
+              <span className="text-accent-secondary font-mono">{progressPercent}%</span>
+            </div>
+            <div className="h-2.5 bg-bg-primary rounded-full overflow-hidden border border-white/5 relative">
+              <div 
+                className="h-full bg-accent-secondary rounded-full transition-all duration-500 ease-out shadow-[0_0_10px_rgba(0,255,204,0.3)]" 
+                style={{ width: `${progressPercent}%` }} 
+              />
             </div>
           </div>
-          <div className="flex items-center gap-4 bg-bg-secondary border border-border-default rounded-xl px-5 py-3 select-none shrink-0 w-full md:w-[220px]">
-            <div className="flex flex-col gap-1.5 w-full">
-              <div className="flex justify-between text-xs font-mono font-bold">
-                <span className="text-text-muted">PROGRESS</span>
-                <span className="text-accent-secondary font-mono">{progressPercent}%</span>
-              </div>
-              <div className="h-2 bg-bg-primary rounded-full overflow-hidden border border-white/5 relative">
-                <div 
-                  className="h-full bg-accent-secondary rounded-full transition-all duration-500 ease-out shadow-[0_0_10px_rgba(0,255,204,0.3)]" 
-                  style={{ width: `${progressPercent}%` }} 
-                />
-              </div>
-            </div>
+        }
+      >
+        <div className="flex items-center gap-5">
+          <button 
+            onClick={() => navigate('/dsa')}
+            className="p-3 bg-bg-secondary rounded-xl border border-border-default hover:border-accent-secondary hover:text-accent-secondary transition-colors group"
+          >
+            <ChevronLeft size={24} className="opacity-70 group-hover:-translate-x-1 transition-transform" />
+          </button>
+          <div>
+            <h1 className="text-3xl lg:text-4xl font-bold font-display text-text-primary tracking-tight">
+              Foundations of <span className="text-accent-secondary drop-shadow-[0_0_2px_rgba(0,255,204,0.3)]">DSA</span>
+            </h1>
+            <p className="text-text-secondary mt-1 font-mono text-sm tracking-widest uppercase">
+              Complexity, Memory, Variables & Loops
+            </p>
           </div>
         </div>
       </PageHeader>
@@ -487,7 +488,7 @@ export function FoundationsPage() {
         <div className="flex justify-between items-center w-full mb-2">
           <div className="flex items-center gap-2">
             <BookOpen className="text-accent-secondary opacity-70" size={24} />
-            <h2 className="text-2xl font-bold font-display text-text-primary">1. Introduction</h2>
+            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[1] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>1. Introduction</h2>
           </div>
           <button 
             onClick={() => toggleSection(1)} 
@@ -528,7 +529,7 @@ export function FoundationsPage() {
         <div className="flex justify-between items-center w-full mb-2">
           <div className="flex items-center gap-2">
             <Layers className="text-accent-primary opacity-70" size={24} />
-            <h2 className="text-2xl font-bold font-display text-text-primary">2. Interactive Visualization</h2>
+            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[2] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>2. Interactive Visualization</h2>
           </div>
           <button 
             onClick={() => toggleSection(2)} 
@@ -687,7 +688,7 @@ export function FoundationsPage() {
         <div className="flex justify-between items-center w-full mb-2">
           <div className="flex items-center gap-2">
             <Table className="text-accent-tertiary opacity-70" size={24} />
-            <h2 className="text-2xl font-bold font-display text-text-primary">3. Basic Operations & Complexities</h2>
+            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[3] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>3. Basic Operations & Complexities</h2>
           </div>
           <button 
             onClick={() => toggleSection(3)} 
@@ -732,7 +733,7 @@ export function FoundationsPage() {
         <div className="flex justify-between items-center w-full mb-2">
           <div className="flex items-center gap-2">
             <Cpu className="text-accent-secondary opacity-70" size={24} />
-            <h2 className="text-2xl font-bold font-display text-text-primary">4. Internal Working</h2>
+            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[4] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>4. Internal Working</h2>
           </div>
           <button 
             onClick={() => toggleSection(4)} 
@@ -791,7 +792,7 @@ export function FoundationsPage() {
         <div className="flex justify-between items-center w-full mb-2">
           <div className="flex items-center gap-2">
             <Code2 className="text-accent-tertiary opacity-70" size={24} />
-            <h2 className="text-2xl font-bold font-display text-text-primary">5. Code Implementation</h2>
+            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[5] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>5. Code Implementation</h2>
           </div>
           <button 
             onClick={() => toggleSection(5)} 
@@ -831,7 +832,7 @@ export function FoundationsPage() {
         <div className="flex justify-between items-center w-full mb-2">
           <div className="flex items-center gap-2">
             <HelpCircle className="text-accent-primary opacity-70" size={24} />
-            <h2 className="text-2xl font-bold font-display text-text-primary">6. Common Foundations Problems</h2>
+            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[6] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>6. Common Foundations Problems</h2>
           </div>
           <button 
             onClick={() => toggleSection(6)} 
@@ -880,7 +881,7 @@ export function FoundationsPage() {
         <div className="flex justify-between items-center w-full mb-2">
           <div className="flex items-center gap-2">
             <Share2 className="text-accent-secondary opacity-70" size={24} />
-            <h2 className="text-2xl font-bold font-display text-text-primary">7. Real-World Applications</h2>
+            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[7] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>7. Real-World Applications</h2>
           </div>
           <button 
             onClick={() => toggleSection(7)} 
@@ -921,7 +922,7 @@ export function FoundationsPage() {
         <div className="flex justify-between items-center w-full mb-0">
           <div className="flex items-center gap-3">
             <Award className="text-accent-primary opacity-70" size={32} />
-            <h2 className="text-2xl font-bold font-display text-text-primary">8. Foundations Quiz</h2>
+            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[8] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>8. Foundations Quiz</h2>
           </div>
         </div>
 

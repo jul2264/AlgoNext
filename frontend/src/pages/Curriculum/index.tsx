@@ -12,9 +12,12 @@ export function CurriculumPage() {
     try {
       const saved = localStorage.getItem('dsa_progress_foundations');
       if (saved) {
-        const completedMap = JSON.parse(saved);
-        const completedCount = Object.values(completedMap).filter(Boolean).length;
-        setFoundationsProgress(Math.round((completedCount / 8) * 100));
+        const completedMap = JSON.parse(saved) as Record<string, boolean>;
+        const weights: Record<number, number> = { 1: 5, 2: 15, 3: 10, 4: 15, 5: 10, 6: 15, 7: 5, 8: 25 };
+        const progress = Object.entries(completedMap)
+          .filter(([, done]) => done)
+          .reduce((sum, [key]) => sum + (weights[Number(key)] || 0), 0);
+        setFoundationsProgress(progress);
       }
     } catch (e) {
       console.error('Failed to parse foundations progress:', e);

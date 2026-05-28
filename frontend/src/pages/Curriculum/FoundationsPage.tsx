@@ -920,28 +920,24 @@ export function FoundationsPage() {
       {/* 8. INTERACTIVE QUIZ SECTION */}
       <section className="flex flex-col gap-1">
         <div className="flex justify-between items-center w-full mb-0">
-          <div className="flex items-center gap-3">
-            <Award className="text-accent-primary opacity-70" size={32} />
+          <div className="flex items-center gap-2">
+            <Award className="text-accent-primary opacity-70" size={24} />
             <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[8] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>8. Foundations Quiz</h2>
           </div>
         </div>
 
         <div className="neon-card neon-card-pink" style={{ paddingTop: '0.75rem', paddingBottom: '1.5rem', paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>
           {!quizFinished ? (
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-1">
               {/* Quiz Header */}
-              <div className="flex justify-between items-center border-b border-border-default/50 pb-4">
-                <div>
-                  <h3 className="text-xl font-bold text-text-primary">Test Your Knowledge</h3>
-                  <p className="text-sm text-text-muted">Answer the questions to unlock foundations mastery.</p>
-                </div>
-                <span className="text-lg font-mono font-bold text-accent-primary uppercase tracking-wider bg-transparent border-0 p-0">
+              <div className="flex justify-start items-center">
+                <span className="text-xl font-mono text-accent-primary uppercase tracking-wider">
                   QUESTION {currentQuizQuestion + 1} OF {activeQuestions.length}
                 </span>
               </div>
 
               {/* Question & Options Group */}
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-3">
                 {/* Question Text */}
                 <h4 className="text-lg font-semibold text-text-primary leading-relaxed">
                   {activeQuestions[currentQuizQuestion].question}
@@ -993,35 +989,45 @@ export function FoundationsPage() {
                   <p className="text-sm text-text-secondary leading-relaxed">
                     {activeQuestions[currentQuizQuestion].explanation}
                   </p>
-                  <button
-                    onClick={() => {
-                      if (currentQuizQuestion < activeQuestions.length - 1) {
-                        setCurrentQuizQuestion(prev => prev + 1);
-                        setSelectedOption(null);
-                        setIsAnswered(false);
-                      } else {
-                        setQuizFinished(true);
-                        setSectionCompleted(8, true);
-                      }
-                    }}
-                    className="self-end px-14 py-4 bg-accent-primary text-bg-primary font-mono font-bold text-base tracking-wider uppercase rounded-lg hover:scale-105 active:scale-95 transition-all shadow-[0_0_15px_rgba(255,45,120,0.25)] hover:shadow-[0_0_20px_rgba(255,45,120,0.45)] cursor-pointer"
-                  >
-                    {currentQuizQuestion < activeQuestions.length - 1 ? 'Next Question' : 'Finish Quiz'}
-                  </button>
+                  
+                  {/* Action Button */}
+                  <div className="pt-6 mt-4 border-t border-border-default/20">
+                    <button
+                      onClick={() => {
+                        if (currentQuizQuestion < activeQuestions.length - 1) {
+                          setCurrentQuizQuestion(prev => prev + 1);
+                          setSelectedOption(null);
+                          setIsAnswered(false);
+                        } else {
+                          setQuizFinished(true);
+                          setSectionCompleted(8, true);
+                        }
+                      }}
+                      className="w-full py-4 bg-accent-primary text-bg-primary font-mono font-bold text-xl tracking-wider uppercase rounded-lg hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_15px_rgba(255,45,120,0.25)] hover:shadow-[0_0_20px_rgba(255,45,120,0.45)] cursor-pointer"
+                    >
+                      {currentQuizQuestion < activeQuestions.length - 1 ? 'Next Question' : 'Finish Quiz'}
+                    </button>
+                  </div>
                 </div>
               ) : (
-                <button
-                  disabled={selectedOption === null}
-                  onClick={() => {
-                    setIsAnswered(true);
-                    if (selectedOption === activeQuestions[currentQuizQuestion].answer) {
-                      setScore(prev => prev + 1);
-                    }
-                  }}
-                  className="self-end px-28 py-7 bg-bg-secondary border border-accent-primary text-accent-primary font-mono font-bold text-sm tracking-wider uppercase rounded-lg hover:scale-105 hover:shadow-[0_0_15px_rgba(255,45,120,0.2)] active:scale-95 disabled:opacity-40 disabled:scale-100 disabled:cursor-not-allowed transition-all cursor-pointer mt-6"
-                >
-                  Submit Answer
-                </button>
+                <div style={{ marginTop: '1rem' }}>
+                  <button
+                    disabled={selectedOption === null}
+                    onClick={() => {
+                      setIsAnswered(true);
+                      if (selectedOption === activeQuestions[currentQuizQuestion].answer) {
+                        setScore(prev => prev + 1);
+                      }
+                    }}
+                    className={`w-full py-4 bg-transparent border font-mono font-bold text-base tracking-wider uppercase rounded-lg active:scale-95 disabled:scale-100 disabled:cursor-not-allowed transition-all cursor-pointer ${
+                      selectedOption === null 
+                        ? 'border-accent-tertiary text-accent-tertiary hover:bg-accent-tertiary/10 hover:shadow-[0_0_15px_rgba(255,224,74,0.2)] disabled:opacity-40' 
+                        : 'border-success text-success hover:bg-success/10 hover:shadow-[0_0_15px_rgba(0,255,204,0.3)] shadow-[0_0_10px_rgba(0,255,204,0.15)]'
+                    }`}
+                  >
+                    Submit Answer
+                  </button>
+                </div>
               )}
             </div>
           ) : (

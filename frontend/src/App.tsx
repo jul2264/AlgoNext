@@ -11,9 +11,11 @@ import { CurriculumPage } from '@/pages/Curriculum';
 import { ModulePage } from '@/pages/Curriculum/ModulePage';
 import { TreesModulePage } from '@/pages/Curriculum/TreesModulePage';
 import { FoundationsPage } from '@/pages/Curriculum/FoundationsPage';
-
+import { LinearStructuresPage } from '@/pages/Curriculum/LinearStructuresPage';
+import { ArraysPage } from '@/pages/Curriculum/ArraysPage';
 import { ProfilePage } from '@/pages/Profile';
 import { AiTutorPage } from '@/pages/AiTutor';
+import { PlaygroundPage } from '@/pages/Playground';
 
 function NotFoundPage() {
   return (
@@ -25,8 +27,6 @@ function NotFoundPage() {
     </div>
   );
 }
-
-import { PlaygroundPage } from '@/pages/Playground';
 
 export default function App() {
   return (
@@ -43,6 +43,9 @@ export default function App() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/dsa" element={<CurriculumPage />} />
         <Route path="/dsa/foundations" element={<FoundationsPage />} />
+        <Route path="/dsa/linear-structures" element={<LinearStructuresPage />} />
+        <Route path="/dsa/linear-structures/arrays" element={<ArraysPage />} />
+        <Route path="/dsa/linear-structures/:slug" element={<ModulePage />} />
         <Route path="/dsa/trees" element={<TreesModulePage />} />
         <Route path="/dsa/trees/:slug" element={<ModulePage />} />
         <Route path="/dsa/:slug" element={<ModulePage />} />

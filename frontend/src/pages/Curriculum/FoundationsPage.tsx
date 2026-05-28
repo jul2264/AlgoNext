@@ -152,7 +152,7 @@ const VISUALIZATION_STEPS = [
   {
     step: 0,
     line: 1,
-    description: 'Initial function call is made to factorial(3). Pushing first stack frame.',
+    description: 'Initial function call is made to factorial(3). Pushing first execution frame.',
     stack: [
       { id: 1, name: 'factorial(3)', param: 'n = 3', status: 'active', returnValue: null }
     ]
@@ -206,7 +206,7 @@ const VISUALIZATION_STEPS = [
   {
     step: 6,
     line: 3,
-    description: 'factorial(1) resolves and returns 1. Popping frame from stack.',
+    description: 'factorial(1) resolves and returns 1. Popping execution frame.',
     stack: [
       { id: 1, name: 'factorial(3)', param: 'n = 3', status: 'suspended', returnValue: null },
       { id: 2, name: 'factorial(2)', param: 'n = 2', status: 'resolving', returnValue: '2 * factorial(1) = 2 * 1' }
@@ -215,7 +215,7 @@ const VISUALIZATION_STEPS = [
   {
     step: 7,
     line: 5,
-    description: 'factorial(2) completes calculation: 2 * 1 = 2. Preparing to return 2. Popping frame from stack.',
+    description: 'factorial(2) completes calculation: 2 * 1 = 2. Preparing to return 2. Popping execution frame.',
     stack: [
       { id: 1, name: 'factorial(3)', param: 'n = 3', status: 'resolving', returnValue: '3 * factorial(2) = 3 * 2' }
     ]
@@ -223,7 +223,7 @@ const VISUALIZATION_STEPS = [
   {
     step: 8,
     line: 5,
-    description: 'factorial(3) completes calculation: 3 * 2 = 6. All call stack frames resolved. Final answer: 6.',
+    description: 'factorial(3) completes calculation: 3 * 2 = 6. All call frames resolved. Final answer: 6.',
     stack: []
   }
 ];
@@ -545,7 +545,7 @@ export function FoundationsPage() {
         </div>
         <div className="neon-card neon-card-pink flex flex-col gap-6" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
           <div className="border-b border-border-default pb-4">
-            <h3 className="text-lg font-bold text-text-primary mb-1">Visualizing a Recursion Call Stack</h3>
+            <h3 className="text-lg font-bold text-text-primary mb-1">Visualizing a Recursion Call</h3>
             <p className="text-sm text-text-muted">Trace the push and pop operations of execution frames when computing <code className="text-accent-secondary">factorial(3)</code>.</p>
           </div>
 
@@ -627,7 +627,7 @@ export function FoundationsPage() {
             <div className="flex flex-col justify-end min-h-[300px] border border-border-default bg-bg-primary/50 rounded-xl relative overflow-hidden" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
               <div className="absolute top-4 left-4 flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-text-muted">
                 <Database size={14} className="opacity-70" />
-                <span>Runtime Call Stack (LIFO)</span>
+                <span>Runtime Calls (LIFO)</span>
               </div>
               
               <div className="flex flex-col-reverse gap-3 w-full z-10">
@@ -638,7 +638,7 @@ export function FoundationsPage() {
                       animate={{ opacity: 1 }}
                       className="text-center py-10 text-text-muted italic font-mono text-sm"
                     >
-                      [Call Stack Empty / Idle]
+                      [Calls Empty / Idle]
                     </motion.div>
                   ) : (
                     activeStepData.stack.map((frame) => {

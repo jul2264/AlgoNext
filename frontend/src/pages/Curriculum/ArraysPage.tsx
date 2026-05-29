@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { 
   ChevronLeft, BookOpen, Layers, Table, Cpu, Code2, 
   HelpCircle, Share2, Play, Pause, SkipForward, RotateCcw, 
@@ -8,8 +8,19 @@ import {
 } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 
+interface VisStep {
+  step: number;
+  description: string;
+  array: (number | null)[];
+  activeIndex?: number;
+  pointers?: { label: string; index: number; }[];
+  highlightIndices?: number[];
+  newArray?: (number | null)[] | null;
+  line: number;
+}
+
 // Visualizer steps configuration
-const VISUALIZATION_STEPS = {
+const VISUALIZATION_STEPS: Record<'traversal' | 'insertion' | 'deletion' | 'growth', VisStep[]> = {
   traversal: [
     {
       step: 0,
@@ -1030,7 +1041,7 @@ export function ArraysPage() {
               <div className="flex flex-col gap-10 w-full items-center z-10">
                 {/* Array Container */}
                 <div className="flex flex-col items-center gap-2">
-                  {activeVisTab === 'growth' && activeStepData.newArray !== null && (
+                  {activeVisTab === 'growth' && activeStepData.newArray && (
                     <span className="text-xs font-mono text-text-muted uppercase">Old Array:</span>
                   )}
                   <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto max-w-full pb-2 px-2">
@@ -1061,7 +1072,7 @@ export function ArraysPage() {
                           {/* Pointer Label */}
                           {isPointer && (
                             <div className="absolute -top-7 px-2 py-0.5 bg-accent-primary text-bg-primary rounded text-[9px] font-mono font-bold uppercase whitespace-nowrap shadow-md">
-                              {activeStepData.pointers.find(p => p.index === idx)?.label}
+                              {activeStepData.pointers?.find(p => p.index === idx)?.label}
                             </div>
                           )}
                         </div>
@@ -1071,7 +1082,7 @@ export function ArraysPage() {
                 </div>
 
                 {/* Growth visualizer secondary row */}
-                {activeVisTab === 'growth' && activeStepData.newArray !== null && (
+                {activeVisTab === 'growth' && activeStepData.newArray && (
                   <div className="flex flex-col items-center gap-2 border-t border-white/5 pt-6 w-full">
                     <span className="text-xs font-mono text-accent-secondary uppercase">New Allocated Array (Size: 8):</span>
                     <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto max-w-full pb-2 px-2">

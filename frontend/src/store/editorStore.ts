@@ -52,13 +52,12 @@ export const useEditorStore = create<EditorState>((set, get) => ({
   
   runCode: async () => {
     const { code, language, activeProblemId, customInput } = get();
-    if (!activeProblemId) return;
     
     set({ isExecuting: true, error: null, output: null });
     
     try {
       const response = await apiClient.post('/submissions/', {
-        problem: activeProblemId,
+        problem: activeProblemId || null,
         code,
         language,
         custom_input: customInput

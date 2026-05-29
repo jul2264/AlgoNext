@@ -15,7 +15,7 @@ export function PlaygroundPage() {
   const state = location.state as { code?: string; language?: string; execute?: boolean } | null;
 
   useEffect(() => {
-    setActiveProblemId(1);
+    setActiveProblemId(null);
     
     if (state?.code) {
       setCode(state.code);

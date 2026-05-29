@@ -91,6 +91,26 @@ class LocalExecutionService:
         
         try:
             problem = submission.problem
+            if not problem:
+                # Playground run (no problem attached) - run directly with custom input
+                result = self._execute_code(submission.code, submission.language, submission.custom_input or "")
+                status_code = result['status_code']
+                output = result['output']
+                
+                if status_code == 200:
+                    submission.status = Submission.Status.ACCEPTED
+                    submission.stdout = output
+                elif status_code == 408:
+                    submission.status = Submission.Status.TLE
+                    submission.stderr = output
+                else:
+                    submission.status = Submission.Status.RUNTIME_ERROR
+                    submission.stderr = output
+                    
+                submission.execution_time_ms = result['time']
+                submission.save()
+                return
+
             test_cases = problem.test_cases.order_by('order')
             
             # If no test cases are defined, we just run the code with custom_input (or empty)

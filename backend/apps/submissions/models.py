@@ -19,7 +19,7 @@ class Submission(TimeStampedModel):
         'users.User', related_name='submissions', on_delete=models.CASCADE
     )
     problem = models.ForeignKey(
-        'problems.Problem', related_name='submissions', on_delete=models.CASCADE
+        'problems.Problem', related_name='submissions', on_delete=models.CASCADE, null=True, blank=True
     )
     code = models.TextField()
     language = models.CharField(max_length=20)

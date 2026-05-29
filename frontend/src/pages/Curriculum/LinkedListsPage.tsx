@@ -1601,7 +1601,7 @@ export function LinkedListsPage() {
               <div>
                 <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Node Structure</strong>
                 <p>Each node contains the value and the reference address of the successor node in RAM:</p>
-                <div className="grid grid-cols-3 gap-2 font-mono text-sm text-center bg-bg-primary/50 p-2.5 rounded-lg border border-border-default/20 text-accent-secondary mt-2">
+                <div className="grid grid-cols-3 gap-2 font-mono text-sm text-center bg-bg-primary/50 p-2.5 rounded-lg border border-border-default/20 text-accent-secondary mt-2 max-w-xs mx-auto">
                   <div>[10 | 5000]</div>
                   <div>[20 | 9000]</div>
                   <div>[30 | NULL]</div>
@@ -1611,10 +1611,10 @@ export function LinkedListsPage() {
               <div>
                 <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Memory Layout</strong>
                 <p>Unlike arrays which use a single contiguous block, linked lists are scattered dynamically in heap memory:</p>
-                <div className="space-y-1.5 font-mono text-sm bg-bg-primary/30 p-2.5 rounded-lg border border-border-default/20 mt-2">
-                  <div className="flex justify-between"><span>Address 1000 &rarr;</span> <span className="text-accent-secondary font-bold">[10 | 5000]</span></div>
-                  <div className="flex justify-between"><span>Address 5000 &rarr;</span> <span className="text-accent-secondary font-bold">[20 | 9000]</span></div>
-                  <div className="flex justify-between"><span>Address 9000 &rarr;</span> <span className="text-accent-secondary font-bold">[30 | NULL]</span></div>
+                <div className="space-y-1.5 font-mono text-sm bg-bg-primary/30 p-2.5 rounded-lg border border-border-default/20 mt-2 max-w-xs mx-auto">
+                  <div className="flex justify-between gap-4"><span>Address 1000 &rarr;</span> <span className="text-accent-secondary font-bold">[10 | 5000]</span></div>
+                  <div className="flex justify-between gap-4"><span>Address 5000 &rarr;</span> <span className="text-accent-secondary font-bold">[20 | 9000]</span></div>
+                  <div className="flex justify-between gap-4"><span>Address 9000 &rarr;</span> <span className="text-accent-secondary font-bold">[30 | NULL]</span></div>
                 </div>
               </div>
             </div>

@@ -1220,7 +1220,7 @@ export function LinkedListsPage() {
           </button>
         </div>
 
-        <div className="neon-card neon-card-yellow flex flex-col gap-6" style={{ paddingTop: '0.75rem', paddingBottom: '0.75rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+        <div className="neon-card neon-card-yellow flex flex-col gap-6" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
           {/* Visualizer Mode Switchers */}
           <div className="flex border-b border-border-default/50 gap-4 overflow-x-auto">
             {([
@@ -1236,7 +1236,7 @@ export function LinkedListsPage() {
                   setActiveVisTab(tab.id);
                   handleReset();
                 }}
-                className={`px-4 py-2.5 font-mono font-bold text-xs uppercase border-b-2 transition-all whitespace-nowrap cursor-pointer ${
+                className={`px-5 py-3 font-mono font-bold text-sm border-b-2 uppercase transition-all whitespace-nowrap cursor-pointer ${
                   activeVisTab === tab.id 
                     ? 'border-accent-primary text-accent-primary' 
                     : 'border-transparent text-text-muted hover:text-text-secondary'
@@ -1247,17 +1247,60 @@ export function LinkedListsPage() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            {/* Visualizer Tracing Code Panel */}
-            <div className="lg:col-span-4 bg-bg-secondary rounded-md border border-border-default/60 p-4 flex flex-col justify-between min-h-[220px]">
-              <div>
-                <span className="text-[10px] text-text-muted uppercase font-mono font-bold tracking-widest block mb-2 border-b border-border-default/45 pb-1 select-none">
-                  Trace Execution
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Control Panel */}
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-bold font-mono text-text-secondary uppercase">
+                  Step {visStep + 1} of {activeSteps.length}
                 </span>
-                
-                {/* Simulated Pseudocode based on visualizer selection */}
+                <div className="flex gap-2">
+                  <button 
+                    onClick={handleReset} 
+                    className="p-2.5 bg-transparent rounded-lg hover:text-accent-primary transition-colors cursor-pointer"
+                    title="Reset"
+                  >
+                    <RotateCcw size={16} className="opacity-70" />
+                  </button>
+                  <button 
+                    onClick={handlePrev} 
+                    disabled={visStep === 0}
+                    className="p-2.5 bg-transparent rounded-lg hover:text-accent-primary transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                    title="Prev"
+                  >
+                    <SkipForward size={16} className="rotate-180 opacity-70" />
+                  </button>
+                  <button 
+                    onClick={handlePlayToggle} 
+                    className="p-2.5 bg-transparent rounded-lg hover:text-accent-primary transition-colors cursor-pointer"
+                    title={isPlaying ? "Pause" : "Play"}
+                  >
+                    {isPlaying ? <Pause size={16} className="opacity-70" /> : <Play size={16} className="opacity-70" />}
+                  </button>
+                  <button 
+                    onClick={handleNext} 
+                    disabled={visStep === activeSteps.length - 1}
+                    className="p-2.5 bg-transparent rounded-lg hover:text-accent-primary transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                    title="Next"
+                  >
+                    <SkipForward size={16} className="opacity-70" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Action Description */}
+              <div className="bg-bg-secondary rounded-xl border border-border-default flex items-start gap-3" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+                <AlertCircle className="text-accent-primary shrink-0 mt-0.5 opacity-70" size={18} />
+                <p className="text-sm text-text-secondary leading-snug">{activeStepData.description}</p>
+              </div>
+
+              {/* Pseudocode panel */}
+              <div className="bg-bg-primary rounded-xl border border-border-default font-mono text-sm leading-relaxed overflow-hidden" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+                <div className="text-[10px] text-text-muted/80 uppercase font-mono font-bold tracking-widest mb-2 border-b border-border-default/45 pb-1 select-none">
+                  operation preview
+                </div>
                 {activeVisTab === 'traversal' && (
-                  <div className="relative space-y-1 text-sm font-mono text-text-secondary">
+                  <div className="relative space-y-1 text-xs font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>curr = HEAD</span>
@@ -1278,7 +1321,7 @@ export function LinkedListsPage() {
                 )}
 
                 {activeVisTab === 'insert-head' && (
-                  <div className="relative space-y-1 text-sm font-mono text-text-secondary">
+                  <div className="relative space-y-1 text-xs font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>new_node = Node(10)</span>
@@ -1295,7 +1338,7 @@ export function LinkedListsPage() {
                 )}
 
                 {activeVisTab === 'insert-tail' && (
-                  <div className="relative space-y-1 text-sm font-mono text-text-secondary">
+                  <div className="relative space-y-1 text-xs font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>new_node = Node(30)</span>
@@ -1312,7 +1355,7 @@ export function LinkedListsPage() {
                 )}
 
                 {activeVisTab === 'delete' && (
-                  <div className="relative space-y-1 text-sm font-mono text-text-secondary">
+                  <div className="relative space-y-1 text-xs font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span># Search Node 20</span>
@@ -1329,7 +1372,7 @@ export function LinkedListsPage() {
                 )}
 
                 {activeVisTab === 'reverse' && (
-                  <div className="relative space-y-1 text-sm font-mono text-text-secondary">
+                  <div className="relative space-y-1 text-xs font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>prev = NULL, curr = HEAD</span>
@@ -1345,20 +1388,10 @@ export function LinkedListsPage() {
                   </div>
                 )}
               </div>
-
-              {/* Status explanation */}
-              <div className="mt-4 pt-3 border-t border-border-default/50">
-                <span className="text-xs text-text-muted font-bold block uppercase tracking-wider mb-1 select-none">
-                  Description
-                </span>
-                <p className="text-sm text-text-secondary leading-relaxed font-sans min-h-[50px]">
-                  {activeStepData.description}
-                </p>
-              </div>
             </div>
 
-            {/* Visualizer Interactive Screen */}
-            <div className="lg:col-span-8 flex flex-col justify-between border border-border-default bg-bg-primary/50 rounded-xl relative p-6 min-h-[300px]">
+            {/* Visualizer Area */}
+            <div className="flex flex-col justify-center items-center min-h-[300px] border border-border-default bg-bg-primary/50 rounded-xl relative overflow-hidden p-6">
               <div className="absolute top-4 left-4 flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-text-muted select-none">
                 <Database size={14} className="opacity-70" />
                 <span>HEAP MEMORY NODES</span>
@@ -1422,50 +1455,6 @@ export function LinkedListsPage() {
                       </div>
                     );
                   })}
-                </div>
-              </div>
-
-              {/* Navigation stepper buttons */}
-              <div className="flex justify-between items-center mt-6 pt-4 border-t border-border-default/50 select-none">
-                <div className="flex gap-2">
-                  <button 
-                    onClick={handlePrev} 
-                    disabled={visStep === 0}
-                    className="p-2 border border-border-default rounded-lg text-text-primary hover:border-accent-primary disabled:opacity-30 disabled:hover:border-border-default transition-colors cursor-pointer"
-                  >
-                    <ChevronLeft size={16} />
-                  </button>
-                  <button 
-                    onClick={handleNext} 
-                    disabled={visStep === activeSteps.length - 1}
-                    className="p-2 border border-border-default rounded-lg text-text-primary hover:border-accent-primary disabled:opacity-30 disabled:hover:border-border-default transition-colors cursor-pointer"
-                  >
-                    <SkipForward size={16} />
-                  </button>
-                  <button 
-                    onClick={handleReset}
-                    className="p-2 border border-border-default rounded-lg text-text-primary hover:border-accent-primary transition-colors cursor-pointer"
-                    title="Reset Visualizer"
-                  >
-                    <RotateCcw size={16} />
-                  </button>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <span className="text-xs font-mono font-bold text-text-secondary uppercase select-none">
-                    STEP {visStep + 1} OF {activeSteps.length}
-                  </span>
-                  <button 
-                    onClick={handlePlayToggle}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-xl border text-xs font-mono font-bold uppercase transition-all select-none hover:scale-102 active:scale-98 cursor-pointer ${
-                      isPlaying 
-                        ? 'bg-accent-primary/20 border-accent-primary text-accent-primary shadow-[0_0_12px_rgba(255,45,120,0.2)]' 
-                        : 'bg-bg-secondary border-border-default text-text-primary hover:border-accent-primary'
-                    }`}
-                  >
-                    {isPlaying ? <Pause size={14} /> : <Play size={14} />}
-                    <span>{isPlaying ? 'Pause' : 'Auto Play'}</span>
-                  </button>
                 </div>
               </div>
             </div>

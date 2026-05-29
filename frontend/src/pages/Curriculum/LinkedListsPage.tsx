@@ -1096,14 +1096,14 @@ export function LinkedListsPage() {
               </p>
               <ul className="list-disc list-inside space-y-1.5 pl-1">
                 <li>They have a <strong className="text-text-primary">fixed size</strong> (cannot dynamically grow in memory without copying).</li>
-                <li>Insertions and deletions inside arrays are <strong className="text-text-primary">highly expensive</strong> (<span className="text-red-400 font-semibold font-mono">O(N)</span> due to index shifting).</li>
+                <li>Insertions and deletions inside arrays are <strong className="text-text-primary">highly expensive</strong> (<span className="bg-red-500/15 text-red-400 border border-red-500/30 px-1.5 py-0.5 rounded font-mono font-bold text-xs">O(N)</span> due to index shifting).</li>
               </ul>
               <p>
                 Linked Lists solve these problems by:
               </p>
               <ul className="list-disc list-inside space-y-1.5 pl-1">
                 <li>Allowing <strong className="text-text-primary">dynamic memory allocation</strong> (nodes are allocated individually on the heap as needed).</li>
-                <li>Enabling <strong className="text-text-primary">efficient pointer-only insertions/removals</strong> (<span className="text-red-400 font-semibold font-mono">O(1)</span>) without shifting elements.</li>
+                <li>Enabling <strong className="text-text-primary">efficient pointer-only insertions/removals</strong> (<span className="bg-red-500/15 text-red-400 border border-red-500/30 px-1.5 py-0.5 rounded font-mono font-bold text-xs">O(1)</span>) without shifting elements.</li>
               </ul>
             </div>
           </div>
@@ -1670,7 +1670,7 @@ export function LinkedListsPage() {
               <div>
                 <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Pointer Dereference Overhead</strong>
                 <p>
-                  Every hop to a node requires resolving a pointer reference, adding translation steps. This makes linked lists slower than arrays in practice on real systems, despite their <span className="text-red-400 font-semibold font-mono">O(1)</span> theoretical insertion efficiency.
+                  Every hop to a node requires resolving a pointer reference, adding translation steps. This makes linked lists slower than arrays in practice on real systems, despite their <span className="bg-red-500/15 text-red-400 border border-red-500/30 px-1.5 py-0.5 rounded font-mono font-bold text-xs">O(1)</span> theoretical insertion efficiency.
                 </p>
               </div>
             </div>

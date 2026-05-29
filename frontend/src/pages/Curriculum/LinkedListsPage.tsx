@@ -1486,46 +1486,46 @@ export function LinkedListsPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Complexity Table Card */}
-          <div className="lg:col-span-5 neon-card neon-card-yellow flex flex-col justify-start" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <h3 className="text-base font-bold text-accent-tertiary font-mono mb-[0.3rem] uppercase">
+          <div className="lg:col-span-5 neon-card neon-card-yellow flex flex-col justify-start" style={{ paddingTop: '1.25rem', paddingBottom: '1.25rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+            <h3 className="text-lg font-bold text-accent-tertiary font-mono mb-[0.3rem] uppercase">
               Time Complexity Table
             </h3>
             <div className="overflow-x-auto mt-2">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-bg-secondary border-b border-white/20 font-mono text-xs uppercase tracking-wider text-text-primary divide-x divide-white/20">
-                    <th className="px-4 py-2.5">Operation</th>
-                    <th className="px-4 py-2.5">Complexity</th>
+                  <tr className="bg-bg-secondary border-b border-white/20 font-mono text-sm uppercase tracking-wider text-text-primary divide-x divide-white/20">
+                    <th className="px-4 py-3">Operation</th>
+                    <th className="px-4 py-3">Complexity</th>
                   </tr>
                 </thead>
-                <tbody className="text-sm text-text-secondary divide-y divide-white/10 font-sans">
+                <tbody className="text-base text-text-secondary divide-y divide-white/10 font-sans">
                   <tr className="divide-x divide-white/10">
-                    <td className="px-4 py-2 font-mono font-semibold text-text-primary">Access</td>
-                    <td className="px-4 py-2 font-mono text-accent-secondary font-bold">O(N)</td>
+                    <td className="px-4 py-2.5 font-mono font-semibold text-text-primary">Access</td>
+                    <td className="px-4 py-2.5 font-mono text-accent-tertiary font-bold">O(N)</td>
                   </tr>
                   <tr className="divide-x divide-white/10">
-                    <td className="px-4 py-2 font-mono font-semibold text-text-primary">Traversal</td>
-                    <td className="px-4 py-2 font-mono text-accent-secondary font-bold">O(N)</td>
+                    <td className="px-4 py-2.5 font-mono font-semibold text-text-primary">Traversal</td>
+                    <td className="px-4 py-2.5 font-mono text-accent-tertiary font-bold">O(N)</td>
                   </tr>
                   <tr className="divide-x divide-white/10">
-                    <td className="px-4 py-2 font-mono font-semibold text-text-primary">Search</td>
-                    <td className="px-4 py-2 font-mono text-accent-secondary font-bold">O(N)</td>
+                    <td className="px-4 py-2.5 font-mono font-semibold text-text-primary">Search</td>
+                    <td className="px-4 py-2.5 font-mono text-accent-tertiary font-bold">O(N)</td>
                   </tr>
                   <tr className="divide-x divide-white/10">
-                    <td className="px-4 py-2 font-mono font-semibold text-text-primary">Insert at Head</td>
-                    <td className="px-4 py-2 font-mono text-accent-primary font-bold">O(1)</td>
+                    <td className="px-4 py-2.5 font-mono font-semibold text-text-primary">Insert at Head</td>
+                    <td className="px-4 py-2.5 font-mono text-accent-tertiary font-bold">O(1)</td>
                   </tr>
                   <tr className="divide-x divide-white/10">
-                    <td className="px-4 py-2 font-mono font-semibold text-text-primary">Insert at Tail</td>
-                    <td className="px-4 py-2 font-mono text-accent-secondary font-bold">O(N)</td>
+                    <td className="px-4 py-2.5 font-mono font-semibold text-text-primary">Insert at Tail</td>
+                    <td className="px-4 py-2.5 font-mono text-accent-tertiary font-bold">O(N)</td>
                   </tr>
                   <tr className="divide-x divide-white/10">
-                    <td className="px-4 py-2 font-mono font-semibold text-text-primary">Delete at Head</td>
-                    <td className="px-4 py-2 font-mono text-accent-primary font-bold">O(1)</td>
+                    <td className="px-4 py-2.5 font-mono font-semibold text-text-primary">Delete at Head</td>
+                    <td className="px-4 py-2.5 font-mono text-accent-tertiary font-bold">O(1)</td>
                   </tr>
                   <tr className="divide-x divide-white/10">
-                    <td className="px-4 py-2 font-mono font-semibold text-text-primary">Delete by Value</td>
-                    <td className="px-4 py-2 font-mono text-accent-secondary font-bold">O(N)</td>
+                    <td className="px-4 py-2.5 font-mono font-semibold text-text-primary">Delete by Value</td>
+                    <td className="px-4 py-2.5 font-mono text-accent-tertiary font-bold">O(N)</td>
                   </tr>
                 </tbody>
               </table>
@@ -1533,34 +1533,34 @@ export function LinkedListsPage() {
           </div>
 
           {/* Core Explanations Card */}
-          <div className="lg:col-span-7 neon-card flex flex-col gap-6" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+          <div className="lg:col-span-7 neon-card neon-card-yellow flex flex-col gap-6" style={{ paddingTop: '1.25rem', paddingBottom: '1.25rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <h3 className="text-sm font-bold text-accent-primary font-mono mb-[0.5rem] uppercase flex flex-col">
+                <h3 className="text-base font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex flex-col">
                   <span>Constant Time Insert</span>
-                  <span className="text-accent-primary font-extrabold text-base mt-0.5 font-mono">O(1)</span>
+                  <span className="text-accent-tertiary font-extrabold text-lg mt-0.5 font-mono">O(1)</span>
                 </h3>
-                <p className="text-xs text-text-secondary leading-relaxed">
+                <p className="text-sm text-text-secondary leading-relaxed">
                   Inserting at the head is extremely fast because it only requires creating a node and re-linking the HEAD reference. No elements are moved in memory.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-sm font-bold text-accent-secondary font-mono mb-[0.5rem] uppercase flex flex-col">
+                <h3 className="text-base font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex flex-col">
                   <span>Linear Traversal</span>
-                  <span className="text-accent-secondary font-extrabold text-base mt-0.5 font-mono">O(N)</span>
+                  <span className="text-accent-tertiary font-extrabold text-lg mt-0.5 font-mono">O(N)</span>
                 </h3>
-                <p className="text-xs text-text-secondary leading-relaxed">
+                <p className="text-sm text-text-secondary leading-relaxed">
                   Searching or accessing requires sequentially visiting each node starting from the head. In the worst case, you must visit all $N$ nodes.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-sm font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex flex-col">
+                <h3 className="text-base font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex flex-col">
                   <span>Why Access is Slow</span>
-                  <span className="text-accent-tertiary font-extrabold text-base mt-0.5 font-mono">O(N)</span>
+                  <span className="text-accent-tertiary font-extrabold text-lg mt-0.5 font-mono">O(N)</span>
                 </h3>
-                <p className="text-xs text-text-secondary leading-relaxed">
+                <p className="text-sm text-text-secondary leading-relaxed">
                   Unlike arrays, linked lists do not support mathematical index offsets. Since nodes are scattered in memory, finding the 10th node requires stepping through the first 9 nodes.
                 </p>
               </div>

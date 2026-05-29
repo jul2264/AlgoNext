@@ -1536,9 +1536,9 @@ export function LinkedListsPage() {
           <div className="lg:col-span-7 neon-card neon-card-yellow flex flex-col gap-6" style={{ paddingTop: '1.25rem', paddingBottom: '1.25rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <h3 className="text-base font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex items-baseline gap-2 flex-wrap">
+                <h3 className="text-base font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex flex-wrap items-baseline gap-x-2">
                   <span>Constant Time Insert</span>
-                  <span className="text-accent-tertiary font-extrabold text-base font-mono">O(1)</span>
+                  <span className="text-accent-tertiary font-extrabold text-lg font-mono">O(1)</span>
                 </h3>
                 <p className="text-sm text-text-secondary leading-relaxed">
                   Inserting at the head is extremely fast because it only requires creating a node and re-linking the HEAD reference. No elements are moved in memory.
@@ -1546,9 +1546,9 @@ export function LinkedListsPage() {
               </div>
 
               <div>
-                <h3 className="text-base font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex items-baseline gap-2 flex-wrap">
+                <h3 className="text-base font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex flex-wrap items-baseline gap-x-2">
                   <span>Linear Traversal</span>
-                  <span className="text-accent-tertiary font-extrabold text-base font-mono">O(N)</span>
+                  <span className="text-accent-tertiary font-extrabold text-lg font-mono">O(N)</span>
                 </h3>
                 <p className="text-sm text-text-secondary leading-relaxed">
                   Searching or accessing requires sequentially visiting each node starting from the head. In the worst case, you must visit all $N$ nodes.
@@ -1556,9 +1556,9 @@ export function LinkedListsPage() {
               </div>
 
               <div>
-                <h3 className="text-base font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex items-baseline gap-2 flex-wrap">
+                <h3 className="text-base font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex flex-wrap items-baseline gap-x-2">
                   <span>Why Access is Slow</span>
-                  <span className="text-accent-tertiary font-extrabold text-base font-mono">O(N)</span>
+                  <span className="text-accent-tertiary font-extrabold text-lg font-mono">O(N)</span>
                 </h3>
                 <p className="text-sm text-text-secondary leading-relaxed">
                   Unlike arrays, linked lists do not support mathematical index offsets. Since nodes are scattered in memory, finding the 10th node requires stepping through the first 9 nodes.

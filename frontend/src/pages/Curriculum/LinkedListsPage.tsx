@@ -1220,7 +1220,7 @@ export function LinkedListsPage() {
           </button>
         </div>
 
-        <div className="neon-card neon-card-yellow flex flex-col gap-6" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+        <div className="neon-card neon-card-pink flex flex-col gap-6" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
           {/* Visualizer Mode Switchers */}
           <div className="flex border-b border-border-default/50 gap-4 overflow-x-auto">
             {([

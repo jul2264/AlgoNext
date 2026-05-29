@@ -1050,7 +1050,7 @@ export function LinkedListsPage() {
               </ul>
               
               <div className="mt-4">
-                <strong className="text-text-primary text-xs font-mono uppercase tracking-wider block mb-2">Basic Structure:</strong>
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-2">Basic Structure:</strong>
                 <div className="bg-bg-primary/50 border border-border-default/50 rounded-xl p-4 flex flex-col font-mono text-xs select-none">
                   <div className="overflow-x-auto w-full flex justify-center pb-1">
                     <div className="flex items-start gap-4 min-w-[450px] justify-center px-2">

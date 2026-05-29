@@ -1625,20 +1625,30 @@ export function LinkedListsPage() {
             <h3 className="text-lg font-bold text-accent-primary font-mono mb-[0.5rem] uppercase">
               2. Pointer Traversal & Insertion
             </h3>
-            <div className="space-y-12 text-sm text-text-secondary leading-relaxed">
+            <div className="space-y-4 text-sm text-text-secondary leading-relaxed mt-2">
               <div>
-                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Pointer Traversal</strong>
-                <p>To traverse, the CPU starts at the HEAD address, retrieves the next node pointer, hops to that RAM location, and stops only when it hits a next pointer with value NULL.</p>
+                <strong className="text-text-primary font-mono uppercase tracking-wider block">1. Start at HEAD</strong>
+                <p className="text-text-secondary mt-0.5">Traversal always begins from the HEAD node.</p>
               </div>
-
               <div>
-                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Why Insertions Are Fast</strong>
-                <p>Inserting node 10 at the head of `[20] &rarr; [30]` requires only two pointer updates:</p>
-                <div className="space-y-1.5 font-mono text-sm bg-bg-primary/30 p-2.5 rounded-lg border border-border-default/20 mt-2">
-                  <div>1. Set: <span className="text-accent-primary">10.next = HEAD</span></div>
-                  <div>2. Update: <span className="text-accent-primary">HEAD = 10</span></div>
-                </div>
-                <p className="mt-2 text-sm text-text-muted">No shifting is required, meaning other nodes are not touched in memory.</p>
+                <strong className="text-text-primary font-mono uppercase tracking-wider block">2. Follow the Next Pointer</strong>
+                <p className="text-text-secondary mt-0.5">Each node stores a reference to the next node in the sequence.</p>
+              </div>
+              <div>
+                <strong className="text-text-primary font-mono uppercase tracking-wider block">3. Stop at NULL</strong>
+                <p className="text-text-secondary mt-0.5">Traversal ends when the current node's next pointer becomes NULL.</p>
+              </div>
+              <div>
+                <strong className="text-text-primary font-mono uppercase tracking-wider block">4. No Direct Indexing</strong>
+                <p className="text-text-secondary mt-0.5">Unlike arrays, linked lists cannot access elements using an index.</p>
+              </div>
+              <div>
+                <strong className="text-text-primary font-mono uppercase tracking-wider block">5. Fast Insertions</strong>
+                <p className="text-text-secondary mt-0.5">Adding a node only requires updating pointers; existing nodes do not need to move.</p>
+              </div>
+              <div>
+                <strong className="text-text-primary font-mono uppercase tracking-wider block">6. Efficient for Dynamic Data</strong>
+                <p className="text-text-secondary mt-0.5">Linked lists are ideal when frequent insertions and deletions are required.</p>
               </div>
             </div>
           </div>
@@ -1652,14 +1662,14 @@ export function LinkedListsPage() {
               <div>
                 <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">CPU Cache Friendliness</strong>
                 <p>
-                  Modern CPUs fetch contiguous memory segments into cache lines (spatial locality) beforehand. Because linked list nodes are scattered randomly across RAM, traversing them results in frequent **CPU cache misses**.
+                  Modern CPUs fetch contiguous memory segments into cache lines (spatial locality) beforehand. Because linked list nodes are scattered randomly across RAM, traversing them results in frequent <strong className="text-text-primary">CPU cache misses</strong>.
                 </p>
               </div>
 
               <div>
                 <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Pointer Dereference Overhead</strong>
                 <p>
-                  Every hop to a node requires resolving a pointer reference, adding translation steps. This makes linked lists slower than arrays in practice on real systems, despite their <span className="border px-1.5 py-0.5 rounded font-mono font-bold text-xs" style={{ color: '#ff4d4d', backgroundColor: 'rgba(255, 77, 77, 0.15)', borderColor: 'rgba(255, 77, 77, 0.4)' }}>O(1)</span> theoretical insertion efficiency.
+                  Every hop to a node requires resolving a pointer reference, adding translation steps. This makes linked lists slower than arrays in practice on real systems, despite their <strong className="text-accent-tertiary font-mono">O(1)</strong> theoretical insertion efficiency.
                 </p>
               </div>
             </div>
@@ -1690,7 +1700,7 @@ export function LinkedListsPage() {
                     </ul>
                   </div>
                   <div>
-                    <span className="text-accent-primary font-bold block mb-1 text-sm uppercase">Cons</span>
+                    <span className="text-accent-secondary font-bold block mb-1 text-sm uppercase">Cons</span>
                     <ul className="text-sm text-text-secondary space-y-1">
                       <li>&bull; Extra memory (prev)</li>
                       <li>&bull; Complex pointer updates</li>

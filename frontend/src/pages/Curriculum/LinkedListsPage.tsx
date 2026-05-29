@@ -1051,15 +1051,36 @@ export function LinkedListsPage() {
               
               <div className="mt-4">
                 <strong className="text-text-primary text-xs font-mono uppercase tracking-wider block mb-2">Basic Structure:</strong>
-                <div className="bg-bg-primary/50 border border-border-default/50 rounded-xl p-3 font-mono text-xs flex items-center justify-center gap-1.5 overflow-x-auto text-accent-secondary select-none">
-                  <span>[10 | &bull;]</span> <ArrowRight size={12} />
-                  <span>[20 | &bull;]</span> <ArrowRight size={12} />
-                  <span>[30 | X]</span>
-                </div>
-                <div className="text-xs text-text-muted mt-2 font-mono flex gap-4 justify-center">
-                  <span>left side = data</span>
-                  <span>right side = pointer to next node</span>
-                  <span>X = NULL</span>
+                <div className="bg-bg-primary/50 border border-border-default/50 rounded-xl p-4 flex flex-col font-mono text-xs select-none">
+                  <div className="overflow-x-auto w-full flex justify-center pb-1">
+                    <div className="flex items-start gap-4 min-w-[450px] justify-center px-2">
+                      {/* Node 1 & Data description */}
+                      <div className="flex flex-col items-center gap-1.5">
+                        <span className="text-accent-secondary bg-bg-secondary/40 border border-border-default/30 px-3 py-1.5 rounded-lg font-bold">[10 | &bull;]</span>
+                        <span className="text-[11px] text-text-muted whitespace-nowrap">left side = data</span>
+                      </div>
+
+                      <div className="flex items-center text-accent-secondary pt-2">
+                        <ArrowRight size={14} className="opacity-70" />
+                      </div>
+
+                      {/* Node 2 & Pointer description */}
+                      <div className="flex flex-col items-center gap-1.5">
+                        <span className="text-accent-secondary bg-bg-secondary/40 border border-border-default/30 px-3 py-1.5 rounded-lg font-bold">[20 | &bull;]</span>
+                        <span className="text-[11px] text-text-muted whitespace-nowrap">right side = pointer to next node</span>
+                      </div>
+
+                      <div className="flex items-center text-accent-secondary pt-2">
+                        <ArrowRight size={14} className="opacity-70" />
+                      </div>
+
+                      {/* Node 3 & NULL description */}
+                      <div className="flex flex-col items-center gap-1.5">
+                        <span className="text-accent-secondary bg-bg-secondary/40 border border-border-default/30 px-3 py-1.5 rounded-lg font-bold">[30 | X]</span>
+                        <span className="text-[11px] text-text-muted whitespace-nowrap">X = NULL</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

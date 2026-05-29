@@ -13,6 +13,7 @@ import { TreesModulePage } from '@/pages/Curriculum/TreesModulePage';
 import { FoundationsPage } from '@/pages/Curriculum/FoundationsPage';
 import { LinearStructuresPage } from '@/pages/Curriculum/LinearStructuresPage';
 import { ArraysPage } from '@/pages/Curriculum/ArraysPage';
+import { LinkedListsPage } from '@/pages/Curriculum/LinkedListsPage';
 import { ProfilePage } from '@/pages/Profile';
 import { AiTutorPage } from '@/pages/AiTutor';
 import { PlaygroundPage } from '@/pages/Playground';
@@ -45,6 +46,7 @@ export default function App() {
         <Route path="/dsa/foundations" element={<FoundationsPage />} />
         <Route path="/dsa/linear-structures" element={<LinearStructuresPage />} />
         <Route path="/dsa/linear-structures/arrays" element={<ArraysPage />} />
+        <Route path="/dsa/linear-structures/linked-lists" element={<LinkedListsPage />} />
         <Route path="/dsa/linear-structures/:slug" element={<ModulePage />} />
         <Route path="/dsa/trees" element={<TreesModulePage />} />
         <Route path="/dsa/trees/:slug" element={<ModulePage />} />

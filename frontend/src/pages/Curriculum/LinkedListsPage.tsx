@@ -1536,9 +1536,9 @@ export function LinkedListsPage() {
           <div className="lg:col-span-7 neon-card neon-card-yellow flex flex-col gap-6" style={{ paddingTop: '1.25rem', paddingBottom: '1.25rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <h3 className="text-base font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex flex-wrap items-baseline gap-x-2">
+                <h3 className="text-base font-bold text-accent-primary font-mono mb-[0.5rem] uppercase flex flex-wrap items-baseline gap-x-2">
                   <span>Constant Time Insert</span>
-                  <span className="text-accent-tertiary font-extrabold text-lg font-mono">O(1)</span>
+                  <span className="text-accent-primary font-extrabold text-lg font-mono">O(1)</span>
                 </h3>
                 <p className="text-sm text-text-secondary leading-relaxed">
                   Inserting at the head is extremely fast because it only requires creating a node and re-linking the HEAD reference. No elements are moved in memory.
@@ -1546,9 +1546,9 @@ export function LinkedListsPage() {
               </div>
 
               <div>
-                <h3 className="text-base font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex flex-wrap items-baseline gap-x-2">
+                <h3 className="text-base font-bold text-accent-secondary font-mono mb-[0.5rem] uppercase flex flex-wrap items-baseline gap-x-2">
                   <span>Linear Traversal</span>
-                  <span className="text-accent-tertiary font-extrabold text-lg font-mono">O(N)</span>
+                  <span className="text-accent-secondary font-extrabold text-lg font-mono">O(N)</span>
                 </h3>
                 <p className="text-sm text-text-secondary leading-relaxed">
                   Searching or accessing requires sequentially visiting each node starting from the head. In the worst case, you must visit all $N$ nodes.
@@ -1638,7 +1638,7 @@ export function LinkedListsPage() {
                   <div>1. Set: <span className="text-accent-primary">10.next = HEAD</span></div>
                   <div>2. Update: <span className="text-accent-primary">HEAD = 10</span></div>
                 </div>
-                <p className="mt-2 text-xs text-text-muted">No shifting is required, meaning other nodes are not touched in memory.</p>
+                <p className="mt-2 text-sm text-text-muted">No shifting is required, meaning other nodes are not touched in memory.</p>
               </div>
             </div>
           </div>
@@ -1684,14 +1684,14 @@ export function LinkedListsPage() {
                 <div className="grid grid-cols-2 gap-4 font-mono text-sm bg-bg-primary/30 p-2.5 rounded-lg border border-border-default/20">
                   <div>
                     <span className="text-accent-secondary font-bold block mb-1 text-sm uppercase">Pros</span>
-                    <ul className="text-xs text-text-secondary space-y-1">
+                    <ul className="text-sm text-text-secondary space-y-1">
                       <li>&bull; Bidirectional traversal</li>
                       <li>&bull; Simpler deletions</li>
                     </ul>
                   </div>
                   <div>
                     <span className="text-accent-primary font-bold block mb-1 text-sm uppercase">Cons</span>
-                    <ul className="text-xs text-text-secondary space-y-1">
+                    <ul className="text-sm text-text-secondary space-y-1">
                       <li>&bull; Extra memory (prev)</li>
                       <li>&bull; Complex pointer updates</li>
                     </ul>

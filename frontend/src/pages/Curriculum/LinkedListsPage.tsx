@@ -1348,10 +1348,10 @@ export function LinkedListsPage() {
 
               {/* Status explanation */}
               <div className="mt-4 pt-3 border-t border-border-default/50">
-                <span className="text-[10px] text-text-muted font-bold block uppercase tracking-wider mb-1 select-none">
+                <span className="text-xs text-text-muted font-bold block uppercase tracking-wider mb-1 select-none">
                   Description
                 </span>
-                <p className="text-xs text-text-secondary leading-relaxed font-sans min-h-[50px]">
+                <p className="text-sm text-text-secondary leading-relaxed font-sans min-h-[50px]">
                   {activeStepData.description}
                 </p>
               </div>

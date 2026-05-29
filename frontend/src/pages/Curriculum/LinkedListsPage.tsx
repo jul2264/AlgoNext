@@ -1096,14 +1096,14 @@ export function LinkedListsPage() {
               </p>
               <ul className="list-disc list-inside space-y-1.5 pl-1">
                 <li>They have a <strong className="text-text-primary">fixed size</strong> (cannot dynamically grow in memory without copying).</li>
-                <li>Insertions and deletions inside arrays are <strong className="text-text-primary">highly expensive</strong> (<span className="bg-red-500/15 text-red-400 border border-red-500/30 px-1.5 py-0.5 rounded font-mono font-bold text-xs">O(N)</span> due to index shifting).</li>
+                <li>Insertions and deletions inside arrays are <strong className="text-text-primary">highly expensive</strong> (<span className="border px-1.5 py-0.5 rounded font-mono font-bold text-xs" style={{ color: '#ff4d4d', backgroundColor: 'rgba(255, 77, 77, 0.15)', borderColor: 'rgba(255, 77, 77, 0.4)' }}>O(N)</span> due to index shifting).</li>
               </ul>
               <p>
                 Linked Lists solve these problems by:
               </p>
               <ul className="list-disc list-inside space-y-1.5 pl-1">
                 <li>Allowing <strong className="text-text-primary">dynamic memory allocation</strong> (nodes are allocated individually on the heap as needed).</li>
-                <li>Enabling <strong className="text-text-primary">efficient pointer-only insertions/removals</strong> (<span className="bg-red-500/15 text-red-400 border border-red-500/30 px-1.5 py-0.5 rounded font-mono font-bold text-xs">O(1)</span>) without shifting elements.</li>
+                <li>Enabling <strong className="text-text-primary">efficient pointer-only insertions/removals</strong> (<span className="border px-1.5 py-0.5 rounded font-mono font-bold text-xs" style={{ color: '#ff4d4d', backgroundColor: 'rgba(255, 77, 77, 0.15)', borderColor: 'rgba(255, 77, 77, 0.4)' }}>O(1)</span>) without shifting elements.</li>
               </ul>
             </div>
           </div>
@@ -1249,7 +1249,7 @@ export function LinkedListsPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
             {/* Visualizer Tracing Code Panel */}
-            <div className="lg:col-span-4 bg-bg-secondary rounded-xl border border-border-default/60 p-4 flex flex-col justify-between min-h-[220px]">
+            <div className="lg:col-span-4 bg-bg-secondary rounded-md border border-border-default/60 p-4 flex flex-col justify-between min-h-[220px]">
               <div>
                 <span className="text-[10px] text-text-muted uppercase font-mono font-bold tracking-widest block mb-2 border-b border-border-default/45 pb-1 select-none">
                   Trace Execution
@@ -1257,7 +1257,7 @@ export function LinkedListsPage() {
                 
                 {/* Simulated Pseudocode based on visualizer selection */}
                 {activeVisTab === 'traversal' && (
-                  <div className="relative space-y-1 text-xs font-mono text-text-secondary">
+                  <div className="relative space-y-1 text-sm font-mono text-text-secondary">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>curr = HEAD</span>
@@ -1278,7 +1278,7 @@ export function LinkedListsPage() {
                 )}
 
                 {activeVisTab === 'insert-head' && (
-                  <div className="relative space-y-1 text-xs font-mono text-text-secondary">
+                  <div className="relative space-y-1 text-sm font-mono text-text-secondary">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>new_node = Node(10)</span>
@@ -1295,7 +1295,7 @@ export function LinkedListsPage() {
                 )}
 
                 {activeVisTab === 'insert-tail' && (
-                  <div className="relative space-y-1 text-xs font-mono text-text-secondary">
+                  <div className="relative space-y-1 text-sm font-mono text-text-secondary">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>new_node = Node(30)</span>
@@ -1312,7 +1312,7 @@ export function LinkedListsPage() {
                 )}
 
                 {activeVisTab === 'delete' && (
-                  <div className="relative space-y-1 text-xs font-mono text-text-secondary">
+                  <div className="relative space-y-1 text-sm font-mono text-text-secondary">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span># Search Node 20</span>
@@ -1329,7 +1329,7 @@ export function LinkedListsPage() {
                 )}
 
                 {activeVisTab === 'reverse' && (
-                  <div className="relative space-y-1 text-xs font-mono text-text-secondary">
+                  <div className="relative space-y-1 text-sm font-mono text-text-secondary">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>prev = NULL, curr = HEAD</span>
@@ -1670,7 +1670,7 @@ export function LinkedListsPage() {
               <div>
                 <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Pointer Dereference Overhead</strong>
                 <p>
-                  Every hop to a node requires resolving a pointer reference, adding translation steps. This makes linked lists slower than arrays in practice on real systems, despite their <span className="bg-red-500/15 text-red-400 border border-red-500/30 px-1.5 py-0.5 rounded font-mono font-bold text-xs">O(1)</span> theoretical insertion efficiency.
+                  Every hop to a node requires resolving a pointer reference, adding translation steps. This makes linked lists slower than arrays in practice on real systems, despite their <span className="border px-1.5 py-0.5 rounded font-mono font-bold text-xs" style={{ color: '#ff4d4d', backgroundColor: 'rgba(255, 77, 77, 0.15)', borderColor: 'rgba(255, 77, 77, 0.4)' }}>O(1)</span> theoretical insertion efficiency.
                 </p>
               </div>
             </div>

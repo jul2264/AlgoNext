@@ -953,8 +953,8 @@ export function ArraysPage() {
 
               {/* Pseudocode panel */}
               <div className="bg-bg-primary rounded-xl border border-border-default font-mono text-sm leading-relaxed overflow-hidden" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-                <div className="text-[10px] text-text-muted/80 uppercase font-mono font-bold tracking-widest mb-2 border-b border-border-default/45 pb-1 select-none">
-                  operation preview
+                <div className="text-[11px] text-text-muted/80 uppercase font-mono font-bold tracking-widest mb-2 border-b border-border-default/45 pb-1 select-none">
+                  pseudocode
                 </div>
                 {activeVisTab === 'traversal' && (
                   <div className="relative space-y-1 text-sm font-mono">

@@ -957,7 +957,7 @@ export function ArraysPage() {
                   operation preview
                 </div>
                 {activeVisTab === 'traversal' && (
-                  <div className="relative space-y-1 text-xs font-mono">
+                  <div className="relative space-y-1 text-sm font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>FOR i FROM 0 TO array.length - 1:</span>
@@ -969,7 +969,7 @@ export function ArraysPage() {
                   </div>
                 )}
                 {activeVisTab === 'insertion' && (
-                  <div className="relative space-y-1 text-xs font-mono">
+                  <div className="relative space-y-1 text-sm font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>// Insert target at index</span>
@@ -989,7 +989,7 @@ export function ArraysPage() {
                   </div>
                 )}
                 {activeVisTab === 'deletion' && (
-                  <div className="relative space-y-1 text-xs font-mono">
+                  <div className="relative space-y-1 text-sm font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>// Delete at index</span>
@@ -1005,7 +1005,7 @@ export function ArraysPage() {
                   </div>
                 )}
                 {activeVisTab === 'growth' && (
-                  <div className="relative space-y-1 text-xs font-mono">
+                  <div className="relative space-y-1 text-sm font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>IF size == capacity THEN:</span>

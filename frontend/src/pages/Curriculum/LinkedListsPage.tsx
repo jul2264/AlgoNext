@@ -1300,7 +1300,7 @@ export function LinkedListsPage() {
                   operation preview
                 </div>
                 {activeVisTab === 'traversal' && (
-                  <div className="relative space-y-1 text-xs font-mono">
+                  <div className="relative space-y-1 text-sm font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>curr = HEAD</span>
@@ -1321,7 +1321,7 @@ export function LinkedListsPage() {
                 )}
 
                 {activeVisTab === 'insert-head' && (
-                  <div className="relative space-y-1 text-xs font-mono">
+                  <div className="relative space-y-1 text-sm font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>new_node = Node(10)</span>
@@ -1338,7 +1338,7 @@ export function LinkedListsPage() {
                 )}
 
                 {activeVisTab === 'insert-tail' && (
-                  <div className="relative space-y-1 text-xs font-mono">
+                  <div className="relative space-y-1 text-sm font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>new_node = Node(30)</span>
@@ -1355,7 +1355,7 @@ export function LinkedListsPage() {
                 )}
 
                 {activeVisTab === 'delete' && (
-                  <div className="relative space-y-1 text-xs font-mono">
+                  <div className="relative space-y-1 text-sm font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span># Search Node 20</span>
@@ -1372,7 +1372,7 @@ export function LinkedListsPage() {
                 )}
 
                 {activeVisTab === 'reverse' && (
-                  <div className="relative space-y-1 text-xs font-mono">
+                  <div className="relative space-y-1 text-sm font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
                       <span>prev = NULL, curr = HEAD</span>

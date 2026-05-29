@@ -1899,100 +1899,93 @@ export function LinkedListsPage() {
                   {activeQuestions[currentQuizQuestion].question}
                 </h4>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
-                  {activeQuestions[currentQuizQuestion].options.map((opt, optIdx) => {
-                    let optionStyle = 'border-border-default hover:border-accent-primary/60 text-text-secondary';
-                    if (isAnswered) {
-                      const isCorrect = optIdx === activeQuestions[currentQuizQuestion].answer;
-                      const isSelected = optIdx === selectedOption;
-                      if (isCorrect) {
-                        optionStyle = 'border-emerald-500 bg-emerald-500/10 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.2)]';
-                      } else if (isSelected) {
-                        optionStyle = 'border-red-500 bg-red-500/10 text-red-400 shadow-[0_0_12px_rgba(239,68,68,0.2)]';
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {activeQuestions[currentQuizQuestion].options.map((option, idx) => {
+                    let optionStyle = "border border-transparent bg-transparent text-text-secondary hover:bg-white/5 hover:text-text-primary";
+                    if (selectedOption === idx) {
+                      if (isAnswered) {
+                        optionStyle = idx === activeQuestions[currentQuizQuestion].answer
+                          ? "border border-success bg-success/10 text-success shadow-[0_0_12px_rgba(0,255,204,0.15)]"
+                          : "border border-error bg-error/10 text-error shadow-[0_0_12px_rgba(255,45,120,0.15)]";
                       } else {
-                        optionStyle = 'border-border-default/40 opacity-50 text-text-muted';
+                        optionStyle = "border border-accent-primary bg-accent-primary/10 text-accent-primary shadow-[0_0_12px_rgba(255,45,120,0.15)]";
                       }
-                    } else if (selectedOption === optIdx) {
-                      optionStyle = 'border-accent-primary text-accent-primary bg-accent-primary/10 shadow-[0_0_12px_rgba(255,45,120,0.25)]';
+                    } else if (isAnswered && idx === activeQuestions[currentQuizQuestion].answer) {
+                      optionStyle = "border border-success bg-success/10 text-success shadow-[0_0_12px_rgba(0,255,204,0.15)]";
                     }
 
                     return (
                       <button
-                        key={optIdx}
-                        onClick={() => handleOptionSelect(optIdx)}
+                        key={idx}
                         disabled={isAnswered}
-                        className={`p-4 border rounded-xl font-medium text-sm text-left transition-all leading-relaxed ${optionStyle} ${!isAnswered ? 'cursor-pointer hover:scale-[1.01] active:scale-[0.99]' : ''}`}
+                        onClick={() => handleOptionSelect(idx)}
+                        className={`text-left py-2.5 px-4 rounded-xl transition-all duration-200 leading-relaxed cursor-pointer disabled:cursor-default ${optionStyle}`}
                       >
-                        <div className="flex gap-3">
-                          <span className="font-mono text-accent-primary font-bold uppercase">
-                            {String.fromCharCode(65 + optIdx)}.
+                        <div className="flex items-center gap-3">
+                          <span className="w-5 h-5 rounded-full border flex items-center justify-center text-xs font-mono font-bold shrink-0 border-current">
+                            {String.fromCharCode(65 + idx)}
                           </span>
-                          <span>{opt}</span>
+                          <span>{option}</span>
                         </div>
                       </button>
                     );
                   })}
                 </div>
+              </div>
 
-                <div className="flex justify-between items-center mt-6">
-                  <div>
-                    {!isAnswered && selectedOption !== null && (
-                      <button 
-                        onClick={handleAnswerSubmit}
-                        className="px-6 py-2.5 rounded-xl border border-accent-primary bg-accent-primary text-bg-primary text-xs font-mono font-bold uppercase transition-all shadow-[0_0_15px_rgba(255,45,120,0.2)] hover:shadow-[0_0_22px_rgba(255,45,120,0.4)] hover:scale-102 active:scale-98 cursor-pointer"
-                      >
-                        Submit Answer
-                      </button>
-                    )}
+              {isAnswered ? (
+                <div className="flex flex-col gap-4 bg-bg-primary/50 border border-border-default rounded-xl p-4 transition-all duration-300 mt-6 font-sans">
+                  <div className="flex items-center gap-2">
+                    <span className={`text-sm font-bold uppercase tracking-wider ${selectedOption === activeQuestions[currentQuizQuestion].answer ? 'text-success' : 'text-error'}`}>
+                      {selectedOption === activeQuestions[currentQuizQuestion].answer ? 'Correct Answer!' : 'Incorrect Answer'}
+                    </span>
                   </div>
-
-                  {isAnswered && (
-                    <button 
+                  <p className="text-sm text-text-secondary leading-relaxed">
+                    {activeQuestions[currentQuizQuestion].explanation}
+                  </p>
+                  
+                  <div className="pt-6 mt-4 border-t border-border-default/20">
+                    <button
                       onClick={handleNextQuestion}
-                      className="px-6 py-2.5 rounded-xl border border-accent-primary bg-bg-secondary text-accent-primary text-xs font-mono font-bold uppercase transition-all hover:bg-accent-primary/10 hover:scale-102 active:scale-98 cursor-pointer"
+                      className="w-full py-4 bg-accent-primary text-bg-primary font-mono font-bold text-xl tracking-wider uppercase rounded-lg hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_15px_rgba(255,45,120,0.25)] hover:shadow-[0_0_20px_rgba(255,45,120,0.45)] cursor-pointer"
                     >
                       {currentQuizQuestion < activeQuestions.length - 1 ? 'Next Question' : 'Finish Quiz'}
                     </button>
-                  )}
+                  </div>
                 </div>
-
-                {isAnswered && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-6 p-4 rounded-xl border border-border-default/60 bg-bg-secondary flex gap-3.5 items-start"
+              ) : (
+                <div style={{ marginTop: '1rem' }}>
+                  <button
+                    disabled={selectedOption === null}
+                    onClick={handleAnswerSubmit}
+                    className={`w-full py-4 bg-transparent border font-mono font-bold text-base tracking-wider uppercase rounded-lg active:scale-95 disabled:scale-100 disabled:cursor-not-allowed transition-all cursor-pointer ${
+                      selectedOption === null 
+                        ? 'border-accent-tertiary text-accent-tertiary hover:bg-accent-tertiary/10 hover:shadow-[0_0_15px_rgba(255,224,74,0.2)] disabled:opacity-40' 
+                        : 'border-success text-success hover:bg-success/10 hover:shadow-[0_0_15px_rgba(0,255,204,0.3)] shadow-[0_0_10px_rgba(0,255,204,0.15)]'
+                    }`}
                   >
-                    <AlertCircle className="text-accent-primary shrink-0 mt-0.5" size={20} />
-                    <div className="space-y-1">
-                      <span className="text-xs font-mono font-bold text-accent-primary uppercase select-none">
-                        Explanation
-                      </span>
-                      <p className="text-xs text-text-secondary leading-relaxed">
-                        {activeQuestions[currentQuizQuestion].explanation}
-                      </p>
-                    </div>
-                  </motion.div>
-                )}
-              </div>
+                    Submit Answer
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center py-10 gap-6 select-none">
-              <div className="flex flex-col items-center gap-1">
-                <Award size={48} className="text-accent-tertiary animate-bounce" />
-                <h4 className="text-xl font-bold font-display text-text-primary mt-2">
-                  Quiz Completed!
-                </h4>
-                <p className="text-sm font-mono text-text-secondary mt-1">
-                  Your Score: <span className="text-accent-secondary font-bold">{score} / 5</span> ({Math.round((score / 5) * 100)}%)
+            <div className="flex flex-col items-center justify-center text-center py-8 gap-6 select-none">
+              <Award className="text-accent-primary animate-pulse" size={64} />
+              <div>
+                <h3 className="text-2xl font-bold text-text-primary">Quiz Completed!</h3>
+                <p className="text-sm text-text-secondary mt-2">
+                  You scored <span className="text-accent-primary font-bold font-mono">{score}</span> out of <span className="text-text-primary font-mono">{activeQuestions.length}</span>.
                 </p>
               </div>
-
-              <button 
-                onClick={handleRetryQuiz}
-                className="px-6 py-3 rounded-xl border border-accent-primary bg-accent-primary text-bg-primary text-xs font-mono font-bold uppercase transition-all shadow-[0_0_15px_rgba(255,45,120,0.2)] hover:shadow-[0_0_22px_rgba(255,45,120,0.4)] hover:scale-102 active:scale-98 cursor-pointer"
-              >
-                Retry Quiz
-              </button>
+              <div className="flex gap-4">
+                <button
+                  onClick={handleRetryQuiz}
+                  className="px-14 py-4 bg-bg-secondary border border-border-default text-text-primary font-mono font-bold text-base tracking-wider uppercase rounded-lg hover:border-accent-primary/50 hover:text-accent-primary transition-all cursor-pointer"
+                >
+                  Try Again
+                </button>
+              </div>
             </div>
           )}
         </div>

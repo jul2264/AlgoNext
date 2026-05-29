@@ -1001,7 +1001,7 @@ export function LinkedListsPage() {
           </button>
           <div>
             <h1 className="text-3xl lg:text-4xl font-bold font-display text-text-primary tracking-tight">
-              Linked Lists in <span className="text-accent-secondary drop-shadow-[0_0_2px_rgba(0,255,204,0.3)]">DSA</span>
+              <span className="text-emerald-400 drop-shadow-[0_0_2px_rgba(52,211,153,0.3)]">Linked Lists</span> in <span className="text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.3)]">DSA</span>
             </h1>
             <p className="text-text-secondary mt-1 font-mono text-sm tracking-widest uppercase">
               Dynamic size and pointer-based sequence allocation
@@ -1056,7 +1056,7 @@ export function LinkedListsPage() {
                   <span>[20 | &bull;]</span> <ArrowRight size={12} />
                   <span>[30 | X]</span>
                 </div>
-                <div className="text-[10px] text-text-muted mt-2 font-mono flex gap-4 justify-center">
+                <div className="text-xs text-text-muted mt-2 font-mono flex gap-4 justify-center">
                   <span>left side = data</span>
                   <span>right side = pointer to next node</span>
                   <span>X = NULL</span>
@@ -1127,30 +1127,30 @@ export function LinkedListsPage() {
             <h3 className="text-base font-bold text-accent-secondary font-mono mb-[0.3rem] uppercase">
               Types of Linked Lists
             </h3>
-            <div className="space-y-4 text-xs font-mono">
+            <div className="space-y-4 font-mono">
               <div>
-                <span className="text-accent-secondary font-bold block mb-1">1. Singly Linked List</span>
-                <div className="bg-bg-primary/40 p-2 rounded border border-border-default/30 flex items-center gap-1">
+                <span className="text-accent-secondary text-sm font-bold block mb-1">1. Singly Linked List</span>
+                <div className="bg-bg-primary/40 p-2 rounded border border-border-default/30 flex items-center gap-1 text-xs">
                   <span>[10]</span> <ArrowRight size={10} /> <span>[20]</span> <ArrowRight size={10} /> <span>[30]</span> <ArrowRight size={10} /> <span>NULL</span>
                 </div>
-                <span className="text-text-muted text-[10px] block mt-1">Each node points only forward to the next node.</span>
+                <span className="text-text-secondary/80 text-sm block mt-1.5 font-sans leading-relaxed">Each node points only forward to the next node.</span>
               </div>
               <div>
-                <span className="text-accent-primary font-bold block mb-1">2. Doubly Linked List</span>
-                <div className="bg-bg-primary/40 p-2 rounded border border-border-default/30 flex items-center gap-1">
+                <span className="text-accent-primary text-sm font-bold block mb-1">2. Doubly Linked List</span>
+                <div className="bg-bg-primary/40 p-2 rounded border border-border-default/30 flex items-center gap-1 text-xs">
                   <span>NULL</span> <span>&larr; [10] &rarr;</span> <span>&larr; [20] &rarr;</span> <span>&larr; [30] &rarr;</span> <span>NULL</span>
                 </div>
-                <span className="text-text-muted text-[10px] block mt-1">Nodes contain both previous and next pointers.</span>
+                <span className="text-text-secondary/80 text-sm block mt-1.5 font-sans leading-relaxed">Nodes contain both previous and next pointers.</span>
               </div>
               <div>
-                <span className="text-accent-tertiary font-bold block mb-1">3. Circular Linked List</span>
-                <div className="bg-bg-primary/40 p-2 rounded border border-border-default/30 flex items-center gap-1 justify-between">
+                <span className="text-accent-tertiary text-sm font-bold block mb-1">3. Circular Linked List</span>
+                <div className="bg-bg-primary/40 p-2 rounded border border-border-default/30 flex items-center gap-1 justify-between text-xs">
                   <div className="flex items-center gap-1">
                     <span>[10]</span> <ArrowRight size={10} /> <span>[20]</span> <ArrowRight size={10} /> <span>[30]</span>
                   </div>
-                  <span className="text-accent-tertiary text-[10px]">&larr; loops to Head</span>
+                  <span className="text-accent-tertiary text-xs font-semibold">&larr; loops to Head</span>
                 </div>
-                <span className="text-text-muted text-[10px] block mt-1">The last node points back to the first node.</span>
+                <span className="text-text-secondary/80 text-sm block mt-1.5 font-sans leading-relaxed">The last node points back to the first node.</span>
               </div>
             </div>
           </div>

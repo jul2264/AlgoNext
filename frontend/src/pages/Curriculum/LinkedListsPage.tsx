@@ -1096,14 +1096,14 @@ export function LinkedListsPage() {
               </p>
               <ul className="list-disc list-inside space-y-1.5 pl-1">
                 <li>They have a <strong className="text-text-primary">fixed size</strong> (cannot dynamically grow in memory without copying).</li>
-                <li>Insertions and deletions inside arrays are <strong className="text-text-primary">highly expensive</strong> ($O(N)$ due to index shifting).</li>
+                <li>Insertions and deletions inside arrays are <strong className="text-text-primary">highly expensive</strong> (<span className="text-red-400 font-semibold font-mono">O(N)</span> due to index shifting).</li>
               </ul>
               <p>
                 Linked Lists solve these problems by:
               </p>
               <ul className="list-disc list-inside space-y-1.5 pl-1">
                 <li>Allowing <strong className="text-text-primary">dynamic memory allocation</strong> (nodes are allocated individually on the heap as needed).</li>
-                <li>Enabling <strong className="text-text-primary">efficient pointer-only insertions/removals</strong> ($O(1)$) without shifting elements.</li>
+                <li>Enabling <strong className="text-text-primary">efficient pointer-only insertions/removals</strong> (<span className="text-red-400 font-semibold font-mono">O(1)</span>) without shifting elements.</li>
               </ul>
             </div>
           </div>
@@ -1151,25 +1151,25 @@ export function LinkedListsPage() {
             <div className="space-y-4 font-mono">
               <div>
                 <span className="text-accent-secondary text-sm font-bold block mb-1">1. Singly Linked List</span>
-                <div className="bg-bg-primary/40 p-2 rounded border border-border-default/30 flex items-center gap-1 text-xs">
-                  <span>[10]</span> <ArrowRight size={10} /> <span>[20]</span> <ArrowRight size={10} /> <span>[30]</span> <ArrowRight size={10} /> <span>NULL</span>
+                <div className="bg-bg-primary/40 p-2 rounded border border-border-default/30 flex items-center gap-1 text-sm">
+                  <span>[10]</span> <ArrowRight size={12} /> <span>[20]</span> <ArrowRight size={12} /> <span>[30]</span> <ArrowRight size={12} /> <span>NULL</span>
                 </div>
                 <span className="text-text-secondary/80 text-sm block mt-1.5 font-sans leading-relaxed">Each node points only forward to the next node.</span>
               </div>
               <div>
                 <span className="text-accent-primary text-sm font-bold block mb-1">2. Doubly Linked List</span>
-                <div className="bg-bg-primary/40 p-2 rounded border border-border-default/30 flex items-center gap-1 text-xs">
+                <div className="bg-bg-primary/40 p-2 rounded border border-border-default/30 flex items-center gap-1 text-sm">
                   <span>NULL</span> <span>&larr; [10] &rarr;</span> <span>&larr; [20] &rarr;</span> <span>&larr; [30] &rarr;</span> <span>NULL</span>
                 </div>
                 <span className="text-text-secondary/80 text-sm block mt-1.5 font-sans leading-relaxed">Nodes contain both previous and next pointers.</span>
               </div>
               <div>
                 <span className="text-accent-tertiary text-sm font-bold block mb-1">3. Circular Linked List</span>
-                <div className="bg-bg-primary/40 p-2 rounded border border-border-default/30 flex items-center gap-1 justify-between text-xs">
-                  <div className="flex items-center gap-1">
-                    <span>[10]</span> <ArrowRight size={10} /> <span>[20]</span> <ArrowRight size={10} /> <span>[30]</span>
-                  </div>
-                  <span className="text-accent-tertiary text-xs font-semibold">&larr; loops to Head</span>
+                <div className="bg-bg-primary/40 p-2 rounded border border-border-default/30 flex items-center gap-1 text-sm">
+                  <span>[10]</span> <ArrowRight size={12} /> <span>[20]</span> <ArrowRight size={12} /> <span>[30]</span>
+                  <span className="text-accent-tertiary text-xs font-semibold ml-auto flex items-center gap-1 self-center">
+                    <RotateCcw size={12} /> loops to Head
+                  </span>
                 </div>
                 <span className="text-text-secondary/80 text-sm block mt-1.5 font-sans leading-relaxed">The last node points back to the first node.</span>
               </div>
@@ -1183,15 +1183,15 @@ export function LinkedListsPage() {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-text-secondary leading-relaxed mt-2">
             <div>
-              <strong className="text-text-primary block mb-1 font-mono uppercase text-xs tracking-wide">1. Train Compartments</strong>
+              <strong className="text-text-primary block mb-1 font-mono uppercase text-sm tracking-wider">1. Train Compartments</strong>
               <p>Train compartments are hooked sequentially. To access the 5th compartment, you must walk through compartments 1, 2, 3, and 4 first.</p>
             </div>
             <div>
-              <strong className="text-text-primary block mb-1 font-mono uppercase text-xs tracking-wide">2. Treasure Hunt Clues</strong>
+              <strong className="text-text-primary block mb-1 font-mono uppercase text-sm tracking-wider">2. Treasure Hunt Clues</strong>
               <p>Clue 1 tells you the location of Clue 2. Clue 2 tells you the location of Clue 3. You cannot skip clues because the locations are not known beforehand.</p>
             </div>
             <div>
-              <strong className="text-text-primary block mb-1 font-mono uppercase text-xs tracking-wide">3. Browser History</strong>
+              <strong className="text-text-primary block mb-1 font-mono uppercase text-sm tracking-wider">3. Browser History</strong>
               <p>Browsing backwards and forwards page-by-page references previous and next links, matching the behavior of a doubly linked list.</p>
             </div>
           </div>
@@ -1670,7 +1670,7 @@ export function LinkedListsPage() {
               <div>
                 <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Pointer Dereference Overhead</strong>
                 <p>
-                  Every hop to a node requires resolving a pointer reference, adding translation steps. This makes linked lists slower than arrays in practice on real systems, despite their $O(1)$ theoretical insertion efficiency.
+                  Every hop to a node requires resolving a pointer reference, adding translation steps. This makes linked lists slower than arrays in practice on real systems, despite their <span className="text-red-400 font-semibold font-mono">O(1)</span> theoretical insertion efficiency.
                 </p>
               </div>
             </div>

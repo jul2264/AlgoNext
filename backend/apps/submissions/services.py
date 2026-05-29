@@ -2,6 +2,7 @@ import subprocess
 import tempfile
 import os
 import time
+import sys
 from django.conf import settings
 from django.utils import timezone
 from .models import Submission
@@ -21,7 +22,7 @@ class LocalExecutionService:
                 file_path = os.path.join(temp_dir, 'main.py')
                 with open(file_path, 'w', encoding='utf-8') as f:
                     f.write(source_code)
-                command = ['python', file_path]
+                command = [sys.executable, file_path]
                 
             elif language == 'javascript':
                 file_path = os.path.join(temp_dir, 'main.js')

@@ -1234,23 +1234,23 @@ export function ArraysPage() {
             <h3 className="text-lg font-bold text-accent-secondary font-mono mb-[0.5rem] uppercase">
               1. Memory Layout & Address Math
             </h3>
-            <div className="space-y-12 text-base text-text-secondary leading-relaxed">
+            <div className="space-y-12 text-sm text-text-secondary leading-relaxed">
               <div>
-                <strong className="text-text-primary text-base font-mono uppercase tracking-wider block mb-6">Core Idea</strong>
-                <ul className="list-disc list-inside pl-0 space-y-2 text-base">
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Core Idea</strong>
+                <ul className="list-disc list-inside pl-0 space-y-2 text-sm">
                   <li>Arrays store elements in contiguous memory blocks.</li>
                   <li>Every element occupies fixed-size memory.</li>
                 </ul>
               </div>
               <div>
-                <strong className="text-text-primary text-base font-mono uppercase tracking-wider block mb-6">Address Formula</strong>
-                <div className="bg-bg-primary/50 rounded-xl p-2.5 border border-border-default/50 font-mono text-base text-center text-accent-secondary">
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Address Formula</strong>
+                <div className="bg-bg-primary/50 rounded-xl p-2.5 border border-border-default/50 font-mono text-sm text-center text-accent-secondary">
                   Address = Base Address + (Index × Element Size)
                 </div>
               </div>
               <div>
-                <strong className="text-text-primary text-base font-mono uppercase tracking-wider block mb-6">Example (Base Address = 1000, Size = 4B)</strong>
-                <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 font-mono text-base text-text-secondary bg-bg-primary/30 p-2.5 rounded-lg border border-border-default/20">
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Example (Base Address = 1000, Size = 4B)</strong>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 font-mono text-sm text-text-secondary bg-bg-primary/30 p-2.5 rounded-lg border border-border-default/20">
                   <div>Index 0 &rarr; <span className="text-accent-secondary font-bold">1000</span></div>
                   <div>Index 1 &rarr; <span className="text-accent-secondary font-bold">1004</span></div>
                   <div>Index 2 &rarr; <span className="text-accent-secondary font-bold">1008</span></div>
@@ -1258,8 +1258,8 @@ export function ArraysPage() {
                 </div>
               </div>
               <div>
-                <strong className="text-text-primary text-base font-mono uppercase tracking-wider block mb-6">Why It Matters</strong>
-                <ul className="list-disc list-inside pl-0 space-y-2 text-base">
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Why It Matters</strong>
+                <ul className="list-disc list-inside pl-0 space-y-2 text-sm">
                   <li>Enables <span className="text-text-primary font-semibold">O(1)</span> index access.</li>
                   <li>Improves CPU cache efficiency.</li>
                   <li>Reduces traversal overhead.</li>
@@ -1273,22 +1273,22 @@ export function ArraysPage() {
             <h3 className="text-lg font-bold text-accent-primary font-mono mb-[0.5rem] uppercase">
               2. Shifting & Insert Overhead
             </h3>
-            <div className="space-y-12 text-base text-text-secondary leading-relaxed">
+            <div className="space-y-12 text-sm text-text-secondary leading-relaxed">
               <div>
-                <strong className="text-text-primary text-base font-mono uppercase tracking-wider block mb-6">Core Idea</strong>
-                <p className="text-base">Arrays cannot leave gaps between elements. All active locations must remain perfectly contiguous.</p>
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Core Idea</strong>
+                <p className="text-sm">Arrays cannot leave gaps between elements. All active locations must remain perfectly contiguous.</p>
               </div>
               <div>
-                <strong className="text-text-primary text-base font-mono uppercase tracking-wider block mb-6">Insertion Example (Insert 25 at Index 2)</strong>
-                <div className="space-y-2 font-mono text-base bg-bg-primary/30 p-2.5 rounded-lg border border-border-default/20">
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Insertion Example (Insert 25 at Index 2)</strong>
+                <div className="space-y-2 font-mono text-sm bg-bg-primary/30 p-2.5 rounded-lg border border-border-default/20">
                   <div className="flex justify-between"><span>Before:</span> <span className="text-text-muted">[10, 20, 30, 40]</span></div>
                   <div className="flex justify-between text-accent-primary"><span>Shift elements:</span> <span>30 &rarr; [3], &nbsp;40 &rarr; [4]</span></div>
                   <div className="flex justify-between"><span>After:</span> <span className="text-accent-primary font-bold">[10, 20, 25, 30, 40]</span></div>
                 </div>
               </div>
               <div>
-                <strong className="text-text-primary text-base font-mono uppercase tracking-wider block mb-6">Performance Impact</strong>
-                <ul className="list-disc list-inside pl-0 space-y-2 text-base">
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Performance Impact</strong>
+                <ul className="list-disc list-inside pl-0 space-y-2 text-sm">
                   <li>Shifting <span className="text-text-primary font-semibold">N</span> elements takes <span className="text-accent-primary font-bold">O(N)</span>.</li>
                   <li>Large insertions/deletions become highly expensive.</li>
                   <li>Linked Lists avoid this overhead (dynamic pointer updates).</li>
@@ -1302,30 +1302,30 @@ export function ArraysPage() {
             <h3 className="text-lg font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase">
               3. Dynamic Arrays Resizing
             </h3>
-            <div className="space-y-12 text-base text-text-secondary leading-relaxed">
+            <div className="space-y-12 text-sm text-text-secondary leading-relaxed">
               <div>
-                <strong className="text-text-primary text-base font-mono uppercase tracking-wider block mb-6">Used In</strong>
-                <p className="text-base text-text-secondary">
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Used In</strong>
+                <p className="text-sm text-text-secondary">
                   Python Lists, Java ArrayList, C++ Vector, JavaScript Arrays
                 </p>
               </div>
               <div>
-                <strong className="text-text-primary text-base font-mono uppercase tracking-wider block mb-6">Resize Process</strong>
-                <ol className="list-decimal list-inside pl-0 space-y-2 text-base">
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Resize Process</strong>
+                <ol className="list-decimal list-inside pl-0 space-y-2 text-sm">
                   <li>Allocate a new, larger memory block.</li>
                   <li>Copy all existing elements.</li>
                   <li>Free/deallocate the old memory block.</li>
                 </ol>
               </div>
               <div>
-                <strong className="text-text-primary text-base font-mono uppercase tracking-wider block mb-6">Typical Growth</strong>
-                <div className="font-mono text-base text-center bg-bg-primary/30 p-2 rounded-lg border border-border-default/20 text-accent-tertiary">
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Typical Growth</strong>
+                <div className="font-mono text-sm text-center bg-bg-primary/30 p-2 rounded-lg border border-border-default/20 text-accent-tertiary">
                   Capacity: 4 &rarr; 8 &rarr; 16 &rarr; 32
                 </div>
               </div>
               <div>
-                <strong className="text-text-primary text-base font-mono uppercase tracking-wider block mb-6">Why This Matters</strong>
-                <ul className="list-disc list-inside pl-0 space-y-2 text-base">
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Why This Matters</strong>
+                <ul className="list-disc list-inside pl-0 space-y-2 text-sm">
                   <li>Append operations become <span className="text-accent-tertiary font-bold">amortized O(1)</span>.</li>
                   <li>Resizing is expensive (<span className="text-text-primary">O(N)</span>) but occurs infrequently.</li>
                 </ul>
@@ -1338,32 +1338,32 @@ export function ArraysPage() {
             <h3 className="text-lg font-bold text-accent-secondary font-mono mb-[0.5rem] uppercase">
               4. Hardware Cache Friendliness
             </h3>
-            <div className="space-y-12 text-base text-text-secondary leading-relaxed">
+            <div className="space-y-12 text-sm text-text-secondary leading-relaxed">
               <div>
-                <strong className="text-text-primary text-base font-mono uppercase tracking-wider block mb-6">Core Idea</strong>
-                <p className="text-base">CPUs load nearby memory values together into cache lines (spatial locality) rather than accessing RAM on every instruction.</p>
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Core Idea</strong>
+                <p className="text-sm">CPUs load nearby memory values together into cache lines (spatial locality) rather than accessing RAM on every instruction.</p>
               </div>
               <div>
-                <strong className="text-text-primary text-base font-mono uppercase tracking-wider block mb-6">Why Arrays Are Fast</strong>
-                <ul className="list-disc list-inside pl-0 space-y-2 text-base">
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Why Arrays Are Fast</strong>
+                <ul className="list-disc list-inside pl-0 space-y-2 text-sm">
                   <li>Elements are physically adjacent in memory.</li>
                   <li>CPU prefetchers load next values automatically.</li>
                   <li>Fewer cache misses occur during traversal.</li>
                 </ul>
               </div>
               <div>
-                <strong className="text-text-primary text-base font-mono uppercase tracking-wider block mb-6">Compared to Linked Lists</strong>
-                <div className="grid grid-cols-2 gap-4 text-lg font-mono bg-bg-primary/30 p-2.5 rounded-lg border border-border-default/20">
+                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-6">Compared to Linked Lists</strong>
+                <div className="grid grid-cols-2 gap-4 text-base font-mono bg-bg-primary/30 p-2.5 rounded-lg border border-border-default/20">
                   <div>
-                    <span className="text-accent-secondary font-bold block mb-2 text-lg">Arrays</span>
-                    <div className="text-base text-text-secondary space-y-1.5">
+                    <span className="text-accent-secondary font-bold block mb-2 text-base">Arrays</span>
+                    <div className="text-sm text-text-secondary space-y-1.5">
                       <div>&bull; Sequential memory</div>
                       <div>&bull; Excellent locality</div>
                     </div>
                   </div>
                   <div>
-                    <span className="text-emerald-400 font-bold block mb-2 text-lg">Linked Lists</span>
-                    <div className="text-base text-text-secondary space-y-1.5">
+                    <span className="text-emerald-400 font-bold block mb-2 text-base">Linked Lists</span>
+                    <div className="text-sm text-text-secondary space-y-1.5">
                       <div>&bull; Scattered memory</div>
                       <div>&bull; Poor locality</div>
                     </div>

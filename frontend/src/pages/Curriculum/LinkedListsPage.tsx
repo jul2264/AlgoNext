@@ -1056,8 +1056,8 @@ export function LinkedListsPage() {
                     <div className="flex items-start gap-4 min-w-[450px] justify-center px-2">
                       {/* Node 1 & Data description */}
                       <div className="flex flex-col items-center gap-1.5">
-                        <span className="text-accent-secondary bg-bg-secondary/40 border border-border-default/30 px-3 py-1.5 rounded-lg font-bold">[10 | &bull;]</span>
-                        <span className="text-[11px] text-text-muted whitespace-nowrap">left side = data</span>
+                        <span className="text-accent-secondary bg-bg-secondary/40 border border-border-default/30 px-3 py-1.5 rounded-lg font-bold">[10]</span>
+                        <span className="text-[11px] text-text-muted whitespace-nowrap">data</span>
                       </div>
 
                       <div className="flex items-center text-accent-secondary pt-2">
@@ -1066,8 +1066,8 @@ export function LinkedListsPage() {
 
                       {/* Node 2 & Pointer description */}
                       <div className="flex flex-col items-center gap-1.5">
-                        <span className="text-accent-secondary bg-bg-secondary/40 border border-border-default/30 px-3 py-1.5 rounded-lg font-bold">[20 | &bull;]</span>
-                        <span className="text-[11px] text-text-muted whitespace-nowrap">right side = pointer to next node</span>
+                        <span className="text-accent-secondary bg-bg-secondary/40 border border-border-default/30 px-3 py-1.5 rounded-lg font-bold">[20]</span>
+                        <span className="text-[11px] text-text-muted whitespace-nowrap">data</span>
                       </div>
 
                       <div className="flex items-center text-accent-secondary pt-2">

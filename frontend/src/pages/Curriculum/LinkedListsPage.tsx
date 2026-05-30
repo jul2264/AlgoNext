@@ -1399,7 +1399,7 @@ export function LinkedListsPage() {
 
               {/* Graphical Nodes Row */}
               <div className="flex-1 flex items-center justify-center w-full py-12 overflow-x-auto">
-                <div className="flex items-center gap-4 sm:gap-8 px-4">
+                <div className="flex items-center gap-2 sm:gap-4 px-4">
                   {activeStepData.nodes.map((node, idx) => {
                     const isActive = activeStepData.activeIndex === idx;
                     const isHighlighted = activeStepData.highlightIndices?.includes(idx);
@@ -1413,7 +1413,7 @@ export function LinkedListsPage() {
                     }
 
                     return (
-                      <div key={idx} className="flex items-center gap-4 sm:gap-8 relative">
+                      <div key={idx} className="flex items-center gap-2 sm:gap-4 relative">
                         {/* Connecting Arrow from predecessor */}
                         {idx > 0 && (
                           <div className="flex flex-col items-center justify-center text-text-muted select-none">
@@ -1440,7 +1440,7 @@ export function LinkedListsPage() {
 
                           {/* Pointer Label moved above the node */}
                           {pointerLabel && (
-                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 px-4 py-2 bg-accent-primary text-bg-primary rounded text-xs font-mono font-bold uppercase whitespace-nowrap shadow-md select-none leading-none">
+                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 -translate-y-5 px-12 py-6 bg-accent-primary text-bg-primary rounded text-xs font-mono font-bold uppercase whitespace-nowrap shadow-md select-none leading-none">
                               {pointerLabel}
                             </div>
                           )}

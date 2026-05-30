@@ -1060,8 +1060,8 @@ export function LinkedListsPage() {
                         <span className="text-xs text-text-muted whitespace-nowrap">data</span>
                       </div>
 
-                      <div className="flex items-center text-accent-secondary pt-2">
-                        <ArrowRight size={16} className="opacity-70" />
+                      <div className="flex items-center text-accent-secondary pt-1.5">
+                        <ArrowRight size={18} className="opacity-70" />
                       </div>
 
                       {/* Node 2 & Pointer description */}
@@ -1070,8 +1070,8 @@ export function LinkedListsPage() {
                         <span className="text-xs text-text-muted whitespace-nowrap">data</span>
                       </div>
 
-                      <div className="flex items-center text-accent-secondary pt-2">
-                        <ArrowRight size={16} className="opacity-70" />
+                      <div className="flex items-center text-accent-secondary pt-1.5">
+                        <ArrowRight size={18} className="opacity-70" />
                       </div>
 
                       {/* Node 3 & NULL description */}

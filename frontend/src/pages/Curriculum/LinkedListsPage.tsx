@@ -1052,8 +1052,8 @@ export function LinkedListsPage() {
               <div className="mt-4">
                 <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-2">Basic Structure:</strong>
                 <div className="bg-bg-primary/50 border border-border-default/50 rounded-xl p-4 flex flex-col font-mono text-xs select-none">
-                  <div className="overflow-x-auto w-full flex justify-center pb-1">
-                    <div className="flex items-start gap-4 min-w-[450px] justify-center px-2">
+                  <div className="w-full flex justify-center pb-1">
+                    <div className="flex items-start gap-4 justify-center px-2">
                       {/* Node 1 & Data description */}
                       <div className="flex flex-col items-center gap-1.5">
                         <span className="text-accent-secondary bg-bg-secondary/40 border border-border-default/30 px-3 py-1.5 rounded-lg font-bold">[10]</span>

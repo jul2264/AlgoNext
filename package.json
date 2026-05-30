@@ -1,0 +1,16 @@
+{
+  "name": "algonext-root",
+  "version": "1.0.0",
+  "description": "Root runner for AlgoNext services",
+  "main": "index.js",
+  "scripts": {
+    "redis": "wsl sh -c \"redis-server || echo 'Redis not found inside WSL. Please make sure Redis is running.'\"",
+    "backend": "cd backend && venv\\Scripts\\python.exe manage.py runserver",
+    "celery": "cd backend && venv\\Scripts\\celery.exe -A algonext worker -l info --pool=solo",
+    "frontend": "cd frontend && npm run dev",
+    "dev": "concurrently --kill-others-on-fail --names \"redis,django,celery,vite\" --prefix-colors \"red,green,blue,magenta\" \"npm run redis\" \"npm run backend\" \"npm run celery\" \"npm run frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

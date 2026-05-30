@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { ChevronLeft, List, Link as LinkIcon, Layers, AlignJustify } from 'lucide-react';
@@ -5,12 +6,50 @@ import { PageHeader } from '@/components/layout/PageHeader';
 
 export function LinearStructuresPage() {
   const navigate = useNavigate();
+  const [progresses, setProgresses] = useState({
+    arrays: 0,
+    linkedLists: 0,
+    stacks: 0,
+    queues: 0
+  });
+
+  useEffect(() => {
+    const SECTION_WEIGHTS: Record<number, number> = { 1: 10, 2: 15, 3: 10, 4: 15, 5: 15, 6: 10, 7: 10, 8: 15 };
+
+    const getProgress = (key: string) => {
+      try {
+        const saved = localStorage.getItem(key);
+        if (saved) {
+          const completedMap = JSON.parse(saved) as Record<string, boolean>;
+          return Object.entries(completedMap)
+            .filter(([, done]) => done)
+            .reduce((sum, [k]) => sum + (SECTION_WEIGHTS[Number(k)] || 0), 0);
+        }
+      } catch (e) {
+        console.error(`Failed to parse progress for ${key}:`, e);
+      }
+      return 0;
+    };
+
+    setProgresses({
+      arrays: getProgress('dsa_progress_arrays'),
+      linkedLists: getProgress('dsa_progress_linked_lists'),
+      stacks: getProgress('dsa_progress_stacks'),
+      queues: getProgress('dsa_progress_queues')
+    });
+  }, []);
+
+  const getStatus = (progress: number) => {
+    if (progress === 0) return 'start';
+    if (progress === 100) return 'completed';
+    return 'in progress';
+  };
 
   const modules = [
-    { id: 1, title: 'Arrays', slug: 'arrays', icon: List, desc: 'Contiguous memory blocks for fast indexing and sequential iteration.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
-    { id: 2, title: 'Linked Lists', slug: 'linked-lists', icon: LinkIcon, desc: 'Nodes connected by pointers, enabling dynamic memory allocation.', progress: 0, status: 'start', colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
-    { id: 3, title: 'Stacks', slug: 'stacks', icon: Layers, desc: 'LIFO structure used for history tracking and execution frames.', progress: 0, status: 'start', colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
-    { id: 4, title: 'Queues', slug: 'queues', icon: AlignJustify, desc: 'FIFO structure ideal for scheduling and order processing.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
+    { id: 1, title: 'Arrays', slug: 'arrays', icon: List, desc: 'Contiguous memory blocks for fast indexing and sequential iteration.', progress: progresses.arrays, status: getStatus(progresses.arrays), colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
+    { id: 2, title: 'Linked Lists', slug: 'linked-lists', icon: LinkIcon, desc: 'Nodes connected by pointers, enabling dynamic memory allocation.', progress: progresses.linkedLists, status: getStatus(progresses.linkedLists), colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
+    { id: 3, title: 'Stacks', slug: 'stacks', icon: Layers, desc: 'LIFO structure used for history tracking and execution frames.', progress: progresses.stacks, status: getStatus(progresses.stacks), colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
+    { id: 4, title: 'Queues', slug: 'queues', icon: AlignJustify, desc: 'FIFO structure ideal for scheduling and order processing.', progress: progresses.queues, status: getStatus(progresses.queues), colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
   ];
 
   return (

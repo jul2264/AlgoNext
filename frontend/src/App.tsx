@@ -1,7 +1,8 @@
 // AlgoNext — Root App Component with Router
 
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { LoginPage, RegisterPage } from '@/pages/Auth';
+import { LandingPage } from '@/pages/Home';
 import { ProtectedRoute } from '@/components/layout/PageWrapper';
 import { DashboardPage } from '@/pages/Dashboard';
 import { ProblemPage } from '@/pages/Problem';
@@ -14,6 +15,8 @@ import { FoundationsPage } from '@/pages/Curriculum/FoundationsPage';
 import { LinearStructuresPage } from '@/pages/Curriculum/LinearStructuresPage';
 import { ArraysPage } from '@/pages/Curriculum/ArraysPage';
 import { LinkedListsPage } from '@/pages/Curriculum/LinkedListsPage';
+import { StacksPage } from '@/pages/Curriculum/StacksPage';
+import { QueuesPage } from '@/pages/Curriculum/QueuesPage';
 import { ProfilePage } from '@/pages/Profile';
 import { AiTutorPage } from '@/pages/AiTutor';
 import { PlaygroundPage } from '@/pages/Playground';
@@ -36,8 +39,8 @@ export default function App() {
       <Route path="/sign-in/*" element={<LoginPage />} />
       <Route path="/sign-up/*" element={<RegisterPage />} />
       
-      {/* Root redirect */}
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      {/* Root Path - Landing Page */}
+      <Route path="/" element={<LandingPage />} />
 
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
@@ -47,6 +50,8 @@ export default function App() {
         <Route path="/dsa/linear-structures" element={<LinearStructuresPage />} />
         <Route path="/dsa/linear-structures/arrays" element={<ArraysPage />} />
         <Route path="/dsa/linear-structures/linked-lists" element={<LinkedListsPage />} />
+        <Route path="/dsa/linear-structures/stacks" element={<StacksPage />} />
+        <Route path="/dsa/linear-structures/queues" element={<QueuesPage />} />
         <Route path="/dsa/linear-structures/:slug" element={<ModulePage />} />
         <Route path="/dsa/trees" element={<TreesModulePage />} />
         <Route path="/dsa/trees/:slug" element={<ModulePage />} />

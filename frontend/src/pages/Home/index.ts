@@ -1,2 +1,1 @@
-// AlgoNext — Placeholder
-export {};
+export * from './LandingPage';

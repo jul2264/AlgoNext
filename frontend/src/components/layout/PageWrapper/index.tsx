@@ -24,7 +24,7 @@ export function ProtectedRoute() {
   }
 
   if (!userId) {
-    return <Navigate to="/sign-in" />;
+    return <Navigate to="/" />;
   }
 
   return (

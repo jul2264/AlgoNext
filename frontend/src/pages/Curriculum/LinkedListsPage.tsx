@@ -97,7 +97,7 @@ const VISUALIZATION_STEPS: Record<'traversal' | 'insert-head' | 'insert-tail' | 
     },
     {
       step: 1,
-      description: 'Step 1: Allocate a new node in memory with data 10 and next pointing to NULL.',
+      description: 'Allocate a new node in memory with data 10 and next pointing to NULL.',
       nodes: [
         { val: 20, nextVal: 30 },
         { val: 30, nextVal: null },
@@ -110,7 +110,7 @@ const VISUALIZATION_STEPS: Record<'traversal' | 'insert-head' | 'insert-tail' | 
     },
     {
       step: 2,
-      description: 'Step 2: Connect the new node. Point new_node.next to the current HEAD node (Node 20).',
+      description: 'Connect the new node. Point new_node.next to the current HEAD node (Node 20).',
       nodes: [
         { val: 20, nextVal: 30 },
         { val: 30, nextVal: null },
@@ -123,7 +123,7 @@ const VISUALIZATION_STEPS: Record<'traversal' | 'insert-head' | 'insert-tail' | 
     },
     {
       step: 3,
-      description: 'Step 3: Update HEAD to reference the new node (Node 10). The insertion at head is complete.',
+      description: 'Update HEAD to reference the new node (Node 10). The insertion at head is complete.',
       nodes: [
         { val: 10, nextVal: 20 },
         { val: 20, nextVal: 30 },
@@ -149,7 +149,7 @@ const VISUALIZATION_STEPS: Record<'traversal' | 'insert-head' | 'insert-tail' | 
     },
     {
       step: 1,
-      description: 'Step 1: Create the new node with data 30 and next pointing to NULL.',
+      description: 'Create the new node with data 30 and next pointing to NULL.',
       nodes: [
         { val: 10, nextVal: 20 },
         { val: 20, nextVal: null },
@@ -162,7 +162,7 @@ const VISUALIZATION_STEPS: Record<'traversal' | 'insert-head' | 'insert-tail' | 
     },
     {
       step: 2,
-      description: 'Step 2: Traverse to find the tail node. Node 20 is the tail since its next is NULL.',
+      description: 'Traverse to find the tail node. Node 20 is the tail since its next is NULL.',
       nodes: [
         { val: 10, nextVal: 20 },
         { val: 20, nextVal: null, label: 'tail' },
@@ -175,7 +175,7 @@ const VISUALIZATION_STEPS: Record<'traversal' | 'insert-head' | 'insert-tail' | 
     },
     {
       step: 3,
-      description: 'Step 3: Update the tail node\'s pointer. Connect Node 20\'s next pointer to the new node (30).',
+      description: 'Update the tail node\'s pointer. Connect Node 20\'s next pointer to the new node (30).',
       nodes: [
         { val: 10, nextVal: 20 },
         { val: 20, nextVal: 30 },
@@ -202,7 +202,7 @@ const VISUALIZATION_STEPS: Record<'traversal' | 'insert-head' | 'insert-tail' | 
     },
     {
       step: 1,
-      description: 'Step 1: Locate the predecessor node (Node 10) which is right before the target Node 20.',
+      description: 'Locate the predecessor node (Node 10) which is right before the target Node 20.',
       nodes: [
         { val: 10, nextVal: 20 },
         { val: 20, nextVal: 30 },
@@ -215,7 +215,7 @@ const VISUALIZATION_STEPS: Record<'traversal' | 'insert-head' | 'insert-tail' | 
     },
     {
       step: 2,
-      description: 'Step 2: Reassign pointers. Point Node 10\'s next directly to Node 20\'s next (Node 30).',
+      description: 'Reassign pointers. Point Node 10\'s next directly to Node 20\'s next (Node 30).',
       nodes: [
         { val: 10, nextVal: 30 },
         { val: 20, nextVal: 30, label: 'orphaned' },
@@ -228,7 +228,7 @@ const VISUALIZATION_STEPS: Record<'traversal' | 'insert-head' | 'insert-tail' | 
     },
     {
       step: 3,
-      description: 'Step 3: Node 20 is completely bypassed. Garbage collection (or delete) reclaims Node 20\'s memory.',
+      description: 'Node 20 is completely bypassed. Garbage collection (or delete) reclaims Node 20\'s memory.',
       nodes: [
         { val: 10, nextVal: 30 },
         { val: 30, nextVal: null }
@@ -253,7 +253,7 @@ const VISUALIZATION_STEPS: Record<'traversal' | 'insert-head' | 'insert-tail' | 
     },
     {
       step: 1,
-      description: 'Step 1: Point Node 10\'s next to prev (NULL). Shift pointers (prev=10, current=20).',
+      description: 'Point Node 10\'s next to prev (NULL). Shift pointers (prev=10, current=20).',
       nodes: [
         { val: 10, nextVal: null, label: 'prev' },
         { val: 20, nextVal: 30, label: 'curr' },
@@ -266,7 +266,7 @@ const VISUALIZATION_STEPS: Record<'traversal' | 'insert-head' | 'insert-tail' | 
     },
     {
       step: 2,
-      description: 'Step 2: Point Node 20\'s next to prev (Node 10). Shift pointers (prev=20, current=30).',
+      description: 'Point Node 20\'s next to prev (Node 10). Shift pointers (prev=20, current=30).',
       nodes: [
         { val: 20, nextVal: 10, label: 'prev' },
         { val: 10, nextVal: null },
@@ -279,7 +279,7 @@ const VISUALIZATION_STEPS: Record<'traversal' | 'insert-head' | 'insert-tail' | 
     },
     {
       step: 3,
-      description: 'Step 3: Point Node 30\'s next to prev (Node 20). Shift pointers (prev=30, current=NULL).',
+      description: 'Point Node 30\'s next to prev (Node 20). Shift pointers (prev=30, current=NULL).',
       nodes: [
         { val: 30, nextVal: 20, label: 'prev' },
         { val: 20, nextVal: 10 },
@@ -292,7 +292,7 @@ const VISUALIZATION_STEPS: Record<'traversal' | 'insert-head' | 'insert-tail' | 
     },
     {
       step: 4,
-      description: 'Step 4: Update HEAD pointer to prev (Node 30). The reversed linked list is complete.',
+      description: 'Update HEAD pointer to prev (Node 30). The reversed linked list is complete.',
       nodes: [
         { val: 30, nextVal: 20 },
         { val: 20, nextVal: 10 },
@@ -1440,7 +1440,10 @@ export function LinkedListsPage() {
 
                           {/* Pointer Label moved above the node */}
                           {pointerLabel && (
-                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 -translate-y-5 px-8 py-4 bg-accent-primary text-bg-primary rounded text-xs font-mono font-bold uppercase whitespace-nowrap shadow-md select-none leading-none">
+                            <div 
+                              className="absolute bottom-full left-1/2 -translate-x-1/2 -translate-y-5 bg-accent-primary text-bg-primary rounded-xl text-[13px] font-mono font-bold uppercase whitespace-nowrap shadow-md select-none leading-none"
+                              style={{ padding: '0.5rem' }}
+                            >
                               {pointerLabel}
                             </div>
                           )}
@@ -1619,30 +1622,14 @@ export function LinkedListsPage() {
               2. Pointer Traversal & Insertion
             </h3>
             <div className="space-y-4 text-sm text-text-secondary leading-relaxed mt-2">
-              <div>
-                <strong className="text-text-primary font-mono uppercase tracking-wider block">1. Start at HEAD</strong>
-                <p className="text-text-secondary mt-0.5">Traversal always begins from the HEAD node.</p>
-              </div>
-              <div>
-                <strong className="text-text-primary font-mono uppercase tracking-wider block">2. Follow the Next Pointer</strong>
-                <p className="text-text-secondary mt-0.5">Each node stores a reference to the next node in the sequence.</p>
-              </div>
-              <div>
-                <strong className="text-text-primary font-mono uppercase tracking-wider block">3. Stop at NULL</strong>
-                <p className="text-text-secondary mt-0.5">Traversal ends when the current node's next pointer becomes NULL.</p>
-              </div>
-              <div>
-                <strong className="text-text-primary font-mono uppercase tracking-wider block">4. No Direct Indexing</strong>
-                <p className="text-text-secondary mt-0.5">Unlike arrays, linked lists cannot access elements using an index.</p>
-              </div>
-              <div>
-                <strong className="text-text-primary font-mono uppercase tracking-wider block">5. Fast Insertions</strong>
-                <p className="text-text-secondary mt-0.5">Adding a node only requires updating pointers; existing nodes do not need to move.</p>
-              </div>
-              <div>
-                <strong className="text-text-primary font-mono uppercase tracking-wider block">6. Efficient for Dynamic Data</strong>
-                <p className="text-text-secondary mt-0.5">Linked lists are ideal when frequent insertions and deletions are required.</p>
-              </div>
+              <ul className="list-disc list-inside pl-0 space-y-3 text-sm">
+                <li>Traversal starts from the <strong className="text-accent-primary font-mono font-bold">HEAD</strong> node.</li>
+                <li>Each node points to the next node using a pointer.</li>
+                <li>Traversal continues node-by-node until reaching <strong className="text-accent-primary font-mono font-bold">NULL</strong>.</li>
+                <li>Linked Lists do not support direct index access.</li>
+                <li>To access an element, previous nodes must be visited sequentially.</li>
+                <li>Insertions are fast because only pointers are updated.</li>
+              </ul>
             </div>
           </div>
 

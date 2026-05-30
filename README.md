@@ -62,7 +62,20 @@ cp .env.example .env
 # Fill in your Clerk keys, database URL, Judge0 API key, etc.
 ```
 
-### 2. Frontend
+### 2. Unified Startup (Recommended)
+
+To start the entire application (WSL Redis, Django backend, Celery worker, and Vite frontend) with a single command from the root folder:
+
+```bash
+npm install   # If running for the first time at root
+npm run dev
+```
+
+### 3. Individual Component Startup (Manual)
+
+If you prefer to start components manually in separate terminals:
+
+#### Frontend
 
 ```bash
 cd frontend
@@ -71,7 +84,7 @@ npm run dev
 # → http://localhost:5173
 ```
 
-### 3. Backend
+#### Backend
 
 ```bash
 cd backend
@@ -84,14 +97,14 @@ python manage.py runserver
 # → http://localhost:8000
 ```
 
-### 4. Celery Worker
+#### Celery Worker
 
 ```bash
 cd backend
 celery -A algonext worker -l info
 ```
 
-### 5. Docker (All Services)
+### 4. Docker (All Services)
 
 ```bash
 cd infra/docker

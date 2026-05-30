@@ -1431,16 +1431,16 @@ export function LinkedListsPage() {
                           
                           <span className="text-[10px] text-text-muted font-mono mt-1 select-none">Node [{idx}]</span>
 
-                          {/* Top Tag Label (new_node/prev/etc.) */}
+                          {/* Top Tag Label (new_node/prev/etc.) moved below the node */}
                           {node.label && (
-                            <div className="absolute -top-7 px-2 py-0.5 bg-bg-secondary border border-border-default rounded text-[9px] font-mono font-bold uppercase whitespace-nowrap text-text-secondary select-none">
+                            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 px-2 py-0.5 bg-bg-secondary border border-border-default rounded text-[9px] font-mono font-bold uppercase whitespace-nowrap text-text-secondary select-none">
                               {node.label}
                             </div>
                           )}
 
-                          {/* Pointer Label under the node */}
+                          {/* Pointer Label moved above the node */}
                           {pointerLabel && (
-                            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 px-12 py-6 bg-accent-primary text-bg-primary rounded text-xs font-mono font-bold uppercase whitespace-nowrap shadow-md select-none leading-none">
+                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 px-4 py-2 bg-accent-primary text-bg-primary rounded text-xs font-mono font-bold uppercase whitespace-nowrap shadow-md select-none leading-none">
                               {pointerLabel}
                             </div>
                           )}

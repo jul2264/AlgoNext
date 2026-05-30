@@ -1440,7 +1440,7 @@ export function LinkedListsPage() {
 
                           {/* Pointer Label under the node */}
                           {pointerLabel && (
-                            <div className="absolute -bottom-9 px-2.5 py-1 bg-accent-primary text-bg-primary rounded-md text-[10px] font-mono font-bold uppercase whitespace-nowrap shadow-md select-none leading-none">
+                            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 px-3 py-1.5 bg-accent-primary text-bg-primary rounded text-[10px] font-mono font-bold uppercase whitespace-nowrap shadow-md select-none leading-none">
                               {pointerLabel}
                             </div>
                           )}

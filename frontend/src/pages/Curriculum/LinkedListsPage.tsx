@@ -1096,14 +1096,14 @@ export function LinkedListsPage() {
               </p>
               <ul className="list-disc list-inside space-y-1.5 pl-1">
                 <li>They have a <strong className="text-text-primary">fixed size</strong> (cannot dynamically grow in memory without copying).</li>
-                <li>Insertions and deletions inside arrays are <strong className="text-text-primary">highly expensive</strong> (<span className="border px-1.5 py-0.5 rounded font-mono font-bold text-xs" style={{ color: '#ff4d4d', backgroundColor: 'rgba(255, 77, 77, 0.15)', borderColor: 'rgba(255, 77, 77, 0.4)' }}>O(N)</span> due to index shifting).</li>
+                <li>Insertions and deletions inside arrays are <strong className="text-text-primary">highly expensive</strong> (<strong className="text-accent-primary font-mono">O(N)</strong> due to index shifting).</li>
               </ul>
               <p>
                 Linked Lists solve these problems by:
               </p>
               <ul className="list-disc list-inside space-y-1.5 pl-1">
                 <li>Allowing <strong className="text-text-primary">dynamic memory allocation</strong> (nodes are allocated individually on the heap as needed).</li>
-                <li>Enabling <strong className="text-text-primary">efficient pointer-only insertions/removals</strong> (<span className="border px-1.5 py-0.5 rounded font-mono font-bold text-xs" style={{ color: '#ff4d4d', backgroundColor: 'rgba(255, 77, 77, 0.15)', borderColor: 'rgba(255, 77, 77, 0.4)' }}>O(1)</span>) without shifting elements.</li>
+                <li>Enabling <strong className="text-text-primary">efficient pointer-only insertions/removals</strong> (<strong className="text-accent-primary font-mono">O(1)</strong>) without shifting elements.</li>
               </ul>
             </div>
           </div>

@@ -1424,16 +1424,9 @@ export function LinkedListsPage() {
                         <div className="flex flex-col items-center gap-1 relative">
                           <motion.div
                             layout
-                            className={`border rounded-xl flex overflow-hidden font-mono font-bold text-xs sm:text-sm shadow-md ${nodeStyle}`}
+                            className={`w-10 h-10 sm:w-12 sm:h-12 border rounded-xl flex items-center justify-center font-mono font-bold text-sm sm:text-base shadow-md transition-all ${nodeStyle}`}
                           >
-                            {/* Data side */}
-                            <div className="px-3.5 py-2.5 sm:px-4 bg-bg-secondary/40 border-r border-border-default/40 flex items-center justify-center">
-                              {node.val}
-                            </div>
-                            {/* Next reference side */}
-                            <div className="px-3.5 py-2.5 sm:px-4 bg-bg-primary/20 text-text-muted flex items-center justify-center select-none font-sans">
-                              {node.nextVal !== null ? '•' : 'X'}
-                            </div>
+                            {node.val}
                           </motion.div>
                           
                           <span className="text-[10px] text-text-muted font-mono mt-1 select-none">Node [{idx}]</span>
@@ -1447,7 +1440,7 @@ export function LinkedListsPage() {
 
                           {/* Pointer Label under the node */}
                           {pointerLabel && (
-                            <div className="absolute -bottom-8 px-2 py-0.5 bg-accent-primary text-bg-primary rounded text-[9px] font-mono font-bold uppercase whitespace-nowrap shadow-md select-none">
+                            <div className="absolute -bottom-9 px-2.5 py-1 bg-accent-primary text-bg-primary rounded-md text-[10px] font-mono font-bold uppercase whitespace-nowrap shadow-md select-none leading-none">
                               {pointerLabel}
                             </div>
                           )}

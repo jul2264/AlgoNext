@@ -873,22 +873,41 @@ export function StacksPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Implementation Memory Models */}
-          <div className="neon-card neon-card-cyan flex flex-col justify-start" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <h3 className="text-lg font-bold text-accent-secondary font-mono mb-[0.5rem] uppercase">
+          <div className="neon-card neon-card-cyan flex flex-col justify-start" style={{ paddingTop: '1.25rem', paddingBottom: '1.25rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+            <h3 className="text-lg font-bold text-accent-secondary font-mono mb-4 uppercase">
               1. Stack Memory Structure
             </h3>
-            <div className="space-y-4 text-sm text-text-secondary leading-relaxed">
+            <div className="space-y-6 text-sm text-text-secondary leading-relaxed">
               <p>Stacks can be structurally backed by two core memory strategies:</p>
 
               <div>
                 <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-1">Array-Based Stack</strong>
                 <p className="mb-2">Contiguous sequential RAM mapping. TOP references index offsets:</p>
-                <div className="space-y-1.5 font-mono text-sm bg-bg-primary/30 p-2.5 rounded-lg border border-border-default/20 max-w-xs mx-auto text-center">
-                  <div className="text-text-muted text-xs">Index: 0 &nbsp;&nbsp; 1 &nbsp;&nbsp; 2</div>
-                  <div className="text-accent-secondary font-bold">[10] [20] [30]</div>
-                  <div className="text-accent-secondary text-xs"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &uarr; TOP</div>
+                <div className="w-full flex justify-center">
+                  <div 
+                    className="relative bg-bg-primary/30 p-4 rounded-lg border border-border-default/20 w-full max-w-xs flex justify-center select-none"
+                    style={{ marginTop: '1rem', marginBottom: '1rem', fontSize: '0.9rem' }}
+                  >
+                    <span className="absolute left-4 top-4 text-text-muted font-mono" style={{ fontSize: '0.75rem' }}>Index:</span>
+                    <div className="flex items-start gap-4 font-mono">
+                      <div className="flex flex-col items-center w-12">
+                        <span className="text-text-muted mb-1" style={{ fontSize: '0.75rem' }}>0</span>
+                        <span className="text-accent-secondary font-bold text-base">[10]</span>
+                      </div>
+                      <div className="flex flex-col items-center w-12">
+                        <span className="text-text-muted mb-1" style={{ fontSize: '0.75rem' }}>1</span>
+                        <span className="text-accent-secondary font-bold text-base">[20]</span>
+                      </div>
+                      <div className="flex flex-col items-center w-12">
+                        <span className="text-text-muted mb-1" style={{ fontSize: '0.75rem' }}>2</span>
+                        <span className="text-accent-secondary font-bold text-base">[30]</span>
+                        <span className="text-accent-secondary text-base mt-1 leading-none">↑</span>
+                        <span className="text-accent-secondary font-bold text-xs mt-0.5">TOP</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <ul className="list-disc list-inside mt-2 text-xs space-y-1">
+                <ul className="list-disc list-inside mt-3 text-sm space-y-2">
                   <li><strong>Push:</strong> Increment TOP and insert at array index location.</li>
                   <li><strong>Pop:</strong> Fetch value and decrement TOP index variable.</li>
                 </ul>
@@ -897,29 +916,34 @@ export function StacksPage() {
               <div className="pt-2">
                 <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-1">Linked List Stack</strong>
                 <p className="mb-2">Scattered node pointer connections. TOP stores the address reference to the head node:</p>
-                <div className="font-mono text-sm bg-bg-primary/30 p-2.5 rounded-lg border border-border-default/20 text-center max-w-xs mx-auto text-accent-secondary font-bold">
-                  TOP &rarr; [30] &rarr; [20] &rarr; [10] &rarr; NULL
+                <div className="w-full flex justify-center">
+                  <div 
+                    className="font-mono bg-bg-primary/30 p-3 rounded-lg border border-border-default/20 text-center w-full max-w-md text-accent-secondary font-bold"
+                    style={{ marginTop: '1rem', marginBottom: '1rem', fontSize: '0.9rem' }}
+                  >
+                    TOP &rarr; [30] &rarr; [20] &rarr; [10] &rarr; NULL
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Efficiency & Overflow Details */}
-          <div className="neon-card neon-card-pink flex flex-col justify-start" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <h3 className="text-lg font-bold text-accent-primary font-mono mb-[0.5rem] uppercase">
+          <div className="neon-card neon-card-pink flex flex-col justify-start" style={{ paddingTop: '1.25rem', paddingBottom: '1.25rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+            <h3 className="text-lg font-bold text-accent-primary font-mono mb-4 uppercase">
               2. Why Stacks Are Fast
             </h3>
-            <div className="space-y-4 text-sm text-text-secondary leading-relaxed">
+            <div className="space-y-6 text-sm text-text-secondary leading-relaxed">
               <p>
                 All operations occur strictly at the <strong className="text-text-primary">TOP</strong> pointer boundary. No elements need to be shifted, memory cells shuffled, or linked nodes traversed.
               </p>
 
               <div>
                 <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-1">Stack Overflow</strong>
-                <p>
+                <p className="mb-1">
                   Occurs when stack allocation memory capacity becomes completely full, or too many nested function activations recur.
                 </p>
-                <p className="text-xs text-accent-primary font-mono font-bold mt-1">
+                <p className="text-sm text-accent-primary font-mono font-bold mt-2 text-center">
                   Example: Unbounded infinite recursion calls.
                 </p>
               </div>
@@ -929,12 +953,17 @@ export function StacksPage() {
                 <p className="mb-2">
                   Operating systems execute code routines using call stacks. Every invocation pushes local context variables and returns pointers in reverse order:
                 </p>
-                <div className="space-y-1 font-mono text-xs bg-bg-primary/30 p-2 border border-border-default/20 rounded-lg max-w-xs mx-auto text-center text-text-secondary">
-                  <div>funcB() Frame</div>
-                  <div className="text-text-muted">&darr; returns first</div>
-                  <div>funcA() Frame</div>
-                  <div className="text-text-muted">&darr; returns next</div>
-                  <div>main() Frame</div>
+                <div className="w-full flex justify-center">
+                  <div 
+                    className="space-y-2 font-mono bg-bg-primary/30 p-4 border border-border-default/20 rounded-lg w-full max-w-xs flex flex-col items-center justify-center"
+                    style={{ marginTop: '1rem', marginBottom: '1rem' }}
+                  >
+                    <div className="text-accent-primary font-bold text-center" style={{ fontSize: '0.85rem' }}>funcB() Frame</div>
+                    <div className="text-accent-primary/60 font-normal text-center" style={{ fontSize: '0.75rem' }}>&darr; returns first</div>
+                    <div className="text-accent-primary font-bold text-center" style={{ fontSize: '0.85rem' }}>funcA() Frame</div>
+                    <div className="text-accent-primary/60 font-normal text-center" style={{ fontSize: '0.75rem' }}>&darr; returns next</div>
+                    <div className="text-accent-primary font-bold text-center" style={{ fontSize: '0.85rem' }}>main() Frame</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -990,7 +1019,7 @@ export function StacksPage() {
           {/* Code Blocks */}
           <div className="bg-bg-primary/70 rounded-xl border border-border-default/80 p-4 font-mono text-sm leading-relaxed overflow-x-auto max-h-[480px] scrollbar-hide">
             {activeCodeTab === 'python' && (
-              <pre className="text-text-primary">
+              <pre className="text-white">
 {`# 1. Stack using standard Python list
 stack = []
 
@@ -1040,7 +1069,7 @@ print("Custom Stack Peek:", stack.peek())  # Output: 20`}
             )}
 
             {activeCodeTab === 'js' && (
-              <pre className="text-text-primary">
+              <pre className="text-white">
 {`// 1. Stack using standard Array
 const stack = [];
 
@@ -1097,7 +1126,7 @@ console.log("Custom Stack Peek:", myStack.peek()); // Output: 20`}
             )}
 
             {activeCodeTab === 'cpp' && (
-              <pre className="text-text-primary">
+              <pre className="text-white">
 {`#include <iostream>
 #include <stack>
 #include <stdexcept>
@@ -1131,7 +1160,7 @@ int main() {
             )}
 
             {activeCodeTab === 'java' && (
-              <pre className="text-text-primary">
+              <pre className="text-white">
 {`import java.util.Stack;
 import java.util.EmptyStackException;
 
@@ -1327,7 +1356,7 @@ public class Main {
                       <button
                         key={idx}
                         disabled={isAnswered}
-                        onClick={() => setSelectedOption(idx)}
+                        onClick={() => handleOptionSelect(idx)}
                         className={`text-left py-2.5 px-4 rounded-xl transition-all duration-200 leading-relaxed cursor-pointer disabled:cursor-default ${optionStyle}`}
                       >
                         <div className="flex items-center gap-3">

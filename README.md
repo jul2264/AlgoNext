@@ -21,7 +21,6 @@
 | **Code Editor** | Monaco Editor (VS Code in-browser) |
 | **Backend** | Django 6 · Django REST Framework |
 | **Task Queue** | Celery · Redis |
-| **Code Execution** | Judge0 API (sandboxed) |
 | **Database** | PostgreSQL (Supabase) · Django ORM |
 | **Authentication** | Clerk |
 | **Deployment** | Vercel (frontend) · Railway (backend) |

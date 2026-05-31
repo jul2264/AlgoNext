@@ -9,7 +9,6 @@
 - 📊 **Algorithm Visualizations** — Step-through animations for sorting, trees, graphs, DP, and more using D3.js
 - 💻 **Code Playground** — In-browser code editor (Monaco) with multi-language support (Python, C++, Java)
 - 🔥 **Gamification** — Streaks, XP, badges, leaderboard, and activity heatmaps
-- 📚 **Structured Curriculum** — 5 levels, 19 chapters, 100+ problems from foundations to complexity theory
 
 ---
 
@@ -108,15 +107,6 @@ celery -A algonext worker -l info
 cd infra/docker
 docker-compose up -d
 ```
-
----
-
----
-
-## 📖 Documentation
-
-- [Architecture](docs/ARCHITECTURE.md)
-- [Contributing](docs/CONTRIBUTING.md)
 
 ---
 

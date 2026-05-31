@@ -40,7 +40,6 @@ LOCAL_APPS = [
     'apps.problems',
     'apps.submissions',
     'apps.progress',
-    'apps.adaptive',
     'content_loader',
 ]
 

@@ -19,18 +19,6 @@ class CurrentUserView(generics.RetrieveUpdateAPIView):
             return UserUpdateSerializer
         return UserSerializer
 
-class BecomeTeacherView(views.APIView):
-    """Endpoint for developers/demo to upgrade an account to a teacher role via passcode."""
-    permission_classes = [IsAuthenticated]
-    
-    def post(self, request):
-        passcode = request.data.get('passcode')
-        if passcode == 'ALGO_PROFESSOR_2026':
-            user = request.user
-            user.role = User.Role.TEACHER
-            user.save()
-            return Response({'status': 'success', 'role': 'teacher'})
-        return Response({'error': 'Invalid passcode'}, status=status.HTTP_403_FORBIDDEN)
 
 class ClerkWebhookView(views.APIView):
     """Webhook to sync users from Clerk when they are created/updated."""

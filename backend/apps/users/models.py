@@ -10,7 +10,6 @@ class User(TimeStampedModel):
 
     class Role(models.TextChoices):
         STUDENT = 'student', 'Student'
-        TEACHER = 'teacher', 'Teacher'
 
     clerk_id = models.CharField(max_length=255, unique=True, db_index=True)
     email = models.EmailField(unique=True)
@@ -34,10 +33,6 @@ class User(TimeStampedModel):
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}".strip()
-
-    @property
-    def is_teacher(self):
-        return self.role == self.Role.TEACHER
 
     @property
     def is_student(self):

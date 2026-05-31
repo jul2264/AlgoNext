@@ -8,8 +8,6 @@
 
 - 📊 **Algorithm Visualizations** — Step-through animations for sorting, trees, graphs, DP, and more using D3.js
 - 💻 **Code Playground** — In-browser code editor (Monaco) with multi-language support (Python, C++, Java)
-- 🎯 **Adaptive Difficulty** — Personalized problem recommendations based on your skill profile
-- 🏫 **Teacher Dashboard** — Create classes, assign problems, monitor student progress
 - 🔥 **Gamification** — Streaks, XP, badges, leaderboard, and activity heatmaps
 - 📚 **Structured Curriculum** — 5 levels, 19 chapters, 100+ problems from foundations to complexity theory
 
@@ -113,21 +111,11 @@ docker-compose up -d
 
 ---
 
-## 👥 User Roles
-
-| Role | Capabilities |
-|------|-------------|
-| **Student** | Browse curriculum, solve problems, view visualizations, track progress |
-| **Teacher** | All student features + create classes, assign problems, monitor students |
-
 ---
 
 ## 📖 Documentation
 
-- [API Reference](docs/API.md)
 - [Architecture](docs/ARCHITECTURE.md)
-- [Content Schema](docs/CONTENT_SCHEMA.md)
-- [Setup Guide](docs/SETUP.md)
 - [Contributing](docs/CONTRIBUTING.md)
 
 ---

@@ -457,21 +457,22 @@ export function StacksPage() {
               </p>
             </div>
 
-            {/* ASCII Stack Structure */}
-            <div className="flex flex-col items-center justify-center py-4 bg-bg-primary/20 border border-border-default/20 rounded-xl max-w-xs mx-auto w-full">
-              <div className="text-xs font-mono font-bold text-accent-primary flex flex-col items-center mb-1">
-                <span>TOP</span>
-                <ArrowDown size={14} className="animate-bounce" />
-              </div>
-              <div className="flex flex-col items-center gap-1.5 w-24">
-                <div className="w-full py-2 bg-accent-primary/10 border border-accent-primary text-accent-primary font-mono font-bold text-center rounded-lg shadow-[0_0_8px_rgba(255,45,120,0.15)]">
-                  [30]
+            <div className="w-full flex justify-center">
+              <div className="flex flex-col items-center justify-center py-4 bg-bg-primary/20 border border-border-default/20 rounded-xl w-full max-w-xs">
+                <div className="text-xs font-mono font-bold text-accent-primary flex flex-col items-center mb-1">
+                  <span>TOP</span>
+                  <ArrowDown size={14} className="animate-bounce" />
                 </div>
-                <div className="w-full py-2 bg-bg-secondary border border-border-default text-text-secondary font-mono font-bold text-center rounded-lg">
-                  [20]
-                </div>
-                <div className="w-full py-2 bg-bg-secondary border border-border-default text-text-secondary font-mono font-bold text-center rounded-lg">
-                  [10]
+                <div className="flex flex-col items-center gap-1.5 w-24">
+                  <div className="w-full py-2 bg-accent-primary/10 border border-accent-primary text-accent-primary font-mono font-bold text-center rounded-lg shadow-[0_0_8px_rgba(255,45,120,0.15)]">
+                    [30]
+                  </div>
+                  <div className="w-full py-2 bg-bg-secondary border border-border-default text-text-secondary font-mono font-bold text-center rounded-lg">
+                    [20]
+                  </div>
+                  <div className="w-full py-2 bg-bg-secondary border border-border-default text-text-secondary font-mono font-bold text-center rounded-lg">
+                    [10]
+                  </div>
                 </div>
               </div>
             </div>

@@ -76,7 +76,8 @@ export function LandingPage() {
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-center px-6">
           <button
             onClick={() => navigate('/sign-in')}
-            className="px-8 py-4 bg-accent-primary text-bg-primary font-mono font-bold text-base tracking-wider uppercase rounded-xl hover:scale-[1.03] active:scale-95 transition-all shadow-[0_0_20px_rgba(255,45,120,0.3)] hover:shadow-[0_0_30px_rgba(255,45,120,0.5)] cursor-pointer"
+            className="bg-accent-primary text-bg-primary font-mono font-bold tracking-wider uppercase rounded-xl hover:scale-[1.03] active:scale-95 transition-all shadow-[0_0_20px_rgba(255,45,120,0.3)] hover:shadow-[0_0_30px_rgba(255,45,120,0.5)] cursor-pointer"
+            style={{ padding: '1.25rem 4rem', fontSize: '1.15rem' }}
           >
             Login to Start Learning
           </button>

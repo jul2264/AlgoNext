@@ -49,9 +49,9 @@ export function LandingPage() {
         <motion.div 
           whileHover={{ scale: 1.05 }}
           className="p-8 rounded-3xl bg-bg-secondary/40 border border-border-default/80 flex items-center justify-center relative group"
-          style={{ marginBottom: '3.5rem' }}
+          style={{ marginBottom: '1.75rem' }}
         >
-          <Code2 size={96} className="text-accent-secondary" />
+          <Code2 size={96} className="text-accent-tertiary" />
         </motion.div>
 
         {/* Title */}
@@ -81,11 +81,6 @@ export function LandingPage() {
           </button>
         </div>
       </motion.div>
-
-      {/* Footer Info */}
-      <div className="absolute bottom-6 font-mono text-[10px] text-text-muted uppercase tracking-widest">
-        AlgoNext platform &bull; Cyberpunk Edition
-      </div>
     </div>
   );
 }

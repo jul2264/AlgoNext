@@ -1,6 +1,6 @@
 # 🚀 AlgoNext — Master DAA & DSA
 
-**AlgoNext** is a personalized EdTech platform that helps students master Data Structures & Algorithms (DSA) and Design & Analysis of Algorithms (DAA) through **interactive visualizations**, **hands-on coding challenges**, and **adaptive learning paths**.
+**AlgoNext** is an EdTech platform that helps students master Data Structures & Algorithms (DSA) and Design & Analysis of Algorithms (DAA) through **interactive visualizations** and **hands-on coding challenges**.
 
 ---
 

@@ -48,12 +48,10 @@ export function LandingPage() {
         {/* Animated Logo Container */}
         <motion.div 
           whileHover={{ scale: 1.05 }}
-          className="p-6 rounded-2xl bg-bg-secondary/40 border border-accent-secondary/30 flex items-center justify-center shadow-[0_0_30px_rgba(0,255,204,0.15)] relative group"
+          className="p-8 rounded-3xl bg-bg-secondary/40 border border-border-default/80 flex items-center justify-center relative group"
           style={{ marginBottom: '3.5rem' }}
         >
-          {/* Neon Borders Glows */}
-          <div className="absolute inset-0 rounded-2xl border border-accent-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
-          <Code2 size={72} className="text-accent-secondary drop-shadow-[0_0_15px_rgba(0,255,204,0.6)] animate-pulse" />
+          <Code2 size={96} className="text-accent-secondary" />
         </motion.div>
 
         {/* Title */}
@@ -61,13 +59,13 @@ export function LandingPage() {
           className="text-5xl sm:text-6xl font-extrabold tracking-tight font-display text-text-primary flex items-center gap-1"
           style={{ marginBottom: '1.75rem' }}
         >
-          Algo<span className="text-accent-secondary drop-shadow-[0_0_12px_rgba(0,255,204,0.5)]">Next</span>
+          Algo<span className="text-accent-secondary">Next</span>
         </h1>
 
         {/* Subtitle */}
         <p 
           className="text-base sm:text-lg text-text-secondary font-mono tracking-wide leading-relaxed"
-          style={{ marginBottom: '4.5rem' }}
+          style={{ marginBottom: '2.25rem' }}
         >
           visualize and learn about DSA and DAA concepts
         </p>

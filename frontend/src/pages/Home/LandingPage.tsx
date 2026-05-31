@@ -48,7 +48,8 @@ export function LandingPage() {
         {/* Animated Logo Container */}
         <motion.div 
           whileHover={{ scale: 1.05 }}
-          className="mb-8 p-6 rounded-2xl bg-bg-secondary/40 border border-accent-secondary/30 flex items-center justify-center shadow-[0_0_30px_rgba(0,255,204,0.15)] relative group"
+          className="p-6 rounded-2xl bg-bg-secondary/40 border border-accent-secondary/30 flex items-center justify-center shadow-[0_0_30px_rgba(0,255,204,0.15)] relative group"
+          style={{ marginBottom: '3.5rem' }}
         >
           {/* Neon Borders Glows */}
           <div className="absolute inset-0 rounded-2xl border border-accent-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
@@ -56,12 +57,18 @@ export function LandingPage() {
         </motion.div>
 
         {/* Title */}
-        <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight font-display text-text-primary mb-4 flex items-center gap-1">
+        <h1 
+          className="text-5xl sm:text-6xl font-extrabold tracking-tight font-display text-text-primary flex items-center gap-1"
+          style={{ marginBottom: '1.75rem' }}
+        >
           Algo<span className="text-accent-secondary drop-shadow-[0_0_12px_rgba(0,255,204,0.5)]">Next</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-base sm:text-lg text-text-secondary font-mono tracking-wide leading-relaxed mb-12">
+        <p 
+          className="text-base sm:text-lg text-text-secondary font-mono tracking-wide leading-relaxed"
+          style={{ marginBottom: '4.5rem' }}
+        >
           visualize and learn about DSA and DAA concepts
         </p>
 

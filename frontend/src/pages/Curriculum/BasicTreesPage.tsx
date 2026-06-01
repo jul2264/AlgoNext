@@ -30,6 +30,7 @@ interface TreeEdge {
   from: string;
   to: string;
   highlighted?: boolean;
+  hasArrow?: boolean;
 }
 
 interface VisStep {
@@ -62,8 +63,8 @@ const activeSteps: VisStep[] = [
       { id: '30', label: '30', cx: 210, cy: 120, highlighted: false }
     ],
     edges: [
-      { from: '10', to: '20', highlighted: true },
-      { from: '10', to: '30', highlighted: true }
+      { from: '10', to: '20', highlighted: true, hasArrow: true },
+      { from: '10', to: '30', highlighted: true, hasArrow: true }
     ]
   },
   {
@@ -135,7 +136,7 @@ const activeSteps: VisStep[] = [
     ],
     edges: [
       { from: '50', to: '30' },
-      { from: '50', to: '70', highlighted: true },
+      { from: '50', to: '70', highlighted: true, hasArrow: true },
       { from: '30', to: '20' },
       { from: '30', to: '40' },
       { from: '70', to: '60' },
@@ -160,7 +161,7 @@ const activeSteps: VisStep[] = [
       { from: '50', to: '70' },
       { from: '30', to: '20' },
       { from: '30', to: '40' },
-      { from: '70', to: '60', highlighted: true },
+      { from: '70', to: '60', highlighted: true, hasArrow: true },
       { from: '70', to: '80' }
     ]
   },
@@ -315,7 +316,7 @@ const activeSteps: VisStep[] = [
     ],
     edges: [
       { from: '50', to: '30' },
-      { from: '50', to: '70', highlighted: true },
+      { from: '50', to: '70', highlighted: true, hasArrow: true },
       { from: '30', to: '20' },
       { from: '30', to: '40' },
       { from: '70', to: '60' },
@@ -340,7 +341,7 @@ const activeSteps: VisStep[] = [
       { from: '50', to: '70' },
       { from: '30', to: '20' },
       { from: '30', to: '40' },
-      { from: '70', to: '60', highlighted: true },
+      { from: '70', to: '60', highlighted: true, hasArrow: true },
       { from: '70', to: '80' }
     ]
   },
@@ -365,7 +366,7 @@ const activeSteps: VisStep[] = [
       { from: '30', to: '40' },
       { from: '70', to: '60' },
       { from: '70', to: '80' },
-      { from: '60', to: '65', highlighted: true }
+      { from: '60', to: '65', highlighted: true, hasArrow: true }
     ]
   }
 ];
@@ -782,28 +783,57 @@ export function BasicTreesPage() {
               ) : (
                 /* SVG Tree Visualization */
                 <svg className="w-full h-full max-h-[250px] max-w-sm mt-4 select-none" viewBox="0 0 300 240">
+                  <style>{`
+                    @keyframes nodePop {
+                      0% {
+                        transform: scale(0);
+                        opacity: 0;
+                      }
+                      100% {
+                        transform: scale(1);
+                        opacity: 1;
+                      }
+                    }
+                    @keyframes edgeDraw {
+                      0% {
+                        stroke-dashoffset: 100;
+                      }
+                      100% {
+                        stroke-dashoffset: 0;
+                      }
+                    }
+                    .node-animate {
+                      animation: nodePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+                    }
+                    .edge-animate {
+                      stroke-dasharray: 100;
+                      stroke-dashoffset: 100;
+                      animation: edgeDraw 0.5s ease-in-out forwards;
+                    }
+                  `}</style>
+
                   <defs>
                     <marker
                       id="arrow"
                       viewBox="0 0 10 10"
-                      refX="18"
+                      refX="17.5"
                       refY="5"
-                      markerWidth="6"
-                      markerHeight="6"
+                      markerWidth="4"
+                      markerHeight="4"
                       orient="auto-start-reverse"
                     >
-                      <path d="M 0 2 L 10 5 L 0 8 z" fill="var(--color-border-default)" className="opacity-40" />
+                      <path d="M 0 2.5 L 10 5 L 0 7.5 z" fill="var(--color-border-default)" className="opacity-40" />
                     </marker>
                     <marker
                       id="arrow-active"
                       viewBox="0 0 10 10"
-                      refX="18"
+                      refX="17.5"
                       refY="5"
-                      markerWidth="6"
-                      markerHeight="6"
+                      markerWidth="4"
+                      markerHeight="4"
                       orient="auto-start-reverse"
                     >
-                      <path d="M 0 2 L 10 5 L 0 8 z" fill="var(--color-accent-secondary)" />
+                      <path d="M 0 2.5 L 10 5 L 0 7.5 z" fill="var(--color-accent-secondary)" />
                     </marker>
                   </defs>
 
@@ -815,22 +845,30 @@ export function BasicTreesPage() {
 
                     return (
                       <line
-                        key={`edge-${idx}`}
+                        key={`edge-${visStep}-${idx}`}
                         x1={fromNode.cx}
                         y1={fromNode.cy}
                         x2={toNode.cx}
                         y2={toNode.cy}
                         stroke={edge.highlighted ? "var(--color-accent-secondary)" : "var(--color-border-default)"}
                         strokeWidth={edge.highlighted ? 3 : 2}
-                        className={`transition-all duration-300 ${edge.highlighted ? '' : 'opacity-40'}`}
-                        markerEnd={edge.highlighted ? "url(#arrow-active)" : "url(#arrow)"}
+                        className={`edge-animate transition-all duration-300 ${edge.highlighted ? '' : 'opacity-40'}`}
+                        style={{ animationDelay: '0.1s' }}
+                        markerEnd={edge.hasArrow ? (edge.highlighted ? "url(#arrow-active)" : "url(#arrow)") : undefined}
                       />
                     );
                   })}
 
                   {/* Draw Nodes */}
                   {activeStepData.nodes.map((node) => (
-                    <g key={`node-${node.id}`} className="transition-all duration-300">
+                    <g 
+                      key={`node-${visStep}-${node.id}`} 
+                      className="node-animate transition-all duration-300"
+                      style={{ 
+                        transformOrigin: `${node.cx}px ${node.cy}px`,
+                        animationDelay: node.isRoot ? '0s' : '0.25s'
+                      }}
+                    >
                       {/* Node Circle */}
                       <circle
                         cx={node.cx}

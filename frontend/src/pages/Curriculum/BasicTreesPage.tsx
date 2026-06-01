@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   ChevronLeft, 
@@ -43,362 +43,365 @@ interface VisStep {
   edges: TreeEdge[];
   showOrder?: boolean;
   isRecursiveFlowchart?: boolean;
+  line?: number;
 }
 
-const activeSteps: VisStep[] = [
-  {
-    title: 'Root Node',
-    description: 'Every tree begins from the root. It is the starting point of the structure and has no parent.',
-    conceptInfo: '10 is the:\n\nROOT NODE\n\nEvery tree begins from the root.',
-    nodes: [
-      { id: '10', label: '10', cx: 150, cy: 70, isRoot: true, highlighted: true }
-    ],
-    edges: []
-  },
-  {
-    title: 'Parent & Child',
-    description: 'Nodes are connected by edges. Parent nodes point to their children. Here, 10 is the parent of 20 and 30.',
-    conceptInfo: '10 is parent of 20 and 30\n20 and 30 are children of 10',
-    nodes: [
-      { id: '10', label: '10', cx: 150, cy: 50, isRoot: true, highlighted: true },
-      { id: '20', label: '20', cx: 90, cy: 120, highlighted: false },
-      { id: '30', label: '30', cx: 210, cy: 120, highlighted: false }
-    ],
-    edges: [
-      { from: '10', to: '20', highlighted: true, hasArrow: true },
-      { from: '10', to: '30', highlighted: true, hasArrow: true }
-    ]
-  },
-  {
-    title: 'Leaf Node',
-    description: 'Leaf nodes are nodes at the very bottom of the tree that have no children (out-degree of 0). Here, 40, 50, and 30 are leaves.',
-    conceptInfo: 'Leaf Nodes:\n\n40, 50, 30\n\nLeaf nodes have:\n\nno children',
-    nodes: [
-      { id: '10', label: '10', cx: 150, cy: 50, isRoot: true },
-      { id: '20', label: '20', cx: 90, cy: 110 },
-      { id: '30', label: '30', cx: 210, cy: 110, isLeaf: true, highlighted: true },
-      { id: '40', label: '40', cx: 50, cy: 170, isLeaf: true, highlighted: true },
-      { id: '50', label: '50', cx: 130, cy: 170, isLeaf: true, highlighted: true }
-    ],
-    edges: [
-      { from: '10', to: '20' },
-      { from: '10', to: '30' },
-      { from: '20', to: '40' },
-      { from: '20', to: '50' }
-    ]
-  },
-  {
-    title: 'Binary Tree',
-    description: 'A Binary Tree is a tree structure where each node can have a maximum of 2 children (left and right).',
-    conceptInfo: 'Binary Tree Visualization\n\nA Binary Tree allows:\n\nMaximum 2 children per node',
-    nodes: [
-      { id: '1', label: '1', cx: 150, cy: 60, isRoot: true },
-      { id: '2', label: '2', cx: 90, cy: 130 },
-      { id: '3', label: '3', cx: 210, cy: 130 }
-    ],
-    edges: [
-      { from: '1', to: '2' },
-      { from: '1', to: '3' }
-    ]
-  },
-  {
-    title: 'Binary Search Tree (BST)',
-    description: 'In a Binary Search Tree, for any given node: values in its left subtree are less than the node, and values in its right subtree are greater.',
-    conceptInfo: 'Binary Search Tree (BST)\n\nBST Rule:\n\nLeft < Root < Right\n\nExample:\n        [50]\n       /    \\\n    [30]   [70]\n    / \\     / \\\n [20][40][60][80]',
-    nodes: [
-      { id: '50', label: '50', cx: 150, cy: 45, isRoot: true },
-      { id: '30', label: '30', cx: 95, cy: 105 },
-      { id: '70', label: '70', cx: 205, cy: 105 },
-      { id: '20', label: '20', cx: 60, cy: 165, isLeaf: true },
-      { id: '40', label: '40', cx: 120, cy: 165, isLeaf: true },
-      { id: '60', label: '60', cx: 180, cy: 165, isLeaf: true },
-      { id: '80', label: '80', cx: 240, cy: 165, isLeaf: true }
-    ],
-    edges: [
-      { from: '50', to: '30' },
-      { from: '50', to: '70' },
-      { from: '30', to: '20' },
-      { from: '30', to: '40' },
-      { from: '70', to: '60' },
-      { from: '70', to: '80' }
-    ]
-  },
-  {
-    title: 'BST Search - Step 1',
-    description: 'We search for 60. First, we compare 60 with root 50. Since 60 > 50, we traverse right.',
-    conceptInfo: 'BST Search Visualization\n\nSearch 60.\n\nStep 1\n60 > 50 → move right',
-    nodes: [
-      { id: '50', label: '50', cx: 150, cy: 45, isRoot: true, highlighted: true },
-      { id: '30', label: '30', cx: 95, cy: 105 },
-      { id: '70', label: '70', cx: 205, cy: 105 },
-      { id: '20', label: '20', cx: 60, cy: 165 },
-      { id: '40', label: '40', cx: 120, cy: 165 },
-      { id: '60', label: '60', cx: 180, cy: 165 },
-      { id: '80', label: '80', cx: 240, cy: 165 }
-    ],
-    edges: [
-      { from: '50', to: '30' },
-      { from: '50', to: '70', highlighted: true, hasArrow: true },
-      { from: '30', to: '20' },
-      { from: '30', to: '40' },
-      { from: '70', to: '60' },
-      { from: '70', to: '80' }
-    ]
-  },
-  {
-    title: 'BST Search - Step 2',
-    description: 'Next, compare target 60 with 70. Since 60 < 70, we traverse left.',
-    conceptInfo: 'BST Search Visualization\n\nSearch 60.\n\nStep 2\n60 < 70 → move left',
-    nodes: [
-      { id: '50', label: '50', cx: 150, cy: 45, isRoot: true },
-      { id: '30', label: '30', cx: 95, cy: 105 },
-      { id: '70', label: '70', cx: 205, cy: 105, highlighted: true },
-      { id: '20', label: '20', cx: 60, cy: 165 },
-      { id: '40', label: '40', cx: 120, cy: 165 },
-      { id: '60', label: '60', cx: 180, cy: 165 },
-      { id: '80', label: '80', cx: 240, cy: 165 }
-    ],
-    edges: [
-      { from: '50', to: '30' },
-      { from: '50', to: '70' },
-      { from: '30', to: '20' },
-      { from: '30', to: '40' },
-      { from: '70', to: '60', highlighted: true, hasArrow: true },
-      { from: '70', to: '80' }
-    ]
-  },
-  {
-    title: 'BST Search - Step 3',
-    description: 'Finally, compare target 60 with node 60. Values match. Found target!',
-    conceptInfo: 'BST Search Visualization\n\nSearch 60.\n\nStep 3\nFound 60',
-    nodes: [
-      { id: '50', label: '50', cx: 150, cy: 45, isRoot: true },
-      { id: '30', label: '30', cx: 95, cy: 105 },
-      { id: '70', label: '70', cx: 205, cy: 105 },
-      { id: '20', label: '20', cx: 60, cy: 165 },
-      { id: '40', label: '40', cx: 120, cy: 165 },
-      { id: '60', label: '60', cx: 180, cy: 165, highlighted: true },
-      { id: '80', label: '80', cx: 240, cy: 165 }
-    ],
-    edges: [
-      { from: '50', to: '30' },
-      { from: '50', to: '70' },
-      { from: '30', to: '20' },
-      { from: '30', to: '40' },
-      { from: '70', to: '60' },
-      { from: '70', to: '80' }
-    ]
-  },
-  {
-    title: 'Inorder Traversal',
-    description: 'Inorder traversal recursively visits the left subtree, then the root node, and then the right subtree. It yields sorted keys in a BST.',
-    conceptInfo: 'Inorder Traversal\n\nRule:\nLeft → Root → Right\n\nExample:\n20 → 30 → 40 → 50 → 60 → 70 → 80',
-    nodes: [
-      { id: '50', label: '50', cx: 150, cy: 45, isRoot: true, isTraversed: true, traverseOrder: 4 },
-      { id: '30', label: '30', cx: 95, cy: 105, isTraversed: true, traverseOrder: 2 },
-      { id: '70', label: '70', cx: 205, cy: 105, isTraversed: true, traverseOrder: 6 },
-      { id: '20', label: '20', cx: 60, cy: 165, isTraversed: true, traverseOrder: 1 },
-      { id: '40', label: '40', cx: 120, cy: 165, isTraversed: true, traverseOrder: 3 },
-      { id: '60', label: '60', cx: 180, cy: 165, isTraversed: true, traverseOrder: 5 },
-      { id: '80', label: '80', cx: 240, cy: 165, isTraversed: true, traverseOrder: 7 }
-    ],
-    edges: [
-      { from: '50', to: '30' },
-      { from: '50', to: '70' },
-      { from: '30', to: '20' },
-      { from: '30', to: '40' },
-      { from: '70', to: '60' },
-      { from: '70', to: '80' }
-    ],
-    showOrder: true
-  },
-  {
-    title: 'Preorder Traversal',
-    description: 'Preorder traversal visits the root node first, then recursively traverses the left and right subtrees.',
-    conceptInfo: 'Preorder Traversal\n\nRule:\nRoot → Left → Right\n\nExample:\n50 → 30 → 20 → 40 → 70 → 60 → 80',
-    nodes: [
-      { id: '50', label: '50', cx: 150, cy: 45, isRoot: true, isTraversed: true, traverseOrder: 1 },
-      { id: '30', label: '30', cx: 95, cy: 105, isTraversed: true, traverseOrder: 2 },
-      { id: '70', label: '70', cx: 205, cy: 105, isTraversed: true, traverseOrder: 5 },
-      { id: '20', label: '20', cx: 60, cy: 165, isTraversed: true, traverseOrder: 3 },
-      { id: '40', label: '40', cx: 120, cy: 165, isTraversed: true, traverseOrder: 4 },
-      { id: '60', label: '60', cx: 180, cy: 165, isTraversed: true, traverseOrder: 6 },
-      { id: '80', label: '80', cx: 240, cy: 165, isTraversed: true, traverseOrder: 7 }
-    ],
-    edges: [
-      { from: '50', to: '30' },
-      { from: '50', to: '70' },
-      { from: '30', to: '20' },
-      { from: '30', to: '40' },
-      { from: '70', to: '60' },
-      { from: '70', to: '80' }
-    ],
-    showOrder: true
-  },
-  {
-    title: 'Postorder Traversal',
-    description: 'Postorder traversal recursively traverses the left and right subtrees first, and visits the root node last.',
-    conceptInfo: 'Postorder Traversal\n\nRule:\nLeft → Right → Root\n\nExample:\n20 → 40 → 30 → 60 → 80 → 70 → 50',
-    nodes: [
-      { id: '50', label: '50', cx: 150, cy: 45, isRoot: true, isTraversed: true, traverseOrder: 7 },
-      { id: '30', label: '30', cx: 95, cy: 105, isTraversed: true, traverseOrder: 3 },
-      { id: '70', label: '70', cx: 205, cy: 105, isTraversed: true, traverseOrder: 6 },
-      { id: '20', label: '20', cx: 60, cy: 165, isTraversed: true, traverseOrder: 1 },
-      { id: '40', label: '40', cx: 120, cy: 165, isTraversed: true, traverseOrder: 2 },
-      { id: '60', label: '60', cx: 180, cy: 165, isTraversed: true, traverseOrder: 4 },
-      { id: '80', label: '80', cx: 240, cy: 165, isTraversed: true, traverseOrder: 5 }
-    ],
-    edges: [
-      { from: '50', to: '30' },
-      { from: '50', to: '70' },
-      { from: '30', to: '20' },
-      { from: '30', to: '40' },
-      { from: '70', to: '60' },
-      { from: '70', to: '80' }
-    ],
-    showOrder: true
-  },
-  {
-    title: 'Level Order Traversal',
-    description: 'Level order traversal (BFS) visits nodes level by level from top to bottom, using a Queue.',
-    conceptInfo: 'Level Order Traversal\n\nUses:\nQueue (FIFO)\n\nExample:\n50 → 30 → 70 → 20 → 40 → 60 → 80',
-    nodes: [
-      { id: '50', label: '50', cx: 150, cy: 45, isRoot: true, isTraversed: true, traverseOrder: 1 },
-      { id: '30', label: '30', cx: 95, cy: 105, isTraversed: true, traverseOrder: 2 },
-      { id: '70', label: '70', cx: 205, cy: 105, isTraversed: true, traverseOrder: 3 },
-      { id: '20', label: '20', cx: 60, cy: 165, isTraversed: true, traverseOrder: 4 },
-      { id: '40', label: '40', cx: 120, cy: 165, isTraversed: true, traverseOrder: 5 },
-      { id: '60', label: '60', cx: 180, cy: 165, isTraversed: true, traverseOrder: 6 },
-      { id: '80', label: '80', cx: 240, cy: 165, isTraversed: true, traverseOrder: 7 }
-    ],
-    edges: [
-      { from: '50', to: '30' },
-      { from: '50', to: '70' },
-      { from: '30', to: '20' },
-      { from: '30', to: '40' },
-      { from: '70', to: '60' },
-      { from: '70', to: '80' }
-    ],
-    showOrder: true
-  },
-  {
-    title: 'Tree Height',
-    description: 'The height of a tree is the length of the longest path from the root to a leaf node. Here, the height is 3.',
-    conceptInfo: 'Tree Height Visualization\n\nHeight:\n3\n\nLongest path:\n10 → 20 → 30',
-    nodes: [
-      { id: '10', label: '10', cx: 150, cy: 50, isRoot: true, highlighted: true },
-      { id: '20', label: '20', cx: 110, cy: 110, highlighted: true },
-      { id: '30', label: '30', cx: 70, cy: 170, isLeaf: true, highlighted: true }
-    ],
-    edges: [
-      { from: '10', to: '20', highlighted: true },
-      { from: '20', to: '30', highlighted: true }
-    ]
-  },
-  {
-    title: 'Recursive Traversal Flow',
-    description: 'Trees are heavily recursion-based. Traversing a subtree involves visiting the current node, then traversing left, and then traversing right.',
-    conceptInfo: 'Recursive Traversal Flow\n\nVisit Node\n   ↓\nTraverse Left\n   ↓\nTraverse Right\n\nTrees are heavily recursion-based.',
-    nodes: [],
-    edges: [],
-    isRecursiveFlowchart: true
-  },
-  {
-    title: 'Real-time BST Insertion - Step 1',
-    description: 'We want to insert 65. Compare 65 with root 50. Since 65 > 50, traverse right to 70.',
-    conceptInfo: 'Real-Time BST Insertion\n\nInsert 65.\n\n65 > 50 → right',
-    nodes: [
-      { id: '50', label: '50', cx: 150, cy: 45, isRoot: true, highlighted: true },
-      { id: '30', label: '30', cx: 95, cy: 105 },
-      { id: '70', label: '70', cx: 205, cy: 105 },
-      { id: '20', label: '20', cx: 60, cy: 165 },
-      { id: '40', label: '40', cx: 120, cy: 165 },
-      { id: '60', label: '60', cx: 180, cy: 165 },
-      { id: '80', label: '80', cx: 240, cy: 165 }
-    ],
-    edges: [
-      { from: '50', to: '30' },
-      { from: '50', to: '70', highlighted: true, hasArrow: true },
-      { from: '30', to: '20' },
-      { from: '30', to: '40' },
-      { from: '70', to: '60' },
-      { from: '70', to: '80' }
-    ]
-  },
-  {
-    title: 'Real-time BST Insertion - Step 2',
-    description: 'Compare 65 with 70. Since 65 < 70, traverse left to 60.',
-    conceptInfo: 'Real-Time BST Insertion\n\nInsert 65.\n\n65 < 70 → left',
-    nodes: [
-      { id: '50', label: '50', cx: 150, cy: 45, isRoot: true },
-      { id: '30', label: '30', cx: 95, cy: 105 },
-      { id: '70', label: '70', cx: 205, cy: 105, highlighted: true },
-      { id: '20', label: '20', cx: 60, cy: 165 },
-      { id: '40', label: '40', cx: 120, cy: 165 },
-      { id: '60', label: '60', cx: 180, cy: 165 },
-      { id: '80', label: '80', cx: 240, cy: 165 }
-    ],
-    edges: [
-      { from: '50', to: '30' },
-      { from: '50', to: '70' },
-      { from: '30', to: '20' },
-      { from: '30', to: '40' },
-      { from: '70', to: '60', highlighted: true, hasArrow: true },
-      { from: '70', to: '80' }
-    ]
-  },
-  {
-    title: 'Real-time BST Insertion - Step 3',
-    description: 'Compare 65 with 60. Since 65 > 60, traverse right. Since 60\'s right child is empty, insert 65 here.',
-    conceptInfo: 'Real-Time BST Insertion\n\nInsert 65.\n\n65 > 60 → right\n\nFinal:\n        [50]\n       /    \\\n    [30]   [70]\n           /\n         [60]\n            \\\n            [65]',
-    nodes: [
-      { id: '50', label: '50', cx: 150, cy: 45, isRoot: true },
-      { id: '30', label: '30', cx: 95, cy: 105 },
-      { id: '70', label: '70', cx: 205, cy: 105 },
-      { id: '20', label: '20', cx: 60, cy: 165 },
-      { id: '40', label: '40', cx: 120, cy: 165 },
-      { id: '60', label: '60', cx: 180, cy: 165 },
-      { id: '80', label: '80', cx: 240, cy: 165 },
-      { id: '65', label: '65', cx: 205, cy: 220, isLeaf: true, highlighted: true }
-    ],
-    edges: [
-      { from: '50', to: '30' },
-      { from: '50', to: '70' },
-      { from: '30', to: '20' },
-      { from: '30', to: '40' },
-      { from: '70', to: '60' },
-      { from: '70', to: '80' },
-      { from: '60', to: '65', highlighted: true, hasArrow: true }
-    ]
-  }
+const bstNodesBase = [
+  { id: '50', label: '50', cx: 150, cy: 45, isRoot: true },
+  { id: '30', label: '30', cx: 95, cy: 105 },
+  { id: '70', label: '70', cx: 205, cy: 105 },
+  { id: '20', label: '20', cx: 60, cy: 165 },
+  { id: '40', label: '40', cx: 120, cy: 165 },
+  { id: '60', label: '60', cx: 180, cy: 165 },
+  { id: '80', label: '80', cx: 240, cy: 165 }
 ];
+
+const bstEdgesBase = [
+  { from: '50', to: '30' },
+  { from: '50', to: '70' },
+  { from: '30', to: '20' },
+  { from: '30', to: '40' },
+  { from: '70', to: '60' },
+  { from: '70', to: '80' }
+];
+
+const getBstNodes = (highlightedIds: string[], include65 = false) => {
+  const base = include65 
+    ? [...bstNodesBase, { id: '65', label: '65', cx: 205, cy: 220, isLeaf: true }]
+    : bstNodesBase;
+  return base.map(node => ({
+    ...node,
+    highlighted: highlightedIds.includes(node.id)
+  }));
+};
+
+const getBstEdges = (highlightedFromTo: [string, string][], include65 = false) => {
+  const base = include65
+    ? [...bstEdgesBase, { from: '60', to: '65' }]
+    : bstEdgesBase;
+  return base.map(edge => ({
+    ...edge,
+    highlighted: highlightedFromTo.some(([from, to]) => edge.from === from && edge.to === to),
+    hasArrow: highlightedFromTo.some(([from, to]) => edge.from === from && edge.to === to)
+  }));
+};
+
+const getTraversalNodes = (orderMap: Record<string, number>) =>
+  bstNodesBase.map(node => ({
+    ...node,
+    isTraversed: true,
+    traverseOrder: orderMap[node.id]
+  }));
 
 const VISUALIZATION_STEPS: Record<string, VisStep[]> = {
   anatomy: [
-    activeSteps[0], // Root Node
-    activeSteps[1], // Parent & Child
-    activeSteps[2]  // Leaf Node
+    {
+      title: 'Root Node',
+      description: 'Every tree begins from the root. It is the starting point of the structure and has no parent.',
+      conceptInfo: '',
+      nodes: [
+        { id: '10', label: '10', cx: 150, cy: 70, isRoot: true, highlighted: true }
+      ],
+      edges: [],
+      line: 1
+    },
+    {
+      title: 'Parent & Child',
+      description: 'Nodes are connected by edges. Parent nodes point to their children. Here, 10 is the parent of 20 and 30.',
+      conceptInfo: '',
+      nodes: [
+        { id: '10', label: '10', cx: 150, cy: 50, isRoot: true, highlighted: true },
+        { id: '20', label: '20', cx: 90, cy: 120 },
+        { id: '30', label: '30', cx: 210, cy: 120 }
+      ],
+      edges: [
+        { from: '10', to: '20', highlighted: true, hasArrow: true },
+        { from: '10', to: '30', highlighted: true, hasArrow: true }
+      ],
+      line: 2
+    },
+    {
+      title: 'Leaf Node',
+      description: 'Leaf nodes are nodes at the very bottom of the tree that have no children. Here, 40, 50, and 30 are leaves.',
+      conceptInfo: '',
+      nodes: [
+        { id: '10', label: '10', cx: 150, cy: 50, isRoot: true },
+        { id: '20', label: '20', cx: 90, cy: 110 },
+        { id: '30', label: '30', cx: 210, cy: 110, isLeaf: true, highlighted: true },
+        { id: '40', label: '40', cx: 50, cy: 170, isLeaf: true, highlighted: true },
+        { id: '50', label: '50', cx: 130, cy: 170, isLeaf: true, highlighted: true }
+      ],
+      edges: [
+        { from: '10', to: '20' },
+        { from: '10', to: '30' },
+        { from: '20', to: '40' },
+        { from: '20', to: '50' }
+      ],
+      line: 3
+    }
   ],
   bstSearch: [
-    activeSteps[4], // Binary Search Tree (BST) Concept
-    activeSteps[5], // BST Search - Step 1
-    activeSteps[6], // BST Search - Step 2
-    activeSteps[7]  // BST Search - Step 3
+    {
+      title: 'BST Search - Check Node 50',
+      description: 'Compare target 60 with root node 50. Since target is not found yet, proceed to comparisons.',
+      conceptInfo: '',
+      nodes: getBstNodes(['50']),
+      edges: getBstEdges([]),
+      line: 1
+    },
+    {
+      title: 'BST Search - Comparison',
+      description: 'Check if target 60 is less than node 50. It is not.',
+      conceptInfo: '',
+      nodes: getBstNodes(['50']),
+      edges: getBstEdges([]),
+      line: 2
+    },
+    {
+      title: 'BST Search - Traverse Right',
+      description: 'Since search target 60 > 50, recursively traverse to the right subtree (node 70).',
+      conceptInfo: '',
+      nodes: getBstNodes(['50', '70']),
+      edges: getBstEdges([['50', '70']]),
+      line: 5
+    },
+    {
+      title: 'BST Search - Check Node 70',
+      description: 'Compare target 60 with current node 70. They do not match.',
+      conceptInfo: '',
+      nodes: getBstNodes(['50', '70']),
+      edges: getBstEdges([['50', '70']]),
+      line: 1
+    },
+    {
+      title: 'BST Search - Comparison',
+      description: 'Check if target 60 is less than node 70. Yes, it is.',
+      conceptInfo: '',
+      nodes: getBstNodes(['50', '70']),
+      edges: getBstEdges([['50', '70']]),
+      line: 2
+    },
+    {
+      title: 'BST Search - Traverse Left',
+      description: 'Since search target 60 < 70, recursively traverse to the left subtree (node 60).',
+      conceptInfo: '',
+      nodes: getBstNodes(['50', '70', '60']),
+      edges: getBstEdges([['50', '70'], ['70', '60']]),
+      line: 3
+    },
+    {
+      title: 'BST Search - Target Found',
+      description: 'Compare target 60 with current node 60. Values match! Target 60 has been found.',
+      conceptInfo: '',
+      nodes: getBstNodes(['50', '70', '60']),
+      edges: getBstEdges([['50', '70'], ['70', '60']]),
+      line: 1
+    }
   ],
   bstInsertion: [
-    activeSteps[14], // Real-time BST Insertion - Step 1
-    activeSteps[15], // Real-time BST Insertion - Step 2
-    activeSteps[16]  // Real-time BST Insertion - Step 3
+    {
+      title: 'BST Insertion - Check Node 50',
+      description: 'Check if current node is empty. Since it contains 50, proceed to BST search rules.',
+      conceptInfo: '',
+      nodes: getBstNodes(['50']),
+      edges: getBstEdges([]),
+      line: 1
+    },
+    {
+      title: 'BST Insertion - Comparison',
+      description: 'Check if insertion value 65 is less than 50. It is not.',
+      conceptInfo: '',
+      nodes: getBstNodes(['50']),
+      edges: getBstEdges([]),
+      line: 2
+    },
+    {
+      title: 'BST Insertion - Traverse Right',
+      description: 'Since insertion value 65 > 50, traverse to the right subtree (node 70).',
+      conceptInfo: '',
+      nodes: getBstNodes(['50', '70']),
+      edges: getBstEdges([['50', '70']]),
+      line: 5
+    },
+    {
+      title: 'BST Insertion - Check Node 70',
+      description: 'Check if current node 70 is empty. Since it contains 70, proceed.',
+      conceptInfo: '',
+      nodes: getBstNodes(['50', '70']),
+      edges: getBstEdges([['50', '70']]),
+      line: 1
+    },
+    {
+      title: 'BST Insertion - Comparison',
+      description: 'Check if insertion value 65 is less than 70. Yes, it is.',
+      conceptInfo: '',
+      nodes: getBstNodes(['50', '70']),
+      edges: getBstEdges([['50', '70']]),
+      line: 2
+    },
+    {
+      title: 'BST Insertion - Traverse Left',
+      description: 'Since insertion value 65 < 70, traverse to the left subtree (node 60).',
+      conceptInfo: '',
+      nodes: getBstNodes(['50', '70', '60']),
+      edges: getBstEdges([['50', '70'], ['70', '60']]),
+      line: 3
+    },
+    {
+      title: 'BST Insertion - Check Node 60',
+      description: 'Check if current node 60 is empty. Since it contains 60, proceed.',
+      conceptInfo: '',
+      nodes: getBstNodes(['50', '70', '60']),
+      edges: getBstEdges([['50', '70'], ['70', '60']]),
+      line: 1
+    },
+    {
+      title: 'BST Insertion - Comparison',
+      description: 'Check if insertion value 65 is less than 60. It is not.',
+      conceptInfo: '',
+      nodes: getBstNodes(['50', '70', '60']),
+      edges: getBstEdges([['50', '70'], ['70', '60']]),
+      line: 2
+    },
+    {
+      title: 'BST Insertion - Traverse Right',
+      description: 'Since insertion value 65 > 60, traverse to the right child of 60 (which is empty).',
+      conceptInfo: '',
+      nodes: getBstNodes(['50', '70', '60']),
+      edges: getBstEdges([['50', '70'], ['70', '60']]),
+      line: 5
+    },
+    {
+      title: 'BST Insertion - Insert Node',
+      description: 'The right child of 60 is empty. Insert value 65 as the new leaf node here.',
+      conceptInfo: '',
+      nodes: getBstNodes(['50', '70', '60', '65'], true),
+      edges: getBstEdges([['50', '70'], ['70', '60'], ['60', '65']], true),
+      line: 1
+    }
   ],
   traversals: [
-    activeSteps[8],  // Inorder Traversal
-    activeSteps[9],  // Preorder Traversal
-    activeSteps[10], // Postorder Traversal
-    activeSteps[11]  // Level Order Traversal
+    {
+      title: 'Inorder Traversal',
+      description: 'Inorder traversal recursively visits the left subtree, then the root node, and then the right subtree. It yields sorted keys in a BST.',
+      conceptInfo: '',
+      nodes: getTraversalNodes({ '20': 1, '30': 2, '40': 3, '50': 4, '60': 5, '70': 6, '80': 7 }),
+      edges: bstEdgesBase,
+      showOrder: true,
+      line: 0
+    },
+    {
+      title: 'Preorder Traversal',
+      description: 'Preorder traversal visits the root node first, then recursively traverses the left and right subtrees.',
+      conceptInfo: '',
+      nodes: getTraversalNodes({ '50': 1, '30': 2, '20': 3, '40': 4, '70': 5, '60': 6, '80': 7 }),
+      edges: bstEdgesBase,
+      showOrder: true,
+      line: 1
+    },
+    {
+      title: 'Postorder Traversal',
+      description: 'Postorder traversal recursively traverses the left and right subtrees first, and visits the root node last.',
+      conceptInfo: '',
+      nodes: getTraversalNodes({ '20': 1, '40': 2, '30': 3, '60': 4, '80': 5, '70': 6, '50': 7 }),
+      edges: bstEdgesBase,
+      showOrder: true,
+      line: 2
+    },
+    {
+      title: 'Level Order Traversal',
+      description: 'Level order traversal (BFS) visits nodes level by level from top to bottom, using a Queue.',
+      conceptInfo: '',
+      nodes: getTraversalNodes({ '50': 1, '30': 2, '70': 3, '20': 4, '40': 5, '60': 6, '80': 7 }),
+      edges: bstEdgesBase,
+      showOrder: true,
+      line: 3
+    }
   ],
   heightFlow: [
-    activeSteps[12], // Tree Height
-    activeSteps[13]  // Recursive Traversal Flow
+    {
+      title: 'Tree Height - Call height(10)',
+      description: 'Calculate the height of the root node 10. We recursively calculate the heights of its subtrees.',
+      conceptInfo: '',
+      nodes: [
+        { id: '10', label: '10', cx: 150, cy: 50, isRoot: true, highlighted: true }
+      ],
+      edges: [],
+      line: 0
+    },
+    {
+      title: 'Tree Height - Call height(20)',
+      description: 'Traverse left to the child node 20. Call height(20) to find the left subtree\'s height.',
+      conceptInfo: '',
+      nodes: [
+        { id: '10', label: '10', cx: 150, cy: 50, isRoot: true, highlighted: true },
+        { id: '20', label: '20', cx: 110, cy: 110, highlighted: true }
+      ],
+      edges: [
+        { from: '10', to: '20', highlighted: true }
+      ],
+      line: 2
+    },
+    {
+      title: 'Tree Height - Call height(30)',
+      description: 'Traverse left to the leaf node 30. Call height(30) to compute the height of the deepest branch.',
+      conceptInfo: '',
+      nodes: [
+        { id: '10', label: '10', cx: 150, cy: 50, isRoot: true, highlighted: true },
+        { id: '20', label: '20', cx: 110, cy: 110, highlighted: true },
+        { id: '30', label: '30', cx: 70, cy: 170, isLeaf: true, highlighted: true }
+      ],
+      edges: [
+        { from: '10', to: '20', highlighted: true },
+        { from: '20', to: '30', highlighted: true }
+      ],
+      line: 2
+    },
+    {
+      title: 'Tree Height - height(30) Returns 1',
+      description: 'Leaf node 30 has no children. Left height = 0, right height = 0. It returns max(0, 0) + 1 = 1.',
+      conceptInfo: '',
+      nodes: [
+        { id: '10', label: '10', cx: 150, cy: 50, isRoot: true, highlighted: true },
+        { id: '20', label: '20', cx: 110, cy: 110, highlighted: true },
+        { id: '30', label: '30', cx: 70, cy: 170, isLeaf: true, highlighted: true }
+      ],
+      edges: [
+        { from: '10', to: '20', highlighted: true },
+        { from: '20', to: '30', highlighted: true }
+      ],
+      line: 4
+    },
+    {
+      title: 'Tree Height - height(20) Returns 2',
+      description: 'Node 20 has left subtree height = 1 and right subtree height = 0. It returns max(1, 0) + 1 = 2.',
+      conceptInfo: '',
+      nodes: [
+        { id: '10', label: '10', cx: 150, cy: 50, isRoot: true, highlighted: true },
+        { id: '20', label: '20', cx: 110, cy: 110, highlighted: true },
+        { id: '30', label: '30', cx: 70, cy: 170, isLeaf: true, highlighted: true }
+      ],
+      edges: [
+        { from: '10', to: '20', highlighted: true },
+        { from: '20', to: '30', highlighted: true }
+      ],
+      line: 4
+    },
+    {
+      title: 'Tree Height - height(10) Returns 3',
+      description: 'Root node 10 has left height = 2 and right height = 0. It returns max(2, 0) + 1 = 3. The tree height is 3.',
+      conceptInfo: '',
+      nodes: [
+        { id: '10', label: '10', cx: 150, cy: 50, isRoot: true, highlighted: true },
+        { id: '20', label: '20', cx: 110, cy: 110, highlighted: true },
+        { id: '30', label: '30', cx: 70, cy: 170, isLeaf: true, highlighted: true }
+      ],
+      edges: [
+        { from: '10', to: '20', highlighted: true },
+        { from: '20', to: '30', highlighted: true }
+      ],
+      line: 4
+    }
   ]
 };
 
@@ -761,7 +764,7 @@ export function BasicTreesPage() {
             </button>
           </div>
 
-          <div className="neon-card neon-card-cyan flex flex-col gap-6" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+          <div className="neon-card neon-card-cyan flex flex-col gap-6" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '2.5rem', paddingRight: '1.5rem' }}>
             {/* Operations switch tabs */}
             <div className="flex border-b border-border-default/20 gap-4 overflow-x-auto">
               <button
@@ -861,22 +864,142 @@ export function BasicTreesPage() {
                 </div>
 
                 {/* Description Card - styled exactly like queues page */}
-                <div className="bg-bg-secondary rounded-xl border border-border-default flex items-start gap-3" style={{ marginTop: '1rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+                <div className="bg-bg-secondary rounded-xl border border-border-default flex items-start gap-3" style={{ marginTop: '1rem', paddingTop: '1rem', paddingBottom: '1rem', paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>
                   <AlertCircle className="text-accent-secondary shrink-0 mt-0.5 opacity-70" size={18} />
                   <p className="text-sm text-text-secondary leading-snug">{activeStepData.description}</p>
                 </div>
 
-                {/* Concept Details Box - styled exactly like queues page */}
-                {activeStepData.conceptInfo && (
-                  <div className="bg-bg-primary rounded-xl border border-border-default font-mono text-sm leading-relaxed overflow-hidden" style={{ marginTop: '1rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-                    <div className="text-[11px] text-text-muted/80 uppercase font-mono font-bold tracking-widest mb-2 border-b border-border-default/45 pb-1 select-none">
-                      concept details
-                    </div>
-                    <div className="space-y-1 select-none">
-                      <p className="text-text-secondary whitespace-pre-line leading-relaxed">{activeStepData.conceptInfo}</p>
-                    </div>
+                {/* Pseudocode Box */}
+                <div className="bg-bg-primary rounded-xl border border-border-default font-mono text-sm leading-relaxed overflow-hidden" style={{ marginTop: '1rem', paddingTop: '1rem', paddingBottom: '1rem', paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>
+                  <div className="text-[11px] text-text-muted/80 uppercase font-mono font-bold tracking-widest mb-2 border-b border-border-default/45 pb-1 select-none">
+                    pseudocode
                   </div>
-                )}
+                  
+                  {activeVisTab === 'anatomy' && (
+                    <div className="space-y-1 text-sm font-mono select-none whitespace-pre">
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 0 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">1</span>
+                        <span className="whitespace-pre">class TreeNode:</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">2</span>
+                        <span className="whitespace-pre">  root = Node(10)</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 2 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">3</span>
+                        <span className="whitespace-pre">  root.left = 20; root.right = 30</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 3 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">4</span>
+                        <span className="whitespace-pre">  leaf_nodes = [40, 50, 30]</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeVisTab === 'bstSearch' && (
+                    <div className="space-y-1 text-sm font-mono select-none whitespace-pre">
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 0 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">1</span>
+                        <span className="whitespace-pre">search(node, target):</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">2</span>
+                        <span className="whitespace-pre">  if node == null or node.val == target: return node</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 2 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">3</span>
+                        <span className="whitespace-pre">  if target &lt; node.val:</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 3 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">4</span>
+                        <span className="whitespace-pre">    return search(node.left, target)</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 4 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">5</span>
+                        <span className="whitespace-pre">  else:</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 5 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">6</span>
+                        <span className="whitespace-pre">    return search(node.right, target)</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeVisTab === 'bstInsertion' && (
+                    <div className="space-y-1 text-sm font-mono select-none whitespace-pre">
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 0 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">1</span>
+                        <span className="whitespace-pre">insert(node, val):</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">2</span>
+                        <span className="whitespace-pre">  if node == null: return Node(val)</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 2 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">3</span>
+                        <span className="whitespace-pre">  if val &lt; node.val:</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 3 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">4</span>
+                        <span className="whitespace-pre">    node.left = insert(node.left, val)</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 4 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">5</span>
+                        <span className="whitespace-pre">  else:</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 5 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">6</span>
+                        <span className="whitespace-pre">    node.right = insert(node.right, val)</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeVisTab === 'traversals' && (
+                    <div className="space-y-1 text-sm font-mono select-none whitespace-pre">
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 0 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-success font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">1</span>
+                        <span className="whitespace-pre">inorder(node): left &rarr; root &rarr; right</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-success font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">2</span>
+                        <span className="whitespace-pre">preorder(node): root &rarr; left &rarr; right</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 2 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-success font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">3</span>
+                        <span className="whitespace-pre">postorder(node): left &rarr; right &rarr; root</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 3 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-success font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">4</span>
+                        <span className="whitespace-pre">levelorder(root): BFS using queue</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeVisTab === 'heightFlow' && (
+                    <div className="space-y-1 text-sm font-mono select-none whitespace-pre">
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 0 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">1</span>
+                        <span className="whitespace-pre">height(node):</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">2</span>
+                        <span className="whitespace-pre">  if node == null: return 0</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 2 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">3</span>
+                        <span className="whitespace-pre">  left_h = height(node.left)</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 3 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">4</span>
+                        <span className="whitespace-pre">  right_h = height(node.right)</span>
+                      </div>
+                      <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 4 ? 'bg-accent-secondary/10 border-l-2 border-accent-secondary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
+                        <span className="text-text-muted select-none w-3 text-right">5</span>
+                        <span className="whitespace-pre">  return max(left_h, right_h) + 1</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -963,14 +1086,14 @@ export function BasicTreesPage() {
                   </defs>
 
                   {/* Draw Edges */}
-                  {activeStepData.edges.map((edge, idx) => {
+                  {activeStepData.edges.map((edge) => {
                     const fromNode = activeStepData.nodes.find(n => n.id === edge.from);
                     const toNode = activeStepData.nodes.find(n => n.id === edge.to);
                     if (!fromNode || !toNode) return null;
 
                     return (
                       <line
-                        key={`edge-${visStep}-${idx}`}
+                        key={`edge-${activeVisTab}-${edge.from}-${edge.to}`}
                         x1={fromNode.cx}
                         y1={fromNode.cy}
                         x2={toNode.cx}
@@ -987,7 +1110,7 @@ export function BasicTreesPage() {
                   {/* Draw Nodes */}
                   {activeStepData.nodes.map((node) => (
                     <g 
-                      key={`node-${visStep}-${node.id}`} 
+                      key={`node-${activeVisTab}-${node.id}`} 
                       className="node-animate transition-all duration-300"
                       style={{ 
                         transformOrigin: `${node.cx}px ${node.cy}px`,
@@ -1049,6 +1172,28 @@ export function BasicTreesPage() {
                   ))}
                 </svg>
               )}
+
+              {activeVisTab === 'traversals' && (
+                <div 
+                  className="w-full max-w-sm bg-bg-secondary rounded-xl border border-border-default/50 flex flex-col gap-1 select-none animate-fadeIn"
+                  style={{ marginTop: '-1.5rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1rem', paddingRight: '1rem' }}
+                >
+                  <div className="text-[10px] text-text-muted/75 font-mono font-bold uppercase tracking-wider">
+                    Traversal Sequence Output
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2 font-mono text-lg font-bold text-success">
+                    {[...activeStepData.nodes]
+                      .filter(n => n.traverseOrder !== undefined)
+                      .sort((a, b) => (a.traverseOrder || 0) - (b.traverseOrder || 0))
+                      .map((node, index) => (
+                        <Fragment key={node.id}>
+                          {index > 0 && <span className="text-text-muted/65">&rarr;</span>}
+                          <span>{node.label}</span>
+                        </Fragment>
+                      ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -1064,9 +1209,6 @@ export function BasicTreesPage() {
                   2. Basic Trees Quiz
                 </h2>
               </div>
-              <span className="text-xs font-mono font-bold text-text-muted uppercase bg-bg-secondary px-3 py-1 rounded-md border border-border-default select-none">
-                Random 5 MCQs
-              </span>
             </div>
 
             {showQuizResult ? (
@@ -1103,93 +1245,96 @@ export function BasicTreesPage() {
             ) : (
               /* MCQ Active Question Display */
               <div className="neon-card neon-card-cyan" style={{ paddingTop: '0.75rem', paddingBottom: '1.5rem', paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>
-                <div className="flex justify-between items-center mb-6 font-mono text-xs text-text-muted border-b border-border-default/20 pb-4">
-                  <span>QUESTION {currentQuizQuestion + 1} OF {activeQuestions.length}</span>
-                  <span>SCORE: {quizScore} / {currentQuizQuestion}</span>
-                </div>
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-start items-center">
+                    <span className="text-xl font-mono text-accent-secondary uppercase tracking-wider select-none">
+                      QUESTION {currentQuizQuestion + 1} OF {activeQuestions.length}
+                    </span>
+                  </div>
 
-                <h3 className="text-lg font-bold text-text-primary mb-8 font-sans">
-                  {activeQuestions[currentQuizQuestion].question}
-                </h3>
+                  <div className="flex flex-col gap-3">
+                    <h4 className="text-lg font-semibold text-text-primary leading-relaxed">
+                      {activeQuestions[currentQuizQuestion].question}
+                    </h4>
 
-                <div className="flex flex-col gap-3 font-mono">
-                  {activeQuestions[currentQuizQuestion].options.map((option, idx) => {
-                    const isSelected = selectedOption === idx;
-                    const optionLetter = String.fromCharCode(65 + idx);
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {activeQuestions[currentQuizQuestion].options.map((option, idx) => {
+                        const isSelected = selectedOption === idx;
+                        let optionStyle = "border border-transparent bg-transparent text-text-secondary hover:bg-white/5 hover:text-text-primary";
+                        if (isSelected) {
+                          if (isAnswered) {
+                            optionStyle = option === activeQuestions[currentQuizQuestion].answer
+                              ? "border border-success bg-success/10 text-success shadow-[0_0_12px_rgba(0,255,204,0.15)]"
+                              : "border border-error bg-error/10 text-error shadow-[0_0_12px_rgba(255,45,120,0.15)]";
+                          } else {
+                            optionStyle = "border border-accent-secondary bg-accent-secondary/10 text-accent-secondary shadow-[0_0_12px_rgba(0,255,204,0.15)]";
+                          }
+                        } else if (isAnswered && option === activeQuestions[currentQuizQuestion].answer) {
+                          optionStyle = "border border-success bg-success/10 text-success shadow-[0_0_12px_rgba(0,255,204,0.15)]";
+                        }
 
-                    let optionBtnClass = 'border-border-default text-text-secondary hover:bg-bg-tertiary';
-                    if (isSelected) {
-                      if (isAnswered) {
-                        optionBtnClass = option === activeQuestions[currentQuizQuestion].answer
-                          ? 'border-success text-success bg-success/10 shadow-[0_0_12px_rgba(0,255,204,0.15)] font-bold'
-                          : 'border-error text-error bg-error/10 font-bold';
-                      } else {
-                        optionBtnClass = 'border-accent-secondary text-accent-secondary bg-accent-secondary/5 font-bold';
-                      }
-                    } else if (isAnswered && option === activeQuestions[currentQuizQuestion].answer) {
-                      optionBtnClass = 'border-success text-success bg-success/10 font-bold';
-                    }
-
-                    return (
-                      <button
-                        key={idx}
-                        onClick={() => handleOptionSelect(idx)}
-                        disabled={isAnswered}
-                        className={`w-full text-left p-4 rounded-xl border text-sm transition-all duration-300 cursor-pointer ${optionBtnClass}`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="w-5 h-5 rounded-full border flex items-center justify-center text-xs font-mono font-bold shrink-0 border-current">
-                            {optionLetter}
-                          </span>
-                          <span>{option}</span>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {isAnswered ? (
-                  /* Question Answer Feedback */
-                  <div className="flex flex-col gap-4 bg-bg-primary/50 border border-border-default rounded-xl p-4 transition-all duration-300 mt-6 font-sans">
-                    <div className="flex items-center gap-2">
-                      {activeQuestions[currentQuizQuestion].options[selectedOption!] === activeQuestions[currentQuizQuestion].answer ? (
-                        <CheckCircle2 className="text-success" size={20} />
-                      ) : (
-                        <XCircle className="text-error" size={20} />
-                      )}
-                      <span className={`text-sm font-bold uppercase tracking-wider ${activeQuestions[currentQuizQuestion].options[selectedOption!] === activeQuestions[currentQuizQuestion].answer ? 'text-success' : 'text-error'}`}>
-                        {activeQuestions[currentQuizQuestion].options[selectedOption!] === activeQuestions[currentQuizQuestion].answer ? 'Correct Answer!' : 'Incorrect Answer'}
-                      </span>
-                    </div>
-                    <p className="text-sm text-text-secondary leading-relaxed">
-                      {activeQuestions[currentQuizQuestion].explanation}
-                    </p>
-                    
-                    <div className="pt-6 mt-4 border-t border-border-default/20">
-                      <button
-                        onClick={handleNextQuestion}
-                        className="w-full py-4 bg-accent-secondary text-bg-primary font-mono font-bold text-xl tracking-wider uppercase rounded-lg hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,255,204,0.25)] hover:shadow-[0_0_25px_rgba(0,255,204,0.45)] cursor-pointer"
-                      >
-                        {currentQuizQuestion < activeQuestions.length - 1 ? 'Next Question' : 'Finish Quiz'}
-                      </button>
+                        return (
+                          <button
+                            key={idx}
+                            disabled={isAnswered}
+                            onClick={() => handleOptionSelect(idx)}
+                            className={`text-left py-2.5 px-4 rounded-xl transition-all duration-200 leading-relaxed cursor-pointer disabled:cursor-default ${optionStyle}`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <span className="w-5 h-5 rounded-full border flex items-center justify-center text-xs font-mono font-bold shrink-0 border-current">
+                                {String.fromCharCode(65 + idx)}
+                              </span>
+                              <span>{option}</span>
+                            </div>
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
-                ) : (
-                  /* Answer Submit Option Button */
-                  <div style={{ marginTop: '1rem' }}>
-                    <button
-                      disabled={selectedOption === null}
-                      onClick={handleAnswerSubmit}
-                      className={`w-full py-4 bg-transparent border font-mono font-bold text-base tracking-wider uppercase rounded-lg active:scale-95 disabled:scale-100 disabled:cursor-not-allowed transition-all cursor-pointer ${
-                        selectedOption === null 
-                          ? 'border-accent-secondary text-accent-secondary hover:bg-accent-secondary/10 hover:shadow-[0_0_15px_rgba(0,255,204,0.2)] disabled:opacity-40' 
-                          : 'border-success text-success hover:bg-success/10 hover:shadow-[0_0_15px_rgba(0,255,204,0.3)] shadow-[0_0_10px_rgba(0,255,204,0.15)]'
-                      }`}
-                    >
-                      Submit Answer
-                    </button>
-                  </div>
-                )}
+
+                  {isAnswered ? (
+                    /* Question Answer Feedback */
+                    <div className="flex flex-col gap-4 bg-bg-primary/50 border border-border-default rounded-xl p-4 transition-all duration-300 mt-6 font-sans">
+                      <div className="flex items-center gap-2">
+                        {activeQuestions[currentQuizQuestion].options[selectedOption!] === activeQuestions[currentQuizQuestion].answer ? (
+                          <CheckCircle2 className="text-success" size={20} />
+                        ) : (
+                          <XCircle className="text-error" size={20} />
+                        )}
+                        <span className={`text-sm font-bold uppercase tracking-wider ${activeQuestions[currentQuizQuestion].options[selectedOption!] === activeQuestions[currentQuizQuestion].answer ? 'text-success' : 'text-error'}`}>
+                          {activeQuestions[currentQuizQuestion].options[selectedOption!] === activeQuestions[currentQuizQuestion].answer ? 'Correct Answer!' : 'Incorrect Answer'}
+                        </span>
+                      </div>
+                      <p className="text-sm text-text-secondary leading-relaxed">
+                        {activeQuestions[currentQuizQuestion].explanation}
+                      </p>
+                      
+                      <div className="pt-6 mt-4 border-t border-border-default/20">
+                        <button
+                          onClick={handleNextQuestion}
+                          className="w-full py-4 bg-accent-secondary text-bg-primary font-mono font-bold text-xl tracking-wider uppercase rounded-lg hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,255,204,0.25)] hover:shadow-[0_0_25px_rgba(0,255,204,0.45)] cursor-pointer"
+                        >
+                          {currentQuizQuestion < activeQuestions.length - 1 ? 'Next Question' : 'Finish Quiz'}
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    /* Answer Submit Option Button */
+                    <div style={{ marginTop: '1rem' }}>
+                      <button
+                        disabled={selectedOption === null}
+                        onClick={handleAnswerSubmit}
+                        className={`w-full py-4 bg-transparent border font-mono font-bold text-base tracking-wider uppercase rounded-lg active:scale-95 disabled:scale-100 disabled:cursor-not-allowed transition-all cursor-pointer ${
+                          selectedOption === null 
+                            ? 'border-accent-secondary text-accent-secondary hover:bg-accent-secondary/10 hover:shadow-[0_0_15px_rgba(0,255,204,0.2)] disabled:opacity-40' 
+                            : 'border-success text-success hover:bg-success/10 hover:shadow-[0_0_15px_rgba(0,255,204,0.3)] shadow-[0_0_10px_rgba(0,255,204,0.15)]'
+                        }`}
+                      >
+                        Submit Answer
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
           </section>

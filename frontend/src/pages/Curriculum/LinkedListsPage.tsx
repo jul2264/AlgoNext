@@ -711,19 +711,19 @@ export function LinkedListsPage() {
                   <div className="relative space-y-1 text-sm font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
-                      <span>curr = HEAD</span>
+                      <span className="whitespace-pre">curr = HEAD</span>
                     </div>
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 2 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">2</span>
-                      <span>while curr is not NULL:</span>
+                      <span className="whitespace-pre">while curr is not NULL:</span>
                     </div>
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 4 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">3</span>
-                      <span>    visit(curr.val)</span>
+                      <span className="whitespace-pre">    visit(curr.val)</span>
                     </div>
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 5 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">4</span>
-                      <span>    curr = curr.next</span>
+                      <span className="whitespace-pre">    curr = curr.next</span>
                     </div>
                   </div>
                 )}
@@ -732,15 +732,15 @@ export function LinkedListsPage() {
                   <div className="relative space-y-1 text-sm font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
-                      <span>new_node = Node(10)</span>
+                      <span className="whitespace-pre">new_node = Node(10)</span>
                     </div>
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 3 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">2</span>
-                      <span>new_node.next = HEAD</span>
+                      <span className="whitespace-pre">new_node.next = HEAD</span>
                     </div>
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 4 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">3</span>
-                      <span>HEAD = new_node</span>
+                      <span className="whitespace-pre">HEAD = new_node</span>
                     </div>
                   </div>
                 )}
@@ -749,15 +749,15 @@ export function LinkedListsPage() {
                   <div className="relative space-y-1 text-sm font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
-                      <span>new_node = Node(30)</span>
+                      <span className="whitespace-pre">new_node = Node(30)</span>
                     </div>
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 3 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">2</span>
-                      <span>curr = tail_node</span>
+                      <span className="whitespace-pre">curr = tail_node</span>
                     </div>
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 4 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">3</span>
-                      <span>curr.next = new_node</span>
+                      <span className="whitespace-pre">curr.next = new_node</span>
                     </div>
                   </div>
                 )}
@@ -766,15 +766,15 @@ export function LinkedListsPage() {
                   <div className="relative space-y-1 text-sm font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
-                      <span># Search Node 20</span>
+                      <span className="whitespace-pre"># Search Node 20</span>
                     </div>
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 4 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">2</span>
-                      <span>prev = node_before(20)</span>
+                      <span className="whitespace-pre">prev = node_before(20)</span>
                     </div>
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 6 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">3</span>
-                      <span>prev.next = prev.next.next</span>
+                      <span className="whitespace-pre">prev.next = prev.next.next</span>
                     </div>
                   </div>
                 )}
@@ -783,15 +783,15 @@ export function LinkedListsPage() {
                   <div className="relative space-y-1 text-sm font-mono">
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">1</span>
-                      <span>prev = NULL, curr = HEAD</span>
+                      <span className="whitespace-pre">prev = NULL, curr = HEAD</span>
                     </div>
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 6 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">2</span>
-                      <span>nxt = curr.next; curr.next = prev</span>
+                      <span className="whitespace-pre">nxt = curr.next; curr.next = prev</span>
                     </div>
                     <div className={`flex gap-4 pl-4 pr-2 -mx-4 transition-all duration-300 ${activeStepData.line === 9 ? 'bg-accent-primary/10 border-l-2 border-accent-primary text-text-primary font-bold' : 'border-l-2 border-transparent text-text-secondary'}`}>
                       <span className="text-text-muted select-none w-3 text-right">3</span>
-                      <span>HEAD = prev</span>
+                      <span className="whitespace-pre">HEAD = prev</span>
                     </div>
                   </div>
                 )}

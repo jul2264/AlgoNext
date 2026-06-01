@@ -415,23 +415,23 @@ export function FoundationsPage() {
                 <div className="relative space-y-1">
                   <div className={`flex gap-4 pl-10 pr-4 -mx-4 transition-all duration-300 ${activeStepData.line === 1 ? 'bg-accent-secondary/15 border-l-2 border-accent-secondary' : 'border-l-2 border-transparent'}`}>
                     <span className="text-text-muted select-none w-4 text-right">1</span>
-                    <span>FUNCTION factorial(n):</span>
+                    <span className="whitespace-pre">FUNCTION factorial(n):</span>
                   </div>
                   <div className={`flex gap-4 pl-10 pr-4 -mx-4 transition-all duration-300 ${activeStepData.line === 2 ? 'bg-accent-secondary/15 border-l-2 border-accent-secondary' : 'border-l-2 border-transparent'}`}>
                     <span className="text-text-muted select-none w-4 text-right">2</span>
-                    <span>    IF n &lt;= 1 THEN</span>
+                    <span className="whitespace-pre">    IF n &lt;= 1 THEN</span>
                   </div>
                   <div className={`flex gap-4 pl-10 pr-4 -mx-4 transition-all duration-300 ${activeStepData.line === 3 ? 'bg-accent-secondary/15 border-l-2 border-accent-secondary' : 'border-l-2 border-transparent'}`}>
                     <span className="text-text-muted select-none w-4 text-right">3</span>
-                    <span>        RETURN 1</span>
+                    <span className="whitespace-pre">        RETURN 1</span>
                   </div>
                   <div className={`flex gap-4 pl-10 pr-4 -mx-4 transition-all duration-300 ${activeStepData.line === 4 ? 'bg-accent-secondary/15 border-l-2 border-accent-secondary' : 'border-l-2 border-transparent'}`}>
                     <span className="text-text-muted select-none w-4 text-right">4</span>
-                    <span>    ELSE</span>
+                    <span className="whitespace-pre">    ELSE</span>
                   </div>
                   <div className={`flex gap-4 pl-10 pr-4 -mx-4 transition-all duration-300 ${activeStepData.line === 5 ? 'bg-accent-secondary/15 border-l-2 border-accent-secondary' : 'border-l-2 border-transparent'}`}>
                     <span className="text-text-muted select-none w-4 text-right">5</span>
-                    <span>        RETURN n * factorial(n - 1)</span>
+                    <span className="whitespace-pre">        RETURN n * factorial(n - 1)</span>
                   </div>
                 </div>
               </div>

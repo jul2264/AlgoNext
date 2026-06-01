@@ -10,7 +10,9 @@ import {
   Award, 
   CheckCircle2, 
   XCircle,
-  Network
+  Network,
+  Check,
+  Layers
 } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 
@@ -371,6 +373,36 @@ const activeSteps: VisStep[] = [
   }
 ];
 
+const VISUALIZATION_STEPS: Record<string, VisStep[]> = {
+  anatomy: [
+    activeSteps[0], // Root Node
+    activeSteps[1], // Parent & Child
+    activeSteps[2], // Leaf Node
+    activeSteps[3]  // Binary Tree
+  ],
+  bstSearch: [
+    activeSteps[4], // Binary Search Tree (BST) Concept
+    activeSteps[5], // BST Search - Step 1
+    activeSteps[6], // BST Search - Step 2
+    activeSteps[7]  // BST Search - Step 3
+  ],
+  bstInsertion: [
+    activeSteps[14], // Real-time BST Insertion - Step 1
+    activeSteps[15], // Real-time BST Insertion - Step 2
+    activeSteps[16]  // Real-time BST Insertion - Step 3
+  ],
+  traversals: [
+    activeSteps[8],  // Inorder Traversal
+    activeSteps[9],  // Preorder Traversal
+    activeSteps[10], // Postorder Traversal
+    activeSteps[11]  // Level Order Traversal
+  ],
+  heightFlow: [
+    activeSteps[12], // Tree Height
+    activeSteps[13]  // Recursive Traversal Flow
+  ]
+};
+
 interface QuizQuestion {
   id: number;
   question: string;
@@ -524,12 +556,41 @@ const quizQuestionsPool: QuizQuestion[] = [
 
 export function BasicTreesPage() {
   const navigate = useNavigate();
+  const [activeVisTab, setActiveVisTab] = useState<'anatomy' | 'bstSearch' | 'bstInsertion' | 'traversals' | 'heightFlow'>('anatomy');
   const [visStep, setVisStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const playbackRef = useRef<any>(null);
 
   // Section completion state
-  const [completedSections, setCompletedSections] = useState<Record<number, boolean>>({});
+  const [completedSections, setCompletedSections] = useState<Record<number, boolean>>(() => {
+    try {
+      const saved = localStorage.getItem('dsa_progress_basic_trees');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.error('Failed to load basic trees progress:', e);
+    }
+    return { 1: false, 2: false };
+  });
+
+  const [progressPercent, setProgressPercent] = useState(0);
+
+  // Toggle completed state of a section
+  const toggleSection = (sectionId: number) => {
+    setCompletedSections(prev => {
+      const updated = { ...prev, [sectionId]: !prev[sectionId] };
+      localStorage.setItem('dsa_progress_basic_trees', JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  useEffect(() => {
+    const SECTION_WEIGHTS: Record<number, number> = { 1: 50, 2: 50 };
+    const score = Object.entries(completedSections)
+      .filter(([, done]) => done)
+      .reduce((sum, [k]) => sum + (SECTION_WEIGHTS[Number(k)] || 0), 0);
+    setProgressPercent(score);
+    window.dispatchEvent(new Event('storage'));
+  }, [completedSections]);
 
   // Quiz state
   const [activeQuestions, setActiveQuestions] = useState<QuizQuestion[]>([]);
@@ -540,16 +601,6 @@ export function BasicTreesPage() {
   const [showQuizResult, setShowQuizResult] = useState(false);
 
   useEffect(() => {
-    // Initialize completed sections from localStorage
-    try {
-      const saved = localStorage.getItem('dsa_progress_basic_trees');
-      if (saved) {
-        setCompletedSections(JSON.parse(saved));
-      }
-    } catch (e) {
-      console.error('Failed to load basic trees progress:', e);
-    }
-
     // Select 5 random questions from pool
     const shuffled = [...quizQuestionsPool].sort(() => 0.5 - Math.random());
     setActiveQuestions(shuffled.slice(0, 5));
@@ -557,18 +608,21 @@ export function BasicTreesPage() {
 
   // Sync section completions to localStorage
   const completeSection = (sectionId: number) => {
-    try {
-      const saved = localStorage.getItem('dsa_progress_basic_trees');
-      const completedMap = saved ? JSON.parse(saved) : {};
-      completedMap[sectionId] = true;
-      localStorage.setItem('dsa_progress_basic_trees', JSON.stringify(completedMap));
-      setCompletedSections(completedMap);
-    } catch (e) {
-      console.error('Failed to save basic trees progress:', e);
-    }
+    setCompletedSections(prev => {
+      const updated = { ...prev, [sectionId]: true };
+      localStorage.setItem('dsa_progress_basic_trees', JSON.stringify(updated));
+      return updated;
+    });
   };
 
+  const activeSteps = VISUALIZATION_STEPS[activeVisTab];
   const activeStepData = activeSteps[visStep];
+
+  const handleTabChange = (tab: 'anatomy' | 'bstSearch' | 'bstInsertion' | 'traversals' | 'heightFlow') => {
+    setActiveVisTab(tab);
+    setVisStep(0);
+    setIsPlaying(false);
+  };
 
   // Visualizer controls
   const handleReset = () => {
@@ -608,7 +662,7 @@ export function BasicTreesPage() {
     return () => {
       if (playbackRef.current) clearInterval(playbackRef.current);
     };
-  }, [isPlaying]);
+  }, [isPlaying, activeSteps]);
 
   // Quiz Handlers
   const handleOptionSelect = (idx: number) => {
@@ -647,9 +701,6 @@ export function BasicTreesPage() {
     setQuizScore(0);
     setShowQuizResult(false);
   };
-
-  // Compute progress percentage
-  const progressPercent = Object.keys(completedSections).length * 50;
 
   return (
     <div 
@@ -691,7 +742,82 @@ export function BasicTreesPage() {
       <div className="flex flex-col gap-8 flex-1">
         {/* SECTION 1: VISUALIZER */}
         <section className="flex flex-col gap-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="flex justify-between items-center w-full mb-2">
+            <div className="flex items-center gap-2">
+              <Layers className="text-accent-secondary opacity-70" size={24} />
+              <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[1] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>
+                1. Interactive Visualization
+              </h2>
+            </div>
+            <button 
+              onClick={() => toggleSection(1)} 
+              className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-300 select-none shadow-[0_2px_10px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 ${
+                completedSections[1] 
+                  ? 'bg-accent-secondary border-accent-secondary text-bg-primary shadow-[0_0_15px_rgba(0,255,204,0.35)] hover:shadow-[0_0_20px_rgba(0,255,204,0.55)]' 
+                  : 'bg-bg-secondary/40 border-accent-secondary/35 text-accent-secondary/50 shadow-[0_0_8px_rgba(0,255,204,0.1)] hover:border-accent-secondary hover:text-accent-secondary hover:shadow-[0_0_15px_rgba(0,255,204,0.3)]'
+              }`}
+              title={completedSections[1] ? "Completed" : "Mark as Completed"}
+            >
+              {completedSections[1] && <Check size={18} strokeWidth={3.5} />}
+            </button>
+          </div>
+
+          <div className="neon-card neon-card-cyan flex flex-col gap-6" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+            {/* Operations switch tabs */}
+            <div className="flex border-b border-border-default/20 gap-4 overflow-x-auto">
+              <button
+                onClick={() => handleTabChange('anatomy')}
+                className={`px-5 py-3 font-mono font-bold text-sm border-b-2 uppercase transition-all whitespace-nowrap cursor-pointer ${
+                  activeVisTab === 'anatomy' 
+                    ? 'border-accent-secondary text-accent-secondary' 
+                    : 'border-transparent text-text-muted hover:text-text-secondary'
+                }`}
+              >
+                Tree Anatomy
+              </button>
+              <button
+                onClick={() => handleTabChange('bstSearch')}
+                className={`px-5 py-3 font-mono font-bold text-sm border-b-2 uppercase transition-all whitespace-nowrap cursor-pointer ${
+                  activeVisTab === 'bstSearch' 
+                    ? 'border-accent-secondary text-accent-secondary' 
+                    : 'border-transparent text-text-muted hover:text-text-secondary'
+                }`}
+              >
+                BST Search
+              </button>
+              <button
+                onClick={() => handleTabChange('bstInsertion')}
+                className={`px-5 py-3 font-mono font-bold text-sm border-b-2 uppercase transition-all whitespace-nowrap cursor-pointer ${
+                  activeVisTab === 'bstInsertion' 
+                    ? 'border-accent-secondary text-accent-secondary' 
+                    : 'border-transparent text-text-muted hover:text-text-secondary'
+                }`}
+              >
+                BST Insertion
+              </button>
+              <button
+                onClick={() => handleTabChange('traversals')}
+                className={`px-5 py-3 font-mono font-bold text-sm border-b-2 uppercase transition-all whitespace-nowrap cursor-pointer ${
+                  activeVisTab === 'traversals' 
+                    ? 'border-accent-secondary text-accent-secondary' 
+                    : 'border-transparent text-text-muted hover:text-text-secondary'
+                }`}
+              >
+                Tree Traversals
+              </button>
+              <button
+                onClick={() => handleTabChange('heightFlow')}
+                className={`px-5 py-3 font-mono font-bold text-sm border-b-2 uppercase transition-all whitespace-nowrap cursor-pointer ${
+                  activeVisTab === 'heightFlow' 
+                    ? 'border-accent-secondary text-accent-secondary' 
+                    : 'border-transparent text-text-muted hover:text-text-secondary'
+                }`}
+              >
+                Height & Flow
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Controls panel */}
             <div className="flex flex-col gap-4">
               <div>
@@ -926,7 +1052,8 @@ export function BasicTreesPage() {
               )}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
         {/* SECTION 2: QUIZ */}
         {activeQuestions.length > 0 && (

@@ -11,7 +11,6 @@ import {
   CheckCircle2, 
   XCircle,
   Network,
-  Check,
   Layers
 } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
@@ -574,23 +573,7 @@ export function BasicTreesPage() {
     return { 1: false, 2: false };
   });
 
-  const [progressPercent, setProgressPercent] = useState(0);
-
-  // Toggle completed state of a section
-  const toggleSection = (sectionId: number) => {
-    setCompletedSections(prev => {
-      const updated = { ...prev, [sectionId]: !prev[sectionId] };
-      localStorage.setItem('dsa_progress_basic_trees', JSON.stringify(updated));
-      return updated;
-    });
-  };
-
   useEffect(() => {
-    const SECTION_WEIGHTS: Record<number, number> = { 1: 50, 2: 50 };
-    const score = Object.entries(completedSections)
-      .filter(([, done]) => done)
-      .reduce((sum, [k]) => sum + (SECTION_WEIGHTS[Number(k)] || 0), 0);
-    setProgressPercent(score);
     window.dispatchEvent(new Event('storage'));
   }, [completedSections]);
 
@@ -725,19 +708,6 @@ export function BasicTreesPage() {
               1. Interactive Visualization
             </p>
           </div>
-          {/* Completion Bar */}
-          <div className="hidden sm:flex flex-col items-end gap-1 font-mono text-xs select-none">
-            <span className="text-text-muted">COURSE PROGRESS</span>
-            <div className="flex items-center gap-2">
-              <div className="w-24 bg-bg-secondary h-2.5 rounded-full overflow-hidden border border-white/5">
-                <div 
-                  className="bg-accent-secondary h-full rounded-full transition-all duration-300" 
-                  style={{ width: `${progressPercent}%` }} 
-                />
-              </div>
-              <span className="text-text-primary font-bold">{progressPercent}%</span>
-            </div>
-          </div>
         </div>
       </PageHeader>
 
@@ -747,21 +717,10 @@ export function BasicTreesPage() {
           <div className="flex justify-between items-center w-full mb-2">
             <div className="flex items-center gap-2">
               <Layers className="text-accent-secondary opacity-70" size={24} />
-              <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[1] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>
+              <h2 className="text-2xl font-bold font-display text-text-primary">
                 1. Interactive Visualization
               </h2>
             </div>
-            <button 
-              onClick={() => toggleSection(1)} 
-              className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-300 select-none shadow-[0_2px_10px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 ${
-                completedSections[1] 
-                  ? 'bg-accent-secondary border-accent-secondary text-bg-primary shadow-[0_0_15px_rgba(0,255,204,0.35)] hover:shadow-[0_0_20px_rgba(0,255,204,0.55)]' 
-                  : 'bg-bg-secondary/40 border-accent-secondary/35 text-accent-secondary/50 shadow-[0_0_8px_rgba(0,255,204,0.1)] hover:border-accent-secondary hover:text-accent-secondary hover:shadow-[0_0_15px_rgba(0,255,204,0.3)]'
-              }`}
-              title={completedSections[1] ? "Completed" : "Mark as Completed"}
-            >
-              {completedSections[1] && <Check size={18} strokeWidth={3.5} />}
-            </button>
           </div>
 
           <div className="neon-card neon-card-cyan flex flex-col gap-6" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '2.5rem', paddingRight: '1.5rem' }}>

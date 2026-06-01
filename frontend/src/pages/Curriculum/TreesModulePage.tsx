@@ -7,6 +7,10 @@ import { PageHeader } from '@/components/layout/PageHeader';
 export function TreesModulePage() {
   const navigate = useNavigate();
   const [basicTreesProgress, setBasicTreesProgress] = useState(0);
+  const [balancedTreesProgress, setBalancedTreesProgress] = useState(0);
+  const [rangeTreesProgress, setRangeTreesProgress] = useState(0);
+  const [persistentTreesProgress, setPersistentTreesProgress] = useState(0);
+  const [advancedTreesProgress, setAdvancedTreesProgress] = useState(0);
 
   useEffect(() => {
     try {
@@ -24,6 +28,70 @@ export function TreesModulePage() {
     }
   }, []);
 
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('dsa_progress_balanced_trees');
+      if (saved) {
+        const completedMap = JSON.parse(saved) as Record<string, boolean>;
+        const weights: Record<number, number> = { 1: 50, 2: 50 };
+        const progress = Object.entries(completedMap)
+          .filter(([, done]) => done)
+          .reduce((sum, [key]) => sum + (weights[Number(key)] || 0), 0);
+        setBalancedTreesProgress(progress);
+      }
+    } catch (e) {
+      console.error('Failed to parse balanced trees progress:', e);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('dsa_progress_range_trees');
+      if (saved) {
+        const completedMap = JSON.parse(saved) as Record<string, boolean>;
+        const weights: Record<number, number> = { 1: 50, 2: 50 };
+        const progress = Object.entries(completedMap)
+          .filter(([, done]) => done)
+          .reduce((sum, [key]) => sum + (weights[Number(key)] || 0), 0);
+        setRangeTreesProgress(progress);
+      }
+    } catch (e) {
+      console.error('Failed to parse range trees progress:', e);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('dsa_progress_persistent_trees');
+      if (saved) {
+        const completedMap = JSON.parse(saved) as Record<string, boolean>;
+        const weights: Record<number, number> = { 1: 50, 2: 50 };
+        const progress = Object.entries(completedMap)
+          .filter(([, done]) => done)
+          .reduce((sum, [key]) => sum + (weights[Number(key)] || 0), 0);
+        setPersistentTreesProgress(progress);
+      }
+    } catch (e) {
+      console.error('Failed to parse persistent trees progress:', e);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('dsa_progress_advanced_trees');
+      if (saved) {
+        const completedMap = JSON.parse(saved) as Record<string, boolean>;
+        const weights: Record<number, number> = { 1: 50, 2: 50 };
+        const progress = Object.entries(completedMap)
+          .filter(([, done]) => done)
+          .reduce((sum, [key]) => sum + (weights[Number(key)] || 0), 0);
+        setAdvancedTreesProgress(progress);
+      }
+    } catch (e) {
+      console.error('Failed to parse advanced trees progress:', e);
+    }
+  }, []);
+
   const getStatus = (progress: number) => {
     if (progress === 0) return 'start';
     if (progress === 100) return 'completed';
@@ -32,10 +100,10 @@ export function TreesModulePage() {
 
   const modules = [
     { id: 1, title: 'Basic Trees', slug: 'basic-trees', icon: Network, desc: 'Binary Trees, BSTs, and basic traversal techniques.', progress: basicTreesProgress, status: getStatus(basicTreesProgress), colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
-    { id: 2, title: 'Balanced Trees', slug: 'balanced-trees', icon: Scale, desc: 'AVL Trees, Red-Black Trees, and balancing mechanisms.', progress: 0, status: 'start', colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
-    { id: 3, title: 'Range Trees', slug: 'range-trees', icon: Activity, desc: 'Segment Trees and Fenwick Trees for range queries.', progress: 0, status: 'start', colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
-    { id: 4, title: 'Persistent Trees', slug: 'persistent-trees', icon: History, desc: 'Data structures that preserve previous versions of themselves.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
-    { id: 5, title: 'Advanced Trees', slug: 'advanced-trees', icon: GitMerge, desc: 'Splay Trees, Treaps, and specialized tree structures.', progress: 0, status: 'start', colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
+    { id: 2, title: 'Balanced Trees', slug: 'balanced-trees', icon: Scale, desc: 'AVL Trees, Red-Black Trees, and balancing mechanisms.', progress: balancedTreesProgress, status: getStatus(balancedTreesProgress), colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
+    { id: 3, title: 'Range Trees', slug: 'range-trees', icon: Activity, desc: 'Segment Trees and Fenwick Trees for range queries.', progress: rangeTreesProgress, status: getStatus(rangeTreesProgress), colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
+    { id: 4, title: 'Persistent Trees', slug: 'persistent-trees', icon: History, desc: 'Data structures that preserve previous versions of themselves.', progress: persistentTreesProgress, status: getStatus(persistentTreesProgress), colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
+    { id: 5, title: 'Advanced Trees', slug: 'advanced-trees', icon: GitMerge, desc: 'Splay Trees, Treaps, and specialized tree structures.', progress: advancedTreesProgress, status: getStatus(advancedTreesProgress), colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
     { id: 6, title: 'Database Trees', slug: 'database-trees', icon: Database, desc: 'B-Trees and B+ Trees used in modern database indices.', progress: 0, status: 'start', colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
   ];
 

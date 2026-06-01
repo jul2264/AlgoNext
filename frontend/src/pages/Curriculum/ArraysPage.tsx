@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   ChevronLeft, Layers, Play, Pause, SkipForward, RotateCcw, 
-  Check, Award 
+  Award 
 } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 
@@ -346,14 +346,6 @@ export function ArraysPage() {
     return { 1: false, 2: false };
   });
 
-  const toggleSection = (sectionNum: number) => {
-    setCompletedSections((prev) => {
-      const updated = { ...prev, [sectionNum]: !prev[sectionNum] };
-      localStorage.setItem('dsa_progress_arrays', JSON.stringify(updated));
-      return updated;
-    });
-  };
-
   const setSectionCompleted = (sectionNum: number, isCompleted: boolean) => {
     setCompletedSections((prev) => {
       const updated = { ...prev, [sectionNum]: isCompleted };
@@ -361,11 +353,6 @@ export function ArraysPage() {
       return updated;
     });
   };
-
-  const SECTION_WEIGHTS: Record<number, number> = { 1: 50, 2: 50 };
-  const progressPercent = Object.entries(completedSections)
-    .filter(([, done]) => done)
-    .reduce((sum, [key]) => sum + (SECTION_WEIGHTS[Number(key)] || 0), 0);
 
   // Visualization state
   const [activeVisTab, setActiveVisTab] = useState<'traversal' | 'insertion' | 'deletion' | 'growth'>('traversal');
@@ -442,22 +429,7 @@ export function ArraysPage() {
       className="w-full mx-auto pb-16 min-h-[calc(100vh-4rem)] flex flex-col gap-8"
       style={{ paddingLeft: '3vw', paddingRight: '3vw' }}
     >
-      <PageHeader
-        centerContent={
-          <div className="flex flex-col gap-2 w-full select-none">
-            <div className="flex justify-between text-sm font-mono font-bold">
-              <span className="text-text-muted">PROGRESS</span>
-              <span className="text-accent-secondary font-mono">{progressPercent}%</span>
-            </div>
-            <div className="h-2.5 bg-bg-primary rounded-full overflow-hidden border border-white/5 relative">
-              <div 
-                className="h-full bg-accent-secondary rounded-full transition-all duration-500 ease-out" 
-                style={{ width: `${progressPercent}%` }} 
-              />
-            </div>
-          </div>
-        }
-      >
+      <PageHeader>
         <div className="flex items-center gap-5">
           <button 
             onClick={() => navigate('/dsa/linear-structures')}
@@ -480,18 +452,10 @@ export function ArraysPage() {
         <div className="flex justify-between items-center w-full mb-2">
           <div className="flex items-center gap-2">
             <Layers className="text-accent-primary opacity-70" size={24} />
-            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[1] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>
+            <h2 className="text-2xl font-bold font-display text-text-primary">
               1. Interactive Visualization
             </h2>
           </div>
-          <button 
-            onClick={() => toggleSection(1)} 
-            className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-300 select-none ${
-              completedSections[1] ? 'bg-accent-primary border-accent-primary text-bg-primary' : 'bg-bg-secondary/40 border-accent-primary/35 text-accent-primary'
-            }`}
-          >
-            {completedSections[1] && <Check size={18} strokeWidth={3.5} />}
-          </button>
         </div>
 
         <div className="neon-card neon-card-pink flex flex-col gap-6" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>

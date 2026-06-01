@@ -19,6 +19,10 @@ import { StacksPage } from '@/pages/Curriculum/StacksPage';
 import { QueuesPage } from '@/pages/Curriculum/QueuesPage';
 import { HashStructuresPage } from '@/pages/Curriculum/HashStructuresPage';
 import { BasicTreesPage } from '@/pages/Curriculum/BasicTreesPage';
+import { BalancedTreesPage } from '@/pages/Curriculum/BalancedTreesPage';
+import { RangeTreesPage } from '@/pages/Curriculum/RangeTreesPage';
+import { PersistentTreesPage } from '@/pages/Curriculum/PersistentTreesPage';
+import { AdvancedTreesPage } from '@/pages/Curriculum/AdvancedTreesPage';
 import { ProfilePage } from '@/pages/Profile';
 import { AiTutorPage } from '@/pages/AiTutor';
 import { PlaygroundPage } from '@/pages/Playground';
@@ -58,6 +62,10 @@ export default function App() {
         <Route path="/dsa/hash-structures" element={<HashStructuresPage />} />
         <Route path="/dsa/trees" element={<TreesModulePage />} />
         <Route path="/dsa/trees/basic-trees" element={<BasicTreesPage />} />
+        <Route path="/dsa/trees/balanced-trees" element={<BalancedTreesPage />} />
+        <Route path="/dsa/trees/range-trees" element={<RangeTreesPage />} />
+        <Route path="/dsa/trees/persistent-trees" element={<PersistentTreesPage />} />
+        <Route path="/dsa/trees/advanced-trees" element={<AdvancedTreesPage />} />
         <Route path="/dsa/trees/:slug" element={<ModulePage />} />
         <Route path="/dsa/:slug" element={<ModulePage />} />
         <Route path="/problems/:slug" element={<ProblemPage />} />

@@ -62,7 +62,7 @@ export function CurriculumPage() {
 
     // Average trees progress
     try {
-      const treeModules = ['basic_trees'];
+      const treeModules = ['basic_trees', 'balanced_trees', 'range_trees', 'persistent_trees', 'advanced_trees'];
       let totalTrees = 0;
       treeModules.forEach(mod => {
         const saved = localStorage.getItem(`dsa_progress_${mod}`);

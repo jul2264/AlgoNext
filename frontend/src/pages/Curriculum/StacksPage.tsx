@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { 
   ChevronLeft, Layers, Play, Pause, SkipForward, RotateCcw, 
-  Database, AlertCircle, Check, Award
+  Database, AlertCircle, Award
 } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 
@@ -240,10 +240,7 @@ export function StacksPage() {
     });
   };
 
-  const SECTION_WEIGHTS: Record<number, number> = { 1: 50, 2: 50 };
-  const progressPercent = Object.entries(completedSections)
-    .filter(([, done]) => done)
-    .reduce((sum, [key]) => sum + (SECTION_WEIGHTS[Number(key)] || 0), 0);
+
 
   // Visualization state
   const [activeVisTab, setActiveVisTab] = useState<'push' | 'pop' | 'peek'>('push');
@@ -360,23 +357,7 @@ export function StacksPage() {
       className="w-full mx-auto pb-16 min-h-[calc(100vh-4rem)] flex flex-col gap-8"
       style={{ paddingLeft: '3vw', paddingRight: '3vw' }}
     >
-      {/* HEADER SECTION */}
-      <PageHeader 
-        centerContent={
-          <div className="flex flex-col gap-2 w-full select-none">
-            <div className="flex justify-between text-sm font-mono font-bold">
-              <span className="text-text-muted">PROGRESS</span>
-              <span className="text-accent-secondary font-mono">{progressPercent}%</span>
-            </div>
-            <div className="h-2.5 bg-bg-primary rounded-full overflow-hidden border border-white/5 relative">
-              <div 
-                className="h-full bg-accent-secondary rounded-full transition-all duration-500 ease-out shadow-[0_0_10px_rgba(0,255,204,0.3)]" 
-                style={{ width: `${progressPercent}%` }} 
-              />
-            </div>
-          </div>
-        }
-      >
+      <PageHeader>
         <div className="flex items-center gap-5">
           <button 
             onClick={() => navigate('/dsa/linear-structures')}
@@ -400,21 +381,10 @@ export function StacksPage() {
         <div className="flex justify-between items-center w-full mb-2">
           <div className="flex items-center gap-2">
             <Layers className="text-accent-primary opacity-70" size={24} />
-            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[1] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>
+            <h2 className="text-2xl font-bold font-display text-text-primary">
               1. Interactive Visualization
             </h2>
           </div>
-          <button 
-            onClick={() => toggleSection(1)} 
-            className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-300 select-none shadow-[0_2px_10px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 ${
-              completedSections[1] 
-                ? 'bg-accent-primary border-accent-primary text-bg-primary shadow-[0_0_15px_rgba(255,45,120,0.35)] hover:shadow-[0_0_20px_rgba(255,45,120,0.55)]' 
-                : 'bg-bg-secondary/40 border-accent-primary/35 text-accent-primary/50 shadow-[0_0_8px_rgba(255,45,120,0.1)] hover:border-accent-primary hover:text-accent-primary hover:shadow-[0_0_15px_rgba(255,45,120,0.3)]'
-            }`}
-            title={completedSections[1] ? "Completed" : "Mark as Completed"}
-          >
-            {completedSections[1] && <Check size={18} strokeWidth={3.5} />}
-          </button>
         </div>
 
         <div className="neon-card neon-card-pink flex flex-col gap-6" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>

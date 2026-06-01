@@ -54,8 +54,8 @@ export function TreesModulePage() {
               style={{ padding: '28px 24px 20px 24px' }}
             >
               <div className="flex items-center gap-4 mb-10">
-                <div className={`p-3 bg-bg-tertiary rounded-xl border border-border-default group-hover:border-current transition-colors ${mod.iconColorClass}`}>
-                  <mod.icon size={26} />
+                <div className={`transition-colors ${mod.iconColorClass}`}>
+                  <mod.icon size={28} />
                 </div>
                 <h2 className="text-xl font-bold font-display text-text-primary group-hover:text-current transition-colors">{mod.title}</h2>
               </div>

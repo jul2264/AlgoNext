@@ -96,7 +96,7 @@ export function LinearStructuresPage() {
 
               <div>
                 <div className="flex items-center gap-4 mb-4">
-                  <div className={`p-3 bg-bg-secondary/60 rounded-xl border border-border-default/50 transition-colors ${mod.iconColorClass} group-hover:border-current`}>
+                  <div className={`transition-colors ${mod.iconColorClass}`}>
                     <mod.icon size={28} />
                   </div>
                   <h2 className="text-2xl font-bold font-display text-text-primary transition-colors">{mod.title}</h2>

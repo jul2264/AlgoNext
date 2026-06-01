@@ -771,13 +771,13 @@ export function HashStructuresPage() {
                   </div>
                 </div>
 
-                <div className="bg-bg-secondary rounded-xl border border-border-default flex items-start gap-3 mt-6" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+                <div className="bg-bg-secondary rounded-xl border border-border-default flex items-start gap-3" style={{ marginTop: '1rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
                   <AlertCircle className="text-accent-tertiary shrink-0 mt-0.5 opacity-70" size={18} />
                   <p className="text-sm text-text-secondary leading-snug">{activeStepData.description}</p>
                 </div>
 
                 {activeStepData.hashDetails && (
-                  <div className="bg-bg-primary rounded-xl border border-border-default font-mono text-sm leading-relaxed overflow-hidden mt-6" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+                  <div className="bg-bg-primary rounded-xl border border-border-default font-mono text-sm leading-relaxed overflow-hidden" style={{ marginTop: '1rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
                     <div className="text-[11px] text-text-muted/80 uppercase font-mono font-bold tracking-widest mb-2 border-b border-border-default/45 pb-1 select-none">
                       hashing details
                     </div>
@@ -786,7 +786,7 @@ export function HashStructuresPage() {
                 )}
 
                 {activeVisTab === 'basic' && (
-                  <div className="mt-6 p-4 bg-bg-primary border border-border-default/50 rounded-xl font-mono text-xs text-text-muted space-y-2 select-none">
+                  <div className="p-4 bg-bg-primary border border-border-default/50 rounded-xl font-mono text-xs text-text-muted space-y-2 select-none" style={{ marginTop: '1rem' }}>
                     <div className="font-bold text-accent-tertiary uppercase text-[10px] tracking-widest border-b border-border-default/30 pb-1">
                       Key-Value Storage Concept
                     </div>

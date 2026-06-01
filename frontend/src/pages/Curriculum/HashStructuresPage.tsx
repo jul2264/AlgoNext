@@ -813,7 +813,7 @@ export function HashStructuresPage() {
               </div>
 
               {activeVisTab === 'flow' ? (
-                <div className="flex flex-col items-center justify-center p-4 bg-bg-secondary rounded-xl border border-border-default/50 max-w-[18rem] mx-auto w-full gap-2.5 font-mono text-xs select-none">
+                <div className="flex flex-col items-center justify-center p-4 bg-bg-secondary rounded-xl border border-border-default/50 max-w-[18rem] mx-auto w-full gap-1.5 font-mono text-xs select-none">
                   <div className={`py-2 px-3 rounded-lg border text-center transition-all duration-300 w-full ${activeStepData.flowActiveStep === 0 ? 'bg-accent-tertiary/20 border-accent-tertiary text-accent-tertiary shadow-[0_0_12px_rgba(255,224,74,0.15)] font-bold' : 'border-border-default/40 text-text-secondary'}`}>
                     Key Entered ("APPLE")
                   </div>

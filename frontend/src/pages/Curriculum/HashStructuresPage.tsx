@@ -786,7 +786,7 @@ export function HashStructuresPage() {
                 )}
 
                 {activeVisTab === 'basic' && (
-                  <div className="mt-4 p-4 bg-bg-primary border border-border-default/50 rounded-xl font-mono text-xs text-text-muted space-y-2 select-none">
+                  <div className="mt-2 p-4 bg-bg-primary border border-border-default/50 rounded-xl font-mono text-xs text-text-muted space-y-2 select-none">
                     <div className="font-bold text-accent-tertiary uppercase text-[10px] tracking-widest border-b border-border-default/30 pb-1">
                       Key-Value Storage Concept
                     </div>

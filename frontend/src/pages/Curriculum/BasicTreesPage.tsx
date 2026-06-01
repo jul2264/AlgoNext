@@ -377,8 +377,7 @@ const VISUALIZATION_STEPS: Record<string, VisStep[]> = {
   anatomy: [
     activeSteps[0], // Root Node
     activeSteps[1], // Parent & Child
-    activeSteps[2], // Leaf Node
-    activeSteps[3]  // Binary Tree
+    activeSteps[2]  // Leaf Node
   ],
   bstSearch: [
     activeSteps[4], // Binary Search Tree (BST) Concept
@@ -942,10 +941,10 @@ export function BasicTreesPage() {
                     <marker
                       id="arrow"
                       viewBox="0 0 10 10"
-                      refX="17.5"
+                      refX="20"
                       refY="5"
-                      markerWidth="4"
-                      markerHeight="4"
+                      markerWidth="2.5"
+                      markerHeight="2.5"
                       orient="auto-start-reverse"
                     >
                       <path d="M 0 2.5 L 10 5 L 0 7.5 z" fill="var(--color-border-default)" className="opacity-40" />
@@ -953,10 +952,10 @@ export function BasicTreesPage() {
                     <marker
                       id="arrow-active"
                       viewBox="0 0 10 10"
-                      refX="17.5"
+                      refX="20"
                       refY="5"
-                      markerWidth="4"
-                      markerHeight="4"
+                      markerWidth="2.5"
+                      markerHeight="2.5"
                       orient="auto-start-reverse"
                     >
                       <path d="M 0 2.5 L 10 5 L 0 7.5 z" fill="var(--color-accent-secondary)" />

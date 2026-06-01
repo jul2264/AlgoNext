@@ -9,6 +9,7 @@ export function CurriculumPage() {
   const [foundationsProgress, setFoundationsProgress] = useState(0);
   const [hashProgress, setHashProgress] = useState(0);
   const [linearProgress, setLinearProgress] = useState(0);
+  const [treesProgress, setTreesProgress] = useState(0);
 
   useEffect(() => {
     try {
@@ -58,6 +59,26 @@ export function CurriculumPage() {
     } catch (e) {
       console.error('Failed to parse linear progress:', e);
     }
+
+    // Average trees progress
+    try {
+      const treeModules = ['basic_trees'];
+      let totalTrees = 0;
+      treeModules.forEach(mod => {
+        const saved = localStorage.getItem(`dsa_progress_${mod}`);
+        if (saved) {
+          const completedMap = JSON.parse(saved) as Record<string, boolean>;
+          const weights: Record<number, number> = { 1: 50, 2: 50 };
+          const progress = Object.entries(completedMap)
+            .filter(([, done]) => done)
+            .reduce((sum, [key]) => sum + (weights[Number(key)] || 0), 0);
+          totalTrees += progress;
+        }
+      });
+      setTreesProgress(Math.round(totalTrees / treeModules.length));
+    } catch (e) {
+      console.error('Failed to parse trees progress:', e);
+    }
   }, []);
 
   const getStatus = (progress: number) => {
@@ -70,7 +91,7 @@ export function CurriculumPage() {
     { id: 1, title: 'Foundations', slug: 'foundations', icon: Box, desc: 'Core fundamentals including basic syntax, variables, and loops.', progress: foundationsProgress, status: getStatus(foundationsProgress), colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
     { id: 2, title: 'Linear Structures', slug: 'linear-structures', icon: ArrowRight, desc: 'Arrays, Linked Lists, Stacks, and Queues.', progress: linearProgress, status: getStatus(linearProgress), colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
     { id: 3, title: 'Hash Structures', slug: 'hash-structures', icon: Hash, desc: 'Hash Maps, Hash Sets, and Collision Resolution strategies.', progress: hashProgress, status: getStatus(hashProgress), colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
-    { id: 4, title: 'Trees', slug: 'trees', icon: Network, desc: 'Hierarchical data structures, from Basic to Database Trees.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
+    { id: 4, title: 'Trees', slug: 'trees', icon: Network, desc: 'Hierarchical data structures, from Basic to Database Trees.', progress: treesProgress, status: getStatus(treesProgress), colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
     { id: 5, title: 'Graph Structures', slug: 'graph-structures', icon: Share2, desc: 'Nodes and edges representing networks, BFS, DFS, and shortest paths.', progress: 0, status: 'start', colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
     { id: 6, title: 'String Structures', slug: 'string-structures', icon: Type, desc: 'Tries, Suffix Arrays, and advanced pattern matching algorithms.', progress: 0, status: 'start', colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
     { id: 7, title: 'Geometric Structures', slug: 'geometric-structures', icon: Shapes, desc: 'Quad-trees, K-D Trees, and spatial data representation.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { ChevronLeft, Network, Scale, Activity, History, GitMerge, Database } from 'lucide-react';
@@ -5,9 +6,32 @@ import { PageHeader } from '@/components/layout/PageHeader';
 
 export function TreesModulePage() {
   const navigate = useNavigate();
+  const [basicTreesProgress, setBasicTreesProgress] = useState(0);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('dsa_progress_basic_trees');
+      if (saved) {
+        const completedMap = JSON.parse(saved) as Record<string, boolean>;
+        const weights: Record<number, number> = { 1: 50, 2: 50 };
+        const progress = Object.entries(completedMap)
+          .filter(([, done]) => done)
+          .reduce((sum, [key]) => sum + (weights[Number(key)] || 0), 0);
+        setBasicTreesProgress(progress);
+      }
+    } catch (e) {
+      console.error('Failed to parse basic trees progress:', e);
+    }
+  }, []);
+
+  const getStatus = (progress: number) => {
+    if (progress === 0) return 'start';
+    if (progress === 100) return 'completed';
+    return 'in progress';
+  };
 
   const modules = [
-    { id: 1, title: 'Basic Trees', slug: 'basic-trees', icon: Network, desc: 'Binary Trees, BSTs, and basic traversal techniques.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
+    { id: 1, title: 'Basic Trees', slug: 'basic-trees', icon: Network, desc: 'Binary Trees, BSTs, and basic traversal techniques.', progress: basicTreesProgress, status: getStatus(basicTreesProgress), colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
     { id: 2, title: 'Balanced Trees', slug: 'balanced-trees', icon: Scale, desc: 'AVL Trees, Red-Black Trees, and balancing mechanisms.', progress: 0, status: 'start', colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
     { id: 3, title: 'Range Trees', slug: 'range-trees', icon: Activity, desc: 'Segment Trees and Fenwick Trees for range queries.', progress: 0, status: 'start', colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
     { id: 4, title: 'Persistent Trees', slug: 'persistent-trees', icon: History, desc: 'Data structures that preserve previous versions of themselves.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },

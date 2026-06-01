@@ -771,14 +771,14 @@ export function HashStructuresPage() {
                   </div>
                 </div>
 
-                <div className="bg-bg-secondary rounded-xl border border-border-default flex items-start gap-3" style={{ marginTop: '1rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+                <div className="bg-bg-secondary rounded-xl border border-border-default flex items-start gap-3" style={{ marginTop: '1rem', paddingTop: '0.75rem', paddingBottom: '0.75rem', paddingLeft: '1.25rem', paddingRight: '1.25rem' }}>
                   <AlertCircle className="text-accent-tertiary shrink-0 mt-0.5 opacity-70" size={18} />
                   <p className="text-sm text-text-secondary leading-snug">{activeStepData.description}</p>
                 </div>
 
                 {activeStepData.hashDetails && (
-                  <div className="bg-bg-primary rounded-xl border border-border-default font-mono text-sm leading-relaxed overflow-hidden" style={{ marginTop: '1rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-                    <div className="text-[11px] text-text-muted/80 uppercase font-mono font-bold tracking-widest mb-2 border-b border-border-default/45 pb-1 select-none">
+                  <div className="bg-bg-primary rounded-xl border border-border-default font-mono text-sm leading-relaxed overflow-hidden" style={{ marginTop: '1rem', paddingTop: '0.75rem', paddingBottom: '0.75rem', paddingLeft: '1.25rem', paddingRight: '1.25rem' }}>
+                    <div className="text-[11px] text-text-muted/80 uppercase font-mono font-bold tracking-widest mb-2 border-b border-border-default/45 pb-1.5 select-none">
                       hashing details
                     </div>
                     <div className="text-accent-tertiary font-bold">{activeStepData.hashDetails}</div>
@@ -786,18 +786,18 @@ export function HashStructuresPage() {
                 )}
 
                 {activeVisTab === 'basic' && (
-                  <div className="p-4 bg-bg-primary border border-border-default/50 rounded-xl font-mono text-xs text-text-muted space-y-2 select-none" style={{ marginTop: '1rem' }}>
-                    <div className="font-bold text-accent-tertiary uppercase text-[10px] tracking-widest border-b border-border-default/30 pb-1">
+                  <div className="bg-bg-primary border border-border-default/50 rounded-xl font-mono text-sm text-text-muted flex flex-col gap-3 select-none" style={{ marginTop: '1rem', paddingTop: '0.75rem', paddingBottom: '0.75rem', paddingLeft: '1.25rem', paddingRight: '1.25rem' }}>
+                    <div className="font-bold text-accent-tertiary uppercase text-[11px] tracking-widest border-b border-border-default/30 pb-1.5">
                       Key-Value Storage Concept
                     </div>
-                    <div className="flex justify-between items-center py-1">
+                    <div className="flex justify-between items-center py-1 text-base font-semibold">
                       <span className="text-text-primary">"John"</span>
-                      <span>&rarr;</span>
-                      <span className="text-accent-secondary">hash()</span>
-                      <span>&rarr;</span>
+                      <span className="text-text-muted/60">&rarr;</span>
+                      <span className="text-accent-tertiary">hash()</span>
+                      <span className="text-text-muted/60">&rarr;</span>
                       <span className="text-accent-tertiary">Index 2</span>
                     </div>
-                    <div className="text-center bg-bg-secondary/45 py-1.5 rounded border border-border-default/30 text-text-secondary">
+                    <div className="text-center bg-bg-secondary/45 py-2 rounded-lg border border-border-default/30 text-text-secondary">
                       Stored at: <span className="text-text-primary font-bold">table[2] = "John"</span>
                     </div>
                   </div>

@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { 
-  ChevronLeft, BookOpen, Layers, Table, Cpu, Code2, 
-  HelpCircle, Share2, Play, Pause, SkipForward, RotateCcw, 
-  Database, AlertCircle, Check, Award, ArrowDown
+  ChevronLeft, Layers, Play, Pause, SkipForward, RotateCcw, 
+  Database, AlertCircle, Check, Award
 } from 'lucide-react';
 import { PageHeader } from '@/components/layout/PageHeader';
 
@@ -220,7 +219,7 @@ const QUIZ_QUESTIONS = [
 export function StacksPage() {
   const navigate = useNavigate();
 
-  // Progress management (8 checkpoints)
+  // Progress management (2 checkpoints)
   const [completedSections, setCompletedSections] = useState<Record<number, boolean>>(() => {
     try {
       const saved = localStorage.getItem('dsa_progress_stacks');
@@ -230,7 +229,7 @@ export function StacksPage() {
     } catch (e) {
       console.error('Failed to load stacks progress:', e);
     }
-    return { 1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false };
+    return { 1: false, 2: false };
   });
 
   const toggleSection = (sectionNum: number) => {
@@ -241,7 +240,7 @@ export function StacksPage() {
     });
   };
 
-  const SECTION_WEIGHTS: Record<number, number> = { 1: 10, 2: 15, 3: 10, 4: 15, 5: 15, 6: 10, 7: 10, 8: 15 };
+  const SECTION_WEIGHTS: Record<number, number> = { 1: 50, 2: 50 };
   const progressPercent = Object.entries(completedSections)
     .filter(([, done]) => done)
     .reduce((sum, [key]) => sum + (SECTION_WEIGHTS[Number(key)] || 0), 0);
@@ -304,8 +303,6 @@ export function StacksPage() {
     }
   };
 
-  // Code Tab state
-  const [activeCodeTab, setActiveCodeTab] = useState<'python' | 'js' | 'cpp' | 'java'>('python');
 
   // Quiz State
   const [activeQuestions, setActiveQuestions] = useState<typeof QUIZ_QUESTIONS>([]);
@@ -342,8 +339,8 @@ export function StacksPage() {
     } else {
       setQuizFinished(true);
       // Mark quiz section completed
-      if (!completedSections[8]) {
-        toggleSection(8);
+      if (!completedSections[2]) {
+        toggleSection(2);
       }
     }
   };
@@ -398,184 +395,25 @@ export function StacksPage() {
         </div>
       </PageHeader>
 
-      {/* 1. INTRODUCTION SECTION */}
+      {/* 1. INTERACTIVE VISUALIZATION */}
       <section className="flex flex-col gap-4">
         <div className="flex justify-between items-center w-full mb-2">
           <div className="flex items-center gap-2">
-            <BookOpen className="text-accent-secondary opacity-70" size={24} />
+            <Layers className="text-accent-primary opacity-70" size={24} />
             <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[1] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>
-              1. Introduction
+              1. Interactive Visualization
             </h2>
           </div>
           <button 
             onClick={() => toggleSection(1)} 
             className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-300 select-none shadow-[0_2px_10px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 ${
               completedSections[1] 
-                ? 'bg-accent-secondary border-accent-secondary text-bg-primary shadow-[0_0_15px_rgba(0,255,204,0.35)] hover:shadow-[0_0_20px_rgba(0,255,204,0.55)]' 
-                : 'bg-bg-secondary/40 border-accent-secondary/35 text-accent-secondary/50 shadow-[0_0_8px_rgba(0,255,204,0.1)] hover:border-accent-secondary hover:text-accent-secondary hover:shadow-[0_0_15px_rgba(0,255,204,0.3)]'
+                ? 'bg-accent-primary border-accent-primary text-bg-primary shadow-[0_0_15px_rgba(255,45,120,0.35)] hover:shadow-[0_0_20px_rgba(255,45,120,0.55)]' 
+                : 'bg-bg-secondary/40 border-accent-primary/35 text-accent-primary/50 shadow-[0_0_8px_rgba(255,45,120,0.1)] hover:border-accent-primary hover:text-accent-primary hover:shadow-[0_0_15px_rgba(255,45,120,0.3)]'
             }`}
             title={completedSections[1] ? "Completed" : "Mark as Completed"}
           >
             {completedSections[1] && <Check size={18} strokeWidth={3.5} />}
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="neon-card neon-card-cyan flex flex-col justify-start" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <h3 className="text-base font-bold text-accent-secondary font-mono mb-[0.3rem] uppercase">
-              What is a Stack?
-            </h3>
-            <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
-              <p>
-                A <strong className="text-text-primary font-semibold">Stack</strong> is a linear data structure that follows the <span className="text-accent-secondary"><strong className="font-mono font-bold">Last In, First Out (LIFO)</strong> principle.</span>
-              </p>
-              <p>
-                This means that the most recently added element is always the first one to be removed.
-              </p>
-            </div>
-
-            <h3 className="text-base font-bold text-accent-secondary font-mono mb-[0.3rem] mt-6 uppercase">
-              Real-World Analogy
-            </h3>
-            <div className="space-y-2 text-sm text-text-secondary leading-relaxed">
-              <p>Think of:</p>
-              <ul className="list-disc list-inside space-y-1 pl-1">
-                <li>A stack of plates (you only add/remove from the top)</li>
-                <li>Browser tabs (closing tabs displays the previous page)</li>
-                <li>Undo operations in editors (recent edits are reversed first)</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="neon-card neon-card-pink flex flex-col justify-between" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <div>
-              <h3 className="text-base font-bold text-accent-primary font-mono mb-[0.3rem] uppercase">
-                Stack Structure
-              </h3>
-              <p className="text-sm text-text-secondary mb-4">
-                Elements are stacked vertically. Insertion and deletion happen exclusively at the TOP:
-              </p>
-            </div>
-
-            <div className="w-full flex justify-center">
-              <div className="flex flex-col items-center justify-center py-4 bg-bg-primary/20 border border-border-default/20 rounded-xl w-full max-w-xs">
-                <div className="text-xs font-mono font-bold text-accent-primary flex flex-col items-center mb-1">
-                  <span>TOP</span>
-                  <ArrowDown size={14} className="animate-bounce" />
-                </div>
-                <div className="flex flex-col items-center gap-1.5 w-24">
-                  <div className="w-full py-2 bg-accent-primary/10 border border-accent-primary text-accent-primary font-mono font-bold text-center rounded-lg shadow-[0_0_8px_rgba(255,45,120,0.15)]">
-                    [30]
-                  </div>
-                  <div className="w-full py-2 bg-bg-secondary border border-border-default text-text-secondary font-mono font-bold text-center rounded-lg">
-                    [20]
-                  </div>
-                  <div className="w-full py-2 bg-bg-secondary border border-border-default text-text-secondary font-mono font-bold text-center rounded-lg">
-                    [10]
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-sm text-text-muted text-center mt-3 font-mono">
-              Here, Node <span className="text-accent-primary font-bold">30</span> is removed first; Node <span className="text-text-primary font-bold">10</span> is removed last.
-            </div>
-          </div>
-        </div>
-
-        {/* Feature Summary Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
-          {/* Key Characteristics */}
-          <div className="neon-card neon-card-yellow flex flex-col justify-start" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <h3 className="text-lg font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase">
-              Key Characteristics
-            </h3>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse text-sm">
-                <thead>
-                  <tr className="border-b border-border-default/40 text-text-muted font-mono uppercase text-xs">
-                    <th className="py-2">Feature</th>
-                    <th className="py-2">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="text-text-secondary divide-y divide-border-default/10">
-                  <tr>
-                    <td className="py-2.5 font-bold font-mono text-accent-tertiary">LIFO</td>
-                    <td className="py-2.5">Last In, First Out ordering rule.</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2.5 font-bold font-mono text-accent-tertiary">Single Access</td>
-                    <td className="py-2.5">All updates occur strictly at the TOP.</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2.5 font-bold font-mono text-accent-tertiary">Fast Operations</td>
-                    <td className="py-2.5">Push and Pop run in constant O(1) time.</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2.5 font-bold font-mono text-accent-tertiary">Sequential</td>
-                    <td className="py-2.5">Elements are layered vertically in order of entry.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Core Operations */}
-          <div className="neon-card neon-card-cyan flex flex-col justify-start" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <h3 className="text-lg font-bold text-accent-secondary font-mono mb-[0.5rem] uppercase">
-              Core Operations
-            </h3>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse text-sm">
-                <thead>
-                  <tr className="border-b border-border-default/40 text-text-muted font-mono uppercase text-xs">
-                    <th className="py-2">Operation</th>
-                    <th className="py-2">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="text-text-secondary divide-y divide-border-default/10">
-                  <tr>
-                    <td className="py-2.5 font-bold font-mono text-accent-secondary">Push</td>
-                    <td className="py-2.5">Insert a new element at the TOP.</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2.5 font-bold font-mono text-accent-secondary">Pop</td>
-                    <td className="py-2.5">Remove the element currently at the TOP.</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2.5 font-bold font-mono text-accent-secondary">Peek / Top</td>
-                    <td className="py-2.5">View the top element without removing it.</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2.5 font-bold font-mono text-accent-secondary">isEmpty</td>
-                    <td className="py-2.5">Verify whether the stack contains any nodes.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. INTERACTIVE VISUALIZATION */}
-      <section className="flex flex-col gap-4">
-        <div className="flex justify-between items-center w-full mb-2">
-          <div className="flex items-center gap-2">
-            <Layers className="text-accent-primary opacity-70" size={24} />
-            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[2] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>
-              2. Interactive Visualization
-            </h2>
-          </div>
-          <button 
-            onClick={() => toggleSection(2)} 
-            className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-300 select-none shadow-[0_2px_10px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 ${
-              completedSections[2] 
-                ? 'bg-accent-primary border-accent-primary text-bg-primary shadow-[0_0_15px_rgba(255,45,120,0.35)] hover:shadow-[0_0_20px_rgba(255,45,120,0.55)]' 
-                : 'bg-bg-secondary/40 border-accent-primary/35 text-accent-primary/50 shadow-[0_0_8px_rgba(255,45,120,0.1) ] hover:border-accent-primary hover:text-accent-primary hover:shadow-[0_0_15px_rgba(255,45,120,0.3)]'
-            }`}
-            title={completedSections[2] ? "Completed" : "Mark as Completed"}
-          >
-            {completedSections[2] && <Check size={18} strokeWidth={3.5} />}
           </button>
         </div>
 
@@ -753,582 +591,22 @@ export function StacksPage() {
         </div>
       </section>
 
-      {/* 3. BASIC OPERATIONS AND COMPLEXITIES */}
+      {/* 2. QUIZ SECTION */}
       <section className="flex flex-col gap-4">
         <div className="flex justify-between items-center w-full mb-2">
           <div className="flex items-center gap-2">
-            <Table className="text-accent-tertiary opacity-70" size={24} />
-            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[3] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>
-              3. Basic Operations and Complexities
+            <Award className="text-accent-secondary opacity-70" size={24} />
+            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[2] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>
+              2. Stack Quiz
             </h2>
           </div>
-          <button 
-            onClick={() => toggleSection(3)} 
-            className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-300 select-none shadow-[0_2px_10px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 ${
-              completedSections[3] 
-                ? 'bg-accent-tertiary border-accent-tertiary text-bg-primary shadow-[0_0_15px_rgba(255,224,74,0.35)] hover:shadow-[0_0_20px_rgba(255,224,74,0.55)]' 
-                : 'bg-bg-secondary/40 border-accent-tertiary/35 text-accent-tertiary/50 shadow-[0_0_8px_rgba(255,224,74,0.1)] hover:border-accent-tertiary hover:text-accent-tertiary hover:shadow-[0_0_15px_rgba(255,224,74,0.3)]'
-            }`}
-            title={completedSections[3] ? "Completed" : "Mark as Completed"}
-          >
-            {completedSections[3] && <Check size={18} strokeWidth={3.5} />}
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Complexity Table Card */}
-          <div className="lg:col-span-5 neon-card neon-card-yellow flex flex-col justify-start" style={{ paddingTop: '1.25rem', paddingBottom: '1.25rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <h3 className="text-lg font-bold text-accent-tertiary font-mono mb-[0.3rem] uppercase">
-              Time Complexity Table
-            </h3>
-            <div className="overflow-x-auto mt-2">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="border-b border-border-default/45 text-text-muted font-mono uppercase text-xs">
-                    <th className="py-2.5">Operation</th>
-                    <th className="py-2.5 text-center">Time Complexity</th>
-                  </tr>
-                </thead>
-                <tbody className="text-text-secondary divide-y divide-border-default/15 font-mono text-base">
-                  <tr>
-                    <td className="py-3">Push</td>
-                    <td className="py-3 text-center text-accent-tertiary font-extrabold">O(1)</td>
-                  </tr>
-                  <tr>
-                    <td className="py-3">Pop</td>
-                    <td className="py-3 text-center text-accent-tertiary font-extrabold">O(1)</td>
-                  </tr>
-                  <tr>
-                    <td className="py-3">Peek</td>
-                    <td className="py-3 text-center text-accent-tertiary font-extrabold">O(1)</td>
-                  </tr>
-                  <tr>
-                    <td className="py-3">Search</td>
-                    <td className="py-3 text-center text-accent-tertiary font-extrabold">O(N)</td>
-                  </tr>
-                  <tr>
-                    <td className="py-3">Traversal</td>
-                    <td className="py-3 text-center text-accent-tertiary font-extrabold">O(N)</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Explanation Cards Grid */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="neon-card neon-card-yellow flex flex-col justify-start" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-              <h3 className="text-sm font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex flex-wrap items-baseline gap-x-2">
-                <span>Constant Time Push</span>
-                <span className="text-accent-tertiary font-extrabold text-base mt-0.5 font-mono">O(1)</span>
-              </h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Adding elements strictly at the TOP simply updates the TOP index or node address reference, requiring no shifts or iterations.
-              </p>
-            </div>
-
-            <div className="neon-card neon-card-yellow flex flex-col justify-start" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-              <h3 className="text-sm font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex flex-wrap items-baseline gap-x-2">
-                <span>Constant Time Pop</span>
-                <span className="text-accent-tertiary font-extrabold text-base mt-0.5 font-mono">O(1)</span>
-              </h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Removing elements from the TOP requires no element shifting across RAM blocks. It simply decreases the pointer reference index.
-              </p>
-            </div>
-
-            <div className="neon-card neon-card-yellow flex flex-col justify-start" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-              <h3 className="text-sm font-bold text-accent-tertiary font-mono mb-[0.5rem] uppercase flex flex-wrap items-baseline gap-x-2">
-                <span>Linear Search</span>
-                <span className="text-accent-tertiary font-extrabold text-base mt-0.5 font-mono">O(N)</span>
-              </h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Since stack structures restrict direct index lookup access, finding any random element inside a stack requires sequential node backtracking pop loops.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. INTERNAL WORKING */}
-      <section className="flex flex-col gap-4">
-        <div className="flex justify-between items-center w-full mb-2">
-          <div className="flex items-center gap-2">
-            <Cpu className="text-accent-secondary opacity-70" size={24} />
-            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[4] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>
-              4. Internal Working
-            </h2>
-          </div>
-          <button 
-            onClick={() => toggleSection(4)} 
-            className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-300 select-none shadow-[0_2px_10px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 ${
-              completedSections[4] 
-                ? 'bg-accent-secondary border-accent-secondary text-bg-primary shadow-[0_0_15px_rgba(0,255,204,0.35)] hover:shadow-[0_0_20px_rgba(0,255,204,0.55)]' 
-                : 'bg-bg-secondary/40 border-accent-secondary/35 text-accent-secondary/50 shadow-[0_0_8px_rgba(0,255,204,0.1)] hover:border-accent-secondary hover:text-accent-secondary hover:shadow-[0_0_15px_rgba(0,255,204,0.3)]'
-            }`}
-            title={completedSections[4] ? "Completed" : "Mark as Completed"}
-          >
-            {completedSections[4] && <Check size={18} strokeWidth={3.5} />}
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Implementation Memory Models */}
-          <div className="neon-card neon-card-cyan flex flex-col justify-start" style={{ paddingTop: '1.25rem', paddingBottom: '1.25rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <h3 className="text-lg font-bold text-accent-secondary font-mono mb-4 uppercase">
-              1. Stack Memory Structure
-            </h3>
-            <div className="space-y-6 text-sm text-text-secondary leading-relaxed">
-              <p>Stacks can be structurally backed by two core memory strategies:</p>
-
-              <div>
-                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-1">Array-Based Stack</strong>
-                <p className="mb-2">Contiguous sequential RAM mapping. TOP references index offsets:</p>
-                <div className="w-full flex justify-center">
-                  <div 
-                    className="relative bg-bg-primary/30 p-4 rounded-lg border border-border-default/20 w-full max-w-xs flex justify-center select-none"
-                    style={{ marginTop: '1rem', marginBottom: '1rem', fontSize: '0.9rem' }}
-                  >
-                    <span className="absolute left-4 top-4 text-text-muted font-mono" style={{ fontSize: '0.75rem' }}>Index:</span>
-                    <div className="flex items-start gap-4 font-mono">
-                      <div className="flex flex-col items-center w-12">
-                        <span className="text-text-muted mb-1" style={{ fontSize: '0.75rem' }}>0</span>
-                        <span className="text-accent-secondary font-bold text-base">[10]</span>
-                      </div>
-                      <div className="flex flex-col items-center w-12">
-                        <span className="text-text-muted mb-1" style={{ fontSize: '0.75rem' }}>1</span>
-                        <span className="text-accent-secondary font-bold text-base">[20]</span>
-                      </div>
-                      <div className="flex flex-col items-center w-12">
-                        <span className="text-text-muted mb-1" style={{ fontSize: '0.75rem' }}>2</span>
-                        <span className="text-accent-secondary font-bold text-base">[30]</span>
-                        <span className="text-accent-secondary text-base mt-1 leading-none">↑</span>
-                        <span className="text-accent-secondary font-bold text-xs mt-0.5">TOP</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <ul className="list-disc list-inside mt-3 text-sm space-y-2">
-                  <li><strong>Push:</strong> Increment TOP and insert at array index location.</li>
-                  <li><strong>Pop:</strong> Fetch value and decrement TOP index variable.</li>
-                </ul>
-              </div>
-
-              <div className="pt-2">
-                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-1">Linked List Stack</strong>
-                <p className="mb-2">Scattered node pointer connections. TOP stores the address reference to the head node:</p>
-                <div className="w-full flex justify-center">
-                  <div 
-                    className="font-mono bg-bg-primary/30 p-3 rounded-lg border border-border-default/20 text-center w-full max-w-md text-accent-secondary font-bold"
-                    style={{ marginTop: '1rem', marginBottom: '1rem', fontSize: '0.9rem' }}
-                  >
-                    TOP &rarr; [30] &rarr; [20] &rarr; [10] &rarr; NULL
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Efficiency & Overflow Details */}
-          <div className="neon-card neon-card-pink flex flex-col justify-start" style={{ paddingTop: '1.25rem', paddingBottom: '1.25rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <h3 className="text-lg font-bold text-accent-primary font-mono mb-4 uppercase">
-              2. Why Stacks Are Fast
-            </h3>
-            <div className="space-y-6 text-sm text-text-secondary leading-relaxed">
-              <p>
-                All operations occur strictly at the <strong className="text-text-primary">TOP</strong> pointer boundary. No elements need to be shifted, memory cells shuffled, or linked nodes traversed.
-              </p>
-
-              <div>
-                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-1">Stack Overflow</strong>
-                <p className="mb-1">
-                  Occurs when stack allocation memory capacity becomes completely full, or too many nested function activations recur.
-                </p>
-                <p className="text-sm text-accent-primary font-mono font-bold mt-2 text-center">
-                  Example: Unbounded infinite recursion calls.
-                </p>
-              </div>
-
-              <div>
-                <strong className="text-text-primary text-sm font-mono uppercase tracking-wider block mb-1">Function Call Stack</strong>
-                <p className="mb-2">
-                  Operating systems execute code routines using call stacks. Every invocation pushes local context variables and returns pointers in reverse order:
-                </p>
-                <div className="w-full flex justify-center">
-                  <div 
-                    className="space-y-2 font-mono bg-bg-primary/30 p-4 border border-border-default/20 rounded-lg w-full max-w-xs flex flex-col items-center justify-center"
-                    style={{ marginTop: '1rem', marginBottom: '1rem' }}
-                  >
-                    <div className="text-accent-primary font-bold text-center" style={{ fontSize: '0.85rem' }}>funcB() Frame</div>
-                    <div className="text-accent-primary/60 font-normal text-center" style={{ fontSize: '0.75rem' }}>&darr; returns first</div>
-                    <div className="text-accent-primary font-bold text-center" style={{ fontSize: '0.85rem' }}>funcA() Frame</div>
-                    <div className="text-accent-primary/60 font-normal text-center" style={{ fontSize: '0.75rem' }}>&darr; returns next</div>
-                    <div className="text-accent-primary font-bold text-center" style={{ fontSize: '0.85rem' }}>main() Frame</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. CODE IMPLEMENTATION */}
-      <section className="flex flex-col gap-4">
-        <div className="flex justify-between items-center w-full mb-2">
-          <div className="flex items-center gap-2">
-            <Code2 className="text-accent-tertiary opacity-70" size={24} />
-            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[5] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>
-              5. Code Implementation
-            </h2>
-          </div>
-          <button 
-            onClick={() => toggleSection(5)} 
-            className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-300 select-none shadow-[0_2px_10px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 ${
-              completedSections[5] 
-                ? 'bg-accent-tertiary border-accent-tertiary text-bg-primary shadow-[0_0_15px_rgba(255,224,74,0.35)] hover:shadow-[0_0_20px_rgba(255,224,74,0.55)]' 
-                : 'bg-bg-secondary/40 border-accent-tertiary/35 text-accent-tertiary/50 shadow-[0_0_8px_rgba(255,224,74,0.1)] hover:border-accent-tertiary hover:text-accent-tertiary hover:shadow-[0_0_15px_rgba(255,224,74,0.3)]'
-            }`}
-            title={completedSections[5] ? "Completed" : "Mark as Completed"}
-          >
-            {completedSections[5] && <Check size={18} strokeWidth={3.5} />}
-          </button>
-        </div>
-
-        <div className="neon-card neon-card-yellow flex flex-col gap-6" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-          {/* Language Tabs */}
-          <div className="flex border-b border-border-default/50 gap-4 overflow-x-auto">
-            {([
-              { id: 'python', label: 'Python' },
-              { id: 'js', label: 'JavaScript' },
-              { id: 'cpp', label: 'C++' },
-              { id: 'java', label: 'Java' }
-            ] as const).map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveCodeTab(tab.id)}
-                className={`px-5 py-3 font-mono font-bold text-sm border-b-2 uppercase transition-all whitespace-nowrap cursor-pointer ${
-                  activeCodeTab === tab.id 
-                    ? 'border-accent-tertiary text-accent-tertiary' 
-                    : 'border-transparent text-text-muted hover:text-text-secondary'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Code Blocks */}
-          <div className="bg-bg-primary/70 rounded-xl border border-border-default/80 p-4 font-mono text-sm leading-relaxed overflow-x-auto max-h-[480px] scrollbar-hide">
-            {activeCodeTab === 'python' && (
-              <pre className="text-white">
-{`# 1. Stack using standard Python list
-stack = []
-
-# PUSH Operations
-stack.append(10)
-stack.append(20)
-stack.append(30)
-print("Stack contents:", stack)  # Output: [10, 20, 30]
-
-# POP Operation
-popped = stack.pop()
-print("Popped item:", popped)     # Output: 30
-print("Stack contents:", stack)  # Output: [10, 20]
-
-# PEEK Operation
-top_item = stack[-1]
-print("Top item (Peek):", top_item) # Output: 20
-
-
-# 2. Stack implementation using a Custom Class
-class Stack:
-    def __init__(self):
-        self.items = []
-
-    def push(self, item):
-        self.items.append(item)
-
-    def pop(self):
-        if self.is_empty():
-            raise IndexError("pop from empty stack")
-        return self.items.pop()
-
-    def peek(self):
-        if self.is_empty():
-            raise IndexError("peek from empty stack")
-        return self.items[-1]
-
-    def is_empty(self):
-        return len(self.items) == 0
-
-# Test Class
-stack = Stack()
-stack.push(10)
-stack.push(20)
-print("Custom Stack Peek:", stack.peek())  # Output: 20`}
-              </pre>
-            )}
-
-            {activeCodeTab === 'js' && (
-              <pre className="text-white">
-{`// 1. Stack using standard Array
-const stack = [];
-
-// PUSH Operations
-stack.push(10);
-stack.push(20);
-stack.push(30);
-console.log("Stack contents:", stack);  // Output: [10, 20, 30]
-
-// POP Operation
-const popped = stack.pop();
-console.log("Popped item:", popped);     // Output: 30
-
-// PEEK Operation
-const topItem = stack[stack.length - 1];
-console.log("Top item (Peek):", topItem); // Output: 20
-
-
-// 2. Stack implementation using Custom Class
-class Stack {
-  constructor() {
-    this.items = [];
-  }
-
-  push(item) {
-    this.items.push(item);
-  }
-
-  pop() {
-    if (this.isEmpty()) {
-      throw new Error("Stack Underflow");
-    }
-    return this.items.pop();
-  }
-
-  peek() {
-    if (this.isEmpty()) {
-      throw new Error("Stack is empty");
-    }
-    return this.items[this.items.length - 1];
-  }
-
-  isEmpty() {
-    return this.items.length === 0;
-  }
-}
-
-// Test Class
-const myStack = new Stack();
-myStack.push(10);
-myStack.push(20);
-console.log("Custom Stack Peek:", myStack.peek()); // Output: 20`}
-              </pre>
-            )}
-
-            {activeCodeTab === 'cpp' && (
-              <pre className="text-white">
-{`#include <iostream>
-#include <stack>
-#include <stdexcept>
-
-// C++ STL Stack demonstration
-int main() {
-    std::stack<int> s;
-
-    // PUSH operations
-    s.push(10);
-    s.push(20);
-    s.push(30);
-
-    // PEEK / view top element
-    std::cout << "Top element: " << s.top() << std::endl; // Output: 30
-
-    // POP operation
-    s.pop();
-    std::cout << "Top element after pop: " << s.top() << std::endl; // Output: 20
-
-    // Check empty state
-    if (s.empty()) {
-        std::cout << "Stack is empty." << std::endl;
-    } else {
-        std::cout << "Stack has elements." << std::endl;
-    }
-
-    return 0;
-}`}
-              </pre>
-            )}
-
-            {activeCodeTab === 'java' && (
-              <pre className="text-white">
-{`import java.util.Stack;
-import java.util.EmptyStackException;
-
-public class Main {
-    public static void main(String[] args) {
-        Stack<Integer> stack = new Stack<>();
-
-        // PUSH operations
-        stack.push(10);
-        stack.push(20);
-        stack.push(30);
-
-        // PEEK operation
-        System.out.println("Top element: " + stack.peek()); // Output: 30
-
-        // POP operation
-        int popped = stack.pop();
-        System.out.println("Popped element: " + popped);     // Output: 30
-        System.out.println("New Top: " + stack.peek());      // Output: 20
-
-        // Check empty state
-        System.out.println("Is stack empty? " + stack.isEmpty()); // Output: false
-    }
-}`}
-              </pre>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* 6. FOUNDATIONAL PROBLEMS */}
-      <section className="flex flex-col gap-4">
-        <div className="flex justify-between items-center w-full mb-2">
-          <div className="flex items-center gap-2">
-            <HelpCircle className="text-accent-secondary opacity-70" size={24} />
-            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[6] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>
-              6. Common Foundational Problems
-            </h2>
-          </div>
-          <button 
-            onClick={() => toggleSection(6)} 
-            className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-300 select-none shadow-[0_2px_10px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 ${
-              completedSections[6] 
-                ? 'bg-accent-secondary border-accent-secondary text-bg-primary shadow-[0_0_15px_rgba(0,255,204,0.35)] hover:shadow-[0_0_20px_rgba(0,255,204,0.55)]' 
-                : 'bg-bg-secondary/40 border-accent-secondary/35 text-accent-secondary/50 shadow-[0_0_8px_rgba(0,255,204,0.1)] hover:border-accent-secondary hover:text-accent-secondary hover:shadow-[0_0_15px_rgba(0,255,204,0.3)]'
-            }`}
-            title={completedSections[6] ? "Completed" : "Mark as Completed"}
-          >
-            {completedSections[6] && <Check size={18} strokeWidth={3.5} />}
-          </button>
-        </div>
-
-        {/* Problems Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-          {[
-            { id: 1, title: 'Valid Parentheses', type: 'String Parsing / Stack Matching', desc: 'Identify matching braces using push/pop stack checks.' },
-            { id: 2, title: 'Next Greater Element', type: 'Monotonic Stack', desc: 'Find nearest greater elements using linear monotonic optimizations.' },
-            { id: 3, title: 'Reverse String', type: 'LIFO Reversal', desc: 'Reverse string characters by leveraging standard stack buffer LIFO ordering.' },
-            { id: 4, title: 'Evaluate Postfix Expression', type: 'Operand Stacking', desc: 'Parse math expressions and resolve postfix operators.' },
-            { id: 5, title: 'Min Stack', type: 'Auxiliary Stack', desc: 'Support O(1) minimum value retrieval inside a custom stack wrapper.' },
-            { id: 6, title: 'Largest Rectangle in Histogram', type: 'Monotonic Stack Boundaries', desc: 'Calculate the maximum rectangular area boundaries.' },
-            { id: 7, title: 'Browser Back Button', type: 'State History / Navigation', desc: 'Model site history navigation by storing routes on back stacks.' },
-            { id: 8, title: 'Recursion Simulation', type: 'Call Stack Execution', desc: 'Mock recursion function layers using explicit stack arrays.' }
-          ].map((prob) => (
-            <div 
-              key={prob.id}
-              className="neon-card neon-card-cyan flex flex-col justify-between h-full group hover:border-accent-secondary/50 transition-colors"
-              style={{ padding: '16px 24px 20px 24px' }}
-            >
-              <div>
-                <span className="text-[10px] font-bold font-mono text-text-muted uppercase tracking-widest block mb-1">
-                  {prob.type}
-                </span>
-                <h3 className="text-lg font-bold text-text-primary group-hover:text-accent-secondary transition-colors mb-[0.7rem]">
-                  {prob.id}. {prob.title}
-                </h3>
-                <p className="text-sm text-text-secondary leading-relaxed mb-6">
-                  {prob.desc}
-                </p>
-              </div>
-              <button 
-                onClick={() => navigate('/playground')}
-                className="mt-6 text-sm font-mono font-bold text-accent-secondary flex items-center gap-1 hover:translate-x-1 transition-transform align-bottom justify-start self-start cursor-pointer"
-              >
-                Playground &rarr;
-              </button>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 7. REAL WORLD APPLICATIONS */}
-      <section className="flex flex-col gap-4">
-        <div className="flex justify-between items-center w-full mb-2">
-          <div className="flex items-center gap-2">
-            <Share2 className="text-accent-primary opacity-70" size={24} />
-            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[7] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>
-              7. Real World Applications
-            </h2>
-          </div>
-          <button 
-            onClick={() => toggleSection(7)} 
-            className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-300 select-none shadow-[0_2px_10px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 ${
-              completedSections[7] 
-                ? 'bg-accent-primary border-accent-primary text-bg-primary shadow-[0_0_15px_rgba(255,45,120,0.35)] hover:shadow-[0_0_20px_rgba(255,45,120,0.55)]' 
-                : 'bg-bg-secondary/40 border-accent-primary/35 text-accent-primary/50 shadow-[0_0_8px_rgba(255,45,120,0.1) ] hover:border-accent-primary hover:text-accent-primary hover:shadow-[0_0_15px_rgba(255,45,120,0.3)]'
-            }`}
-            title={completedSections[7] ? "Completed" : "Mark as Completed"}
-          >
-            {completedSections[7] && <Check size={18} strokeWidth={3.5} />}
-          </button>
-        </div>
-
-        {/* Applications Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {[
-            { title: 'Undo / Redo Systems', desc: 'Used in text editors, graphic design software, and IDEs to reverse recent user edit states.' },
-            { title: 'Browser History Navigation', desc: 'Backwards and forwards page navigation history is managed using LIFO stack tracks.' },
-            { title: 'Function Call Execution', desc: 'Compilers maintain execution environments and track local variables in call stack frames.' },
-            { title: 'Expression Validation & Parsing', desc: 'Compilers parse mathematical expression parentheses using stack delimiters.' },
-            { title: 'DFS (Depth-First Search)', desc: 'Graph deep traversals use stacks to track backtrack routes when hitting search limits.' },
-            { title: 'Operating System Memory', desc: 'Execution stacks control execution threads and handle local parameter bounds.' },
-            { title: 'String and Sequence Reversal', desc: 'LIFO structures naturally reverse sequences when popped.' }
-          ].map((app, idx) => (
-            <div 
-              key={idx}
-              className="neon-card neon-card-pink flex flex-col justify-start"
-              style={{ paddingTop: '1.25rem', paddingBottom: '1.25rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
-            >
-              <h3 className="text-base font-bold text-accent-primary font-mono mb-[0.3rem] uppercase">
-                {app.title}
-              </h3>
-              <p className="text-sm text-text-secondary leading-relaxed mt-1">
-                {app.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 8. QUIZ SECTION */}
-      <section className="flex flex-col gap-4">
-        <div className="flex justify-between items-center w-full mb-2">
-          <div className="flex items-center gap-2">
-            <HelpCircle className="text-accent-secondary opacity-70" size={24} />
-            <h2 className={`text-2xl font-bold font-display transition-colors duration-300 ${completedSections[8] ? 'text-text-muted line-through decoration-text-muted/30' : 'text-text-primary'}`}>
-              8. Stack Quiz
-            </h2>
-          </div>
-          <button 
-            onClick={() => toggleSection(8)} 
-            className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-300 select-none shadow-[0_2px_10px_rgba(0,0,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 ${
-              completedSections[8] 
-                ? 'bg-accent-secondary border-accent-secondary text-bg-primary shadow-[0_0_15px_rgba(0,255,204,0.35)] hover:shadow-[0_0_20px_rgba(0,255,204,0.55)]' 
-                : 'bg-bg-secondary/40 border-accent-secondary/35 text-accent-secondary/50 shadow-[0_0_8px_rgba(0,255,204,0.1)] hover:border-accent-secondary hover:text-accent-secondary hover:shadow-[0_0_15px_rgba(0,255,204,0.3)]'
-            }`}
-            title={completedSections[8] ? "Completed" : "Mark as Completed"}
-          >
-            {completedSections[8] && <Check size={18} strokeWidth={3.5} />}
-          </button>
         </div>
 
         <div className="neon-card neon-card-cyan" style={{ paddingTop: '0.75rem', paddingBottom: '1.5rem', paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>
           {activeQuestions.length > 0 && !quizFinished ? (
             <div className="flex flex-col gap-1">
               <div className="flex justify-start items-center">
-                <span className="text-xl font-mono text-accent-secondary uppercase tracking-wider">
+                <span className="text-xl font-mono text-accent-secondary uppercase tracking-wider select-none">
                   QUESTION {currentQuizQuestion + 1} OF {activeQuestions.length}
                 </span>
               </div>
@@ -1409,7 +687,7 @@ public class Main {
               )}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center text-center py-8 gap-6">
+            <div className="flex flex-col items-center justify-center text-center py-8 gap-6 select-none">
               <Award className="text-accent-secondary animate-pulse" size={64} />
               <div>
                 <h3 className="text-2xl font-bold text-text-primary">Quiz Completed!</h3>

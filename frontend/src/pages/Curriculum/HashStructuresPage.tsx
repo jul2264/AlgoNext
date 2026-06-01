@@ -814,19 +814,19 @@ export function HashStructuresPage() {
 
               {activeVisTab === 'flow' ? (
                 <div className="flex flex-col items-center justify-center p-4 bg-bg-secondary rounded-xl border border-border-default/50 max-w-[18rem] mx-auto w-full gap-1.5 font-mono text-xs select-none">
-                  <div className={`py-2 px-3 rounded-lg border text-center transition-all duration-300 w-full ${activeStepData.flowActiveStep === 0 ? 'bg-accent-tertiary/20 border-accent-tertiary text-accent-tertiary shadow-[0_0_12px_rgba(255,224,74,0.15)] font-bold' : 'border-border-default/40 text-text-secondary'}`}>
+                  <div className={`py-[3px] px-1 rounded-lg border text-center transition-all duration-300 w-full ${activeStepData.flowActiveStep === 0 ? 'bg-accent-tertiary/20 border-accent-tertiary text-accent-tertiary shadow-[0_0_12px_rgba(255,224,74,0.15)] font-bold' : 'border-border-default/40 text-text-secondary'}`}>
                     Key Entered ("APPLE")
                   </div>
                   <div className="text-text-muted text-xs leading-none">&darr;</div>
-                  <div className={`py-2 px-3 rounded-lg border text-center transition-all duration-300 w-full ${activeStepData.flowActiveStep === 1 ? 'bg-accent-tertiary/20 border-accent-tertiary text-accent-tertiary shadow-[0_0_12px_rgba(255,224,74,0.15)] font-bold' : 'border-border-default/40 text-text-secondary'}`}>
+                  <div className={`py-[3px] px-1 rounded-lg border text-center transition-all duration-300 w-full ${activeStepData.flowActiveStep === 1 ? 'bg-accent-tertiary/20 border-accent-tertiary text-accent-tertiary shadow-[0_0_12px_rgba(255,224,74,0.15)] font-bold' : 'border-border-default/40 text-text-secondary'}`}>
                     Hash Function: hash()
                   </div>
                   <div className="text-text-muted text-xs leading-none">&darr;</div>
-                  <div className={`py-2 px-3 rounded-lg border text-center transition-all duration-300 w-full ${activeStepData.flowActiveStep === 2 ? 'bg-accent-tertiary/20 border-accent-tertiary text-accent-tertiary shadow-[0_0_12px_rgba(255,224,74,0.15)] font-bold' : 'border-border-default/40 text-text-secondary'}`}>
+                  <div className={`py-[3px] px-1 rounded-lg border text-center transition-all duration-300 w-full ${activeStepData.flowActiveStep === 2 ? 'bg-accent-tertiary/20 border-accent-tertiary text-accent-tertiary shadow-[0_0_12px_rgba(255,224,74,0.15)] font-bold' : 'border-border-default/40 text-text-secondary'}`}>
                     Generate Index (3)
                   </div>
                   <div className="text-text-muted text-xs leading-none">&darr;</div>
-                  <div className={`py-2 px-3 rounded-lg border text-center transition-all duration-300 w-full ${activeStepData.flowActiveStep === 3 ? 'bg-accent-tertiary/20 border-accent-tertiary text-accent-tertiary shadow-[0_0_12px_rgba(255,224,74,0.15)] font-bold' : 'border-border-default/40 text-text-secondary'}`}>
+                  <div className={`py-[3px] px-1 rounded-lg border text-center transition-all duration-300 w-full ${activeStepData.flowActiveStep === 3 ? 'bg-accent-tertiary/20 border-accent-tertiary text-accent-tertiary shadow-[0_0_12px_rgba(255,224,74,0.15)] font-bold' : 'border-border-default/40 text-text-secondary'}`}>
                     Direct Bucket Access
                   </div>
                 </div>

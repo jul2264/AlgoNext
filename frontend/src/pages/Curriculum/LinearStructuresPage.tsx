@@ -77,98 +77,48 @@ export function LinearStructuresPage() {
       </PageHeader>
 
       <div className="flex flex-col gap-8 flex-1">
-        {/* Intro Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          
-          <div className="neon-card neon-card-cyan flex flex-col justify-start" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <h3 className="text-lg font-bold text-accent-secondary font-mono mb-[0.3rem] flex items-center gap-2 uppercase">
-              <span>What Are Linear Data Structures?</span>
-            </h3>
-            <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
-              <p>
-                Linear Data Structures organize elements sequentially, where each element is connected logically to the next, forming a simple straight line of data.
-              </p>
-            </div>
-          </div>
-
-          <div className="neon-card neon-card-yellow flex flex-col justify-start" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <h3 className="text-lg font-bold text-accent-tertiary font-mono mb-[0.3rem] flex items-center gap-2 uppercase">
-              <span>Why Not Trees And Graphs?</span>
-            </h3>
-            <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
-              <ul className="list-disc pl-5 space-y-2">
-                <li><strong className="text-text-primary">Traversal happens linearly</strong> - moving step-by-step from start to finish</li>
-                <li><strong className="text-text-primary">Elements are processed one-by-one</strong> - establishing a single path of execution</li>
-                <li><strong className="text-text-primary">Memory access follows a predictable order</strong> - improving hardware cache locality</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="neon-card neon-card-pink flex flex-col justify-start" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <h3 className="text-lg font-bold text-accent-primary font-mono mb-[0.3rem] flex items-center gap-2 uppercase">
-              <span>Why They Exist?</span>
-            </h3>
-            <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
-              <ul className="list-disc pl-5 space-y-2">
-                <li><strong className="text-text-primary">Sequential storage</strong> - mapping directly to contiguous RAM</li>
-                <li><strong className="text-text-primary">Ordered processing</strong> - keeping data naturally sorted by arrival</li>
-                <li><strong className="text-text-primary">Memory-efficient traversal</strong> - simple logic without recursive overhead</li>
-                <li><strong className="text-text-primary">Temporary data handling</strong> - buffering data streams effectively</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="neon-card neon-card-cyan flex flex-col justify-start" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <h3 className="text-lg font-bold text-accent-secondary font-mono mb-[0.3rem] flex items-center gap-2 uppercase">
-              <span>Foundational For</span>
-            </h3>
-            <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
-              <ul className="list-disc pl-5 space-y-2">
-                <li><strong className="text-text-primary">Algorithms:</strong> Sorting, searching, and two-pointer traversals</li>
-                <li><strong className="text-text-primary">Operating Systems:</strong> Task scheduling queues and memory stacks</li>
-                <li><strong className="text-text-primary">Compilers:</strong> Syntax parsing and execution environments</li>
-                <li><strong className="text-text-primary">Browsers:</strong> Undo/redo history and event rendering queues</li>
-                <li><strong className="text-text-primary">Databases:</strong> Write-ahead transaction logs and record storage</li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-
         {/* Course Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto w-full mt-6">
           {modules.map((mod, idx) => (
             <motion.div
               key={mod.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: idx * 0.1 }}
-              className={`neon-card ${mod.colorClass} flex flex-col h-full group`}
-              style={{ padding: '16px 24px 20px 24px' }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1, duration: 0.4 }}
+              whileHover={{ y: -6, scale: 1.01 }}
+              className={`neon-card ${mod.colorClass} flex flex-col justify-between h-full group relative overflow-hidden transition-all duration-300`}
+              style={{ padding: '28px 32px' }}
             >
-              <div className="flex items-center gap-3 mb-[0.7rem]">
-                <div className={`transition-colors ${mod.iconColorClass}`}>
-                  <mod.icon size={26} />
-                </div>
-                <h2 className="text-xl font-bold font-display text-text-primary group-hover:text-current transition-colors">{mod.title}</h2>
-              </div>
-              
-              <div className="mb-14 flex-1">
-                <p className="text-xs font-bold text-text-muted uppercase tracking-wider mb-[0.3rem] font-mono">Summary</p>
-                <p className="text-sm text-text-secondary leading-relaxed">{mod.desc}</p>
+              {/* Sequence number in top-right background */}
+              <div className="absolute right-6 top-3 text-7xl font-display font-extrabold text-white/[0.03] group-hover:text-white/[0.05] transition-colors select-none pointer-events-none">
+                0{mod.id}
               </div>
 
-              <div className="mt-auto flex flex-col">
-                <div className="flex justify-between items-center text-sm mb-3">
-                  <span className="text-text-muted font-mono font-medium">PROGRESS</span>
-                  <span className="text-text-primary font-bold font-mono">{mod.progress}%</span>
+              <div>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className={`p-3 bg-bg-secondary/60 rounded-xl border border-border-default/50 transition-colors ${mod.iconColorClass} group-hover:border-current`}>
+                    <mod.icon size={28} />
+                  </div>
+                  <h2 className="text-2xl font-bold font-display text-text-primary transition-colors">{mod.title}</h2>
                 </div>
-                <div className="h-2 w-full bg-bg-secondary rounded-full overflow-hidden border border-white/5 mb-6">
-                  <div className="h-full bg-text-primary rounded-full" style={{ width: `${mod.progress}%` }}></div>
+                
+                <p className="text-sm text-text-secondary leading-relaxed mb-8">{mod.desc}</p>
+              </div>
+
+              <div className="flex flex-col mt-auto">
+                <div className="flex justify-between items-center text-xs font-mono font-bold tracking-wider mb-2">
+                  <span className="text-text-muted">COMPLETION</span>
+                  <span className="text-text-primary">{mod.progress}%</span>
+                </div>
+                <div className="h-2 w-full bg-bg-secondary/80 rounded-full overflow-hidden border border-white/5 mb-6">
+                  <div 
+                    className="h-full bg-text-primary rounded-full transition-all duration-500 ease-out" 
+                    style={{ width: `${mod.progress}%` }} 
+                  />
                 </div>
                 <button 
                   onClick={() => navigate(`/dsa/linear-structures/${mod.slug}`)}
-                  className={`w-full py-3 rounded-lg font-bold font-mono tracking-wider transition-all duration-300 ${mod.btnClass}`}
+                  className={`w-full py-3.5 rounded-xl font-bold font-mono tracking-wider transition-all duration-300 ${mod.btnClass}`}
                 >
                   {mod.status.toUpperCase()}
                 </button>

@@ -7,12 +7,14 @@ import { PageHeader } from '@/components/layout/PageHeader';
 export function CurriculumPage() {
   const navigate = useNavigate();
   const [foundationsProgress, setFoundationsProgress] = useState(0);
+  const [hashProgress, setHashProgress] = useState(0);
+  const [linearProgress, setLinearProgress] = useState(0);
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem('dsa_progress_foundations');
-      if (saved) {
-        const completedMap = JSON.parse(saved) as Record<string, boolean>;
+      const savedFoundations = localStorage.getItem('dsa_progress_foundations');
+      if (savedFoundations) {
+        const completedMap = JSON.parse(savedFoundations) as Record<string, boolean>;
         const weights: Record<number, number> = { 1: 5, 2: 15, 3: 10, 4: 15, 5: 10, 6: 15, 7: 5, 8: 25 };
         const progress = Object.entries(completedMap)
           .filter(([, done]) => done)
@@ -21,6 +23,40 @@ export function CurriculumPage() {
       }
     } catch (e) {
       console.error('Failed to parse foundations progress:', e);
+    }
+
+    try {
+      const savedHash = localStorage.getItem('dsa_progress_hash_structures');
+      if (savedHash) {
+        const completedMap = JSON.parse(savedHash) as Record<string, boolean>;
+        const weights: Record<number, number> = { 1: 50, 2: 50 };
+        const progress = Object.entries(completedMap)
+          .filter(([, done]) => done)
+          .reduce((sum, [key]) => sum + (weights[Number(key)] || 0), 0);
+        setHashProgress(progress);
+      }
+    } catch (e) {
+      console.error('Failed to parse hash progress:', e);
+    }
+
+    // Average linear structures progress (Arrays, LinkedLists, Stacks, Queues)
+    try {
+      const linearModules = ['arrays', 'linked_lists', 'stacks', 'queues'];
+      let totalLinear = 0;
+      linearModules.forEach(mod => {
+        const saved = localStorage.getItem(`dsa_progress_${mod}`);
+        if (saved) {
+          const completedMap = JSON.parse(saved) as Record<string, boolean>;
+          const weights: Record<number, number> = { 1: 50, 2: 50 };
+          const progress = Object.entries(completedMap)
+            .filter(([, done]) => done)
+            .reduce((sum, [key]) => sum + (weights[Number(key)] || 0), 0);
+          totalLinear += progress;
+        }
+      });
+      setLinearProgress(Math.round(totalLinear / 4));
+    } catch (e) {
+      console.error('Failed to parse linear progress:', e);
     }
   }, []);
 
@@ -32,8 +68,8 @@ export function CurriculumPage() {
 
   const modules = [
     { id: 1, title: 'Foundations', slug: 'foundations', icon: Box, desc: 'Core fundamentals including basic syntax, variables, and loops.', progress: foundationsProgress, status: getStatus(foundationsProgress), colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
-    { id: 2, title: 'Linear Structures', slug: 'linear-structures', icon: ArrowRight, desc: 'Arrays, Linked Lists, Stacks, and Queues.', progress: 0, status: 'start', colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
-    { id: 3, title: 'Hash Structures', slug: 'hash-structures', icon: Hash, desc: 'Hash Maps, Hash Sets, and Collision Resolution strategies.', progress: 0, status: 'start', colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
+    { id: 2, title: 'Linear Structures', slug: 'linear-structures', icon: ArrowRight, desc: 'Arrays, Linked Lists, Stacks, and Queues.', progress: linearProgress, status: getStatus(linearProgress), colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
+    { id: 3, title: 'Hash Structures', slug: 'hash-structures', icon: Hash, desc: 'Hash Maps, Hash Sets, and Collision Resolution strategies.', progress: hashProgress, status: getStatus(hashProgress), colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
     { id: 4, title: 'Trees', slug: 'trees', icon: Network, desc: 'Hierarchical data structures, from Basic to Database Trees.', progress: 0, status: 'start', colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
     { id: 5, title: 'Graph Structures', slug: 'graph-structures', icon: Share2, desc: 'Nodes and edges representing networks, BFS, DFS, and shortest paths.', progress: 0, status: 'start', colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
     { id: 6, title: 'String Structures', slug: 'string-structures', icon: Type, desc: 'Tries, Suffix Arrays, and advanced pattern matching algorithms.', progress: 0, status: 'start', colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },

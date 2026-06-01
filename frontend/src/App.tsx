@@ -17,6 +17,7 @@ import { ArraysPage } from '@/pages/Curriculum/ArraysPage';
 import { LinkedListsPage } from '@/pages/Curriculum/LinkedListsPage';
 import { StacksPage } from '@/pages/Curriculum/StacksPage';
 import { QueuesPage } from '@/pages/Curriculum/QueuesPage';
+import { HashStructuresPage } from '@/pages/Curriculum/HashStructuresPage';
 import { ProfilePage } from '@/pages/Profile';
 import { AiTutorPage } from '@/pages/AiTutor';
 import { PlaygroundPage } from '@/pages/Playground';
@@ -53,6 +54,7 @@ export default function App() {
         <Route path="/dsa/linear-structures/stacks" element={<StacksPage />} />
         <Route path="/dsa/linear-structures/queues" element={<QueuesPage />} />
         <Route path="/dsa/linear-structures/:slug" element={<ModulePage />} />
+        <Route path="/dsa/hash-structures" element={<HashStructuresPage />} />
         <Route path="/dsa/trees" element={<TreesModulePage />} />
         <Route path="/dsa/trees/:slug" element={<ModulePage />} />
         <Route path="/dsa/:slug" element={<ModulePage />} />

@@ -11,6 +11,7 @@ export function TreesModulePage() {
   const [rangeTreesProgress, setRangeTreesProgress] = useState(0);
   const [persistentTreesProgress, setPersistentTreesProgress] = useState(0);
   const [advancedTreesProgress, setAdvancedTreesProgress] = useState(0);
+  const [databaseTreesProgress, setDatabaseTreesProgress] = useState(0);
 
   useEffect(() => {
     try {
@@ -92,6 +93,22 @@ export function TreesModulePage() {
     }
   }, []);
 
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('dsa_progress_database_trees');
+      if (saved) {
+        const completedMap = JSON.parse(saved) as Record<string, boolean>;
+        const weights: Record<number, number> = { 1: 50, 2: 50 };
+        const progress = Object.entries(completedMap)
+          .filter(([, done]) => done)
+          .reduce((sum, [key]) => sum + (weights[Number(key)] || 0), 0);
+        setDatabaseTreesProgress(progress);
+      }
+    } catch (e) {
+      console.error('Failed to parse database trees progress:', e);
+    }
+  }, []);
+
   const getStatus = (progress: number) => {
     if (progress === 0) return 'start';
     if (progress === 100) return 'completed';
@@ -104,7 +121,7 @@ export function TreesModulePage() {
     { id: 3, title: 'Range Trees', slug: 'range-trees', icon: Activity, desc: 'Segment Trees and Fenwick Trees for range queries.', progress: rangeTreesProgress, status: getStatus(rangeTreesProgress), colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
     { id: 4, title: 'Persistent Trees', slug: 'persistent-trees', icon: History, desc: 'Data structures that preserve previous versions of themselves.', progress: persistentTreesProgress, status: getStatus(persistentTreesProgress), colorClass: 'neon-card-cyan', iconColorClass: 'text-accent-secondary', btnClass: 'neon-btn' },
     { id: 5, title: 'Advanced Trees', slug: 'advanced-trees', icon: GitMerge, desc: 'Splay Trees, Treaps, and specialized tree structures.', progress: advancedTreesProgress, status: getStatus(advancedTreesProgress), colorClass: 'neon-card-pink', iconColorClass: 'text-accent-primary', btnClass: 'neon-btn' },
-    { id: 6, title: 'Database Trees', slug: 'database-trees', icon: Database, desc: 'B-Trees and B+ Trees used in modern database indices.', progress: 0, status: 'start', colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
+    { id: 6, title: 'Database Trees', slug: 'database-trees', icon: Database, desc: 'B-Trees and B+ Trees used in modern database indices.', progress: databaseTreesProgress, status: getStatus(databaseTreesProgress), colorClass: 'neon-card-yellow', iconColorClass: 'text-accent-tertiary', btnClass: 'neon-btn' },
   ];
 
   return (

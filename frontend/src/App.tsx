@@ -23,6 +23,7 @@ import { BalancedTreesPage } from '@/pages/Curriculum/BalancedTreesPage';
 import { RangeTreesPage } from '@/pages/Curriculum/RangeTreesPage';
 import { PersistentTreesPage } from '@/pages/Curriculum/PersistentTreesPage';
 import { AdvancedTreesPage } from '@/pages/Curriculum/AdvancedTreesPage';
+import { DatabaseTreesPage } from '@/pages/Curriculum/DatabaseTreesPage';
 import { ProfilePage } from '@/pages/Profile';
 import { AiTutorPage } from '@/pages/AiTutor';
 import { PlaygroundPage } from '@/pages/Playground';
@@ -66,6 +67,7 @@ export default function App() {
         <Route path="/dsa/trees/range-trees" element={<RangeTreesPage />} />
         <Route path="/dsa/trees/persistent-trees" element={<PersistentTreesPage />} />
         <Route path="/dsa/trees/advanced-trees" element={<AdvancedTreesPage />} />
+        <Route path="/dsa/trees/database-trees" element={<DatabaseTreesPage />} />
         <Route path="/dsa/trees/:slug" element={<ModulePage />} />
         <Route path="/dsa/:slug" element={<ModulePage />} />
         <Route path="/problems/:slug" element={<ProblemPage />} />

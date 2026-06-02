@@ -22,7 +22,7 @@
 | **Task Queue** | Celery · Redis |
 | **Database** | PostgreSQL (Supabase) · Django ORM |
 | **Authentication** | Clerk |
-| **Deployment** | Vercel (frontend) · Railway (backend) |
+| **Deployment** | Vercel (frontend) · Render (backend) |
 
 ---
 

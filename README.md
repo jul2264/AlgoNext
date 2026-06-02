@@ -6,9 +6,8 @@
 
 ## ✨ Features
 
-- 📊 **Algorithm Visualizations** — Step-through animations for sorting, trees, graphs, DP, and more using D3.js
-- 💻 **Code Playground** — In-browser code editor (Monaco) with multi-language support (Python, C++, Java)
-- 🔥 **Gamification** — Streaks, XP, badges, leaderboard, and activity heatmaps
+-  **Algorithm Visualizations** — Step-through animations for sorting, trees, graphs, DP, and more using D3.js
+-  **Gamification** — Streaks, XP, badges, leaderboard, and activity heatmaps
 
 ---
 
